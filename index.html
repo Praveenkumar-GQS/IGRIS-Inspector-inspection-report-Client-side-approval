@@ -362,7 +362,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
         </div>
       </div>
 
-<div class="review-tabs" id="reviewTabs" style="display:none;">
+<div id="reviewCollapsibleBody"><div class="review-tabs" id="reviewTabs" style="display:flex;">
         <div class="review-tab active" onclick="switchTab(this,'tab-hse')">HSE checklist</div>
         <div class="review-tab" onclick="switchTab(this,'tab-timesheet')">Timesheet</div>
         <div class="review-tab" onclick="switchTab(this,'tab-attendees')">Attendees</div>
@@ -468,7 +468,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
           <button class="btn btn-green" onclick="showClientModal()">✅ Approve — send to client</button>
         </div>
       </div>
-    </div></div><!-- end reviewCollapsibleBody -->
+    </div></div></div><!-- end coordActions / reviewCollapsibleBody -->
 
     <!-- DAILY EXPENSE BREAKDOWN -->
     <div class="card">
@@ -651,11 +651,9 @@ function generateInspectorLink() {
     refreshAll();
     document.getElementById('reviewPanel').style.display = 'block';
     document.getElementById('reviewCollapsibleBody').style.display = 'block';
-    document.getElementById('reviewTabContent').style.display = 'block';
-    document.getElementById('coordActions').style.display = 'flex';
     document.getElementById('reviewToggleIcon').style.transform = 'rotate(0deg)';
     document.getElementById('btnClient').disabled = false;
-    document.getElementById('reviewPanel').scrollIntoView({behavior:'smooth', block:'start'});
+    setTimeout(() => document.getElementById('reviewPanel').scrollIntoView({behavior:'smooth', block:'start'}), 100);
     showToast('🔔 Matthew Shannon has submitted the report — review below');
   }, 3000);
 }
@@ -713,12 +711,9 @@ function showToast(msg) {
 
 // Init
 refreshAll();
-// Hide coord actions and tab content — shown only after inspector submits
-document.getElementById('reviewTabContent').style.display = 'none';
-document.getElementById('coordActions').style.display = 'none';
-if(document.getElementById('reviewCollapsibleBody')) {
-  document.getElementById('reviewCollapsibleBody').style.display = 'none';
-}
+// Hide review panel and its body on load
+document.getElementById('reviewPanel').style.display = 'none';
+document.getElementById('reviewCollapsibleBody').style.display = 'block';
 </script>
 </body>
 </html>
