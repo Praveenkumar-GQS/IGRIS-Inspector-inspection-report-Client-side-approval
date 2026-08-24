@@ -811,6 +811,26 @@ refreshAll();
 // Ensure hidden on load
 document.getElementById('reviewPanel').style.display = 'none';
 document.getElementById('simulateBar').style.display = 'none';
+
+// Listen for client approval from the client portal tab
+const igrisChannel = new BroadcastChannel('gqs_approval');
+igrisChannel.onmessage = function(e) {
+  if(e.data === 'client_approved') {
+    workflowState = 4;
+    refreshAll();
+    document.getElementById('reviewBadge').textContent = '✅ Approved by Hancock Energy';
+    document.getElementById('reviewBadge').className = 'badge badge-approved';
+    document.getElementById('btnClient').textContent = '✅ Client approved';
+    document.getElementById('btnClient').style.background = '#16a34a';
+    // Update page status
+    document.getElementById('pageStatus').textContent = '(Approved & Closed — PDF generated)';
+    document.getElementById('pageStatus').style.color = '#16a34a';
+    // Update alert
+    document.getElementById('alertBanner').className = 'alert alert-teal';
+    document.getElementById('alertBanner').textContent = '🎉 Hancock Energy has approved the report. PDF has been generated and sent to all parties. Report status: Approved & Closed.';
+    showToast('🎉 Hancock Energy approved — PDF generated & sent!');
+  }
+};
 </script>
 </body>
 </html>
