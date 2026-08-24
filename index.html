@@ -172,8 +172,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
 .toast.show{transform:translateY(0);opacity:1;}
 .show-block { display: block !important; }
 .show-flex { display: flex !important; }
-#simulateBar { display: none; }
-#reviewPanel { display: none; }
+
 </style>
 </head>
 <body>
@@ -227,7 +226,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
     </div>
     <div class="page-hdr-right">
       <button class="btn btn-outline" onclick="showToast('Timesheet opened')">View Timesheet</button>
-      <button class="btn btn-teal" id="btnInspector" onclick="showInspectorModal()">📋 Generate inspector link</button>
+      <button class="btn btn-teal" id="btnInspector" onclick="generateInspectorLink()">📋 Generate inspector link</button>
       <button class="btn btn-purple" id="btnClient" onclick="showClientModal()" disabled>🔒 Send to client</button>
     </div>
   </div>
@@ -238,7 +237,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
   </div>
 
   <!-- SIMULATE BAR (demo only) -->
-  <div id="simulateBar" style="background:#1e293b;padding:10px 24px;align-items:center;justify-content:space-between;">
+  <div id="simulateBar" style="display:none;background:#1e293b;padding:10px 24px;align-items:center;justify-content:space-between;">
     <span style="font-size:12px;color:rgba(255,255,255,0.7);">🧪 Demo mode — simulate inspector actions:</span>
     <div style="display:flex;gap:8px;">
       <button class="btn" style="background:#7c3aed;color:#fff;border:none;font-size:11px;padding:5px 14px;" onclick="simulateSubmit()">Simulate: Inspector submits report</button>
@@ -318,6 +317,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
             </div>
             <div class="step-label" id="step5label">Approved & closed</div>
             <div class="step-sub" id="step5sub">Pending</div>
+            <div class="step-actions" id="step5actions"></div>
           </div>
         </div>
 
@@ -360,7 +360,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
     </div>
 
     <!-- COORDINATOR REVIEW PANEL -->
-    <div class="review-panel" id="reviewPanel">
+    <div class="review-panel" id="reviewPanel" style="display:none;">
 
       <div class="review-panel-hdr" onclick="toggleReviewPanel()" style="cursor:pointer;user-select:none;">
         <div style="display:flex;align-items:center;gap:10px;">
@@ -651,19 +651,14 @@ function showClientModal() { document.getElementById('clientModal').classList.ad
 function closeModal(id) { document.getElementById(id).classList.remove('visible'); }
 
 function generateInspectorLink() {
-  closeModal('inspectorModal');
   workflowState = 1;
   refreshAll();
-  // Update button
   document.getElementById('btnInspector').textContent = '✓ Inspector link sent';
   document.getElementById('btnInspector').style.background = '#16a34a';
-  // Enable client button visually (still logically disabled until step 3)
   showToast('✅ Inspector link sent to matthew.shannon@gqsgroup.com');
-
-  // Show simulate bar
+  // Show simulate bar directly
   var sb = document.getElementById('simulateBar');
-  sb.removeAttribute('style');
-  sb.classList.add('show-flex');
+  sb.style.display = 'flex';
 }
 
 function sendFeedback() {
@@ -716,10 +711,9 @@ function simulateSubmit() {
   var rp = document.getElementById('reviewPanel');
   var rb = document.getElementById('reviewCollapsibleBody');
   var bc = document.getElementById('btnClient');
-  // Remove inline style and add class to force display
-  rp.removeAttribute('style');
-  rp.classList.add('show-block');
-  rb.classList.add('show-block');
+  rp.style.removeProperty('display');
+  rp.style.display = 'block';
+  rb.style.display = 'block';
   document.getElementById('reviewToggleIcon').style.transform = 'rotate(0deg)';
   bc.disabled = false;
   bc.style.opacity = '1';
