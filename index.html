@@ -170,6 +170,8 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
 /* TOAST */
 .toast{position:fixed;bottom:24px;right:24px;background:#222;color:#fff;padding:12px 20px;border-radius:6px;font-size:13px;font-weight:500;z-index:999;transform:translateY(80px);opacity:0;transition:all 0.3s;pointer-events:none;}
 .toast.show{transform:translateY(0);opacity:1;}
+.show-block { display: block !important; }
+.show-flex { display: flex !important; }
 </style>
 </head>
 <body>
@@ -234,7 +236,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
   </div>
 
   <!-- SIMULATE BAR (demo only) -->
-  <div id="simulateBar" style="display:none;background:#1e293b;padding:10px 24px;display:none;align-items:center;justify-content:space-between;">
+  <div id="simulateBar" style="display:none;background:#1e293b;padding:10px 24px;align-items:center;justify-content:space-between;">
     <span style="font-size:12px;color:rgba(255,255,255,0.7);">🧪 Demo mode — simulate inspector actions:</span>
     <div style="display:flex;gap:8px;">
       <button class="btn" style="background:#7c3aed;color:#fff;border:none;font-size:11px;padding:5px 14px;" onclick="simulateSubmit()">Simulate: Inspector submits report</button>
@@ -357,6 +359,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
 
     <!-- COORDINATOR REVIEW PANEL -->
     <div class="review-panel" id="reviewPanel" style="display:none;">
+
       <div class="review-panel-hdr" onclick="toggleReviewPanel()" style="cursor:pointer;user-select:none;">
         <div style="display:flex;align-items:center;gap:10px;">
           <span style="font-size:16px;">📋</span>
@@ -371,7 +374,8 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
         </div>
       </div>
 
-<div id="reviewCollapsibleBody"><div class="review-tabs" id="reviewTabs" style="display:flex;">
+<div id="reviewCollapsibleBody">
+<div class="review-tabs" id="reviewTabs" style="display:flex;">
         <div class="review-tab active" onclick="switchTab(this,'tab-hse')">HSE checklist</div>
         <div class="review-tab" onclick="switchTab(this,'tab-timesheet')">Timesheet</div>
         <div class="review-tab" onclick="switchTab(this,'tab-attendees')">Attendees</div>
@@ -477,7 +481,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
           <button class="btn btn-green" onclick="showClientModal()">✅ Approve — send to client</button>
         </div>
       </div>
-    </div></div></div><!-- end coordActions / reviewCollapsibleBody -->
+    </div></div><!-- end reviewCollapsibleBody / reviewPanel -->
 
     <!-- DAILY EXPENSE BREAKDOWN -->
     <div class="card">
@@ -654,8 +658,10 @@ function generateInspectorLink() {
   // Enable client button visually (still logically disabled until step 3)
   showToast('✅ Inspector link sent to matthew.shannon@gqsgroup.com');
 
-  // Show simulate button for demo purposes
-  document.getElementById('simulateBar').style.display = 'flex';
+  // Show simulate bar
+  var sb = document.getElementById('simulateBar');
+  sb.removeAttribute('style');
+  sb.classList.add('show-flex');
 }
 
 function sendFeedback() {
@@ -705,13 +711,18 @@ function switchTab(el, tabId) {
 function simulateSubmit() {
   workflowState = 2;
   refreshAll();
-  document.getElementById('reviewPanel').style.display = 'block';
-  document.getElementById('reviewCollapsibleBody').style.display = 'block';
+  var rp = document.getElementById('reviewPanel');
+  var rb = document.getElementById('reviewCollapsibleBody');
+  var bc = document.getElementById('btnClient');
+  // Remove inline style and add class to force display
+  rp.removeAttribute('style');
+  rp.classList.add('show-block');
+  rb.classList.add('show-block');
   document.getElementById('reviewToggleIcon').style.transform = 'rotate(0deg)';
-  document.getElementById('btnClient').disabled = false;
-  document.getElementById('btnClient').style.opacity = '1';
-  document.getElementById('btnClient').style.cursor = 'pointer';
-  setTimeout(() => document.getElementById('reviewPanel').scrollIntoView({behavior:'smooth', block:'start'}), 200);
+  bc.disabled = false;
+  bc.style.opacity = '1';
+  bc.style.cursor = 'pointer';
+  setTimeout(function(){ rp.scrollIntoView({behavior:'smooth',block:'start'}); }, 300);
   showToast('🔔 Matthew Shannon has submitted the report — review below');
 }
 
@@ -733,6 +744,7 @@ function showToast(msg) {
 
 // Init
 refreshAll();
+// Ensure hidden on load
 document.getElementById('reviewPanel').style.display = 'none';
 document.getElementById('simulateBar').style.display = 'none';
 </script>
