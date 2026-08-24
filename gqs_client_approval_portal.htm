@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GQS — Report Approval</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --teal:#0b6e5e;--teal-mid:#0e8a76;--teal-light:#e4f4f1;--teal-pale:#f2faf8;
+  --slate:#141e2b;--slate-mid:#3a4f63;--slate-light:#6b7f94;--slate-pale:#f7f9fb;
+  --border:#e1e8f0;--white:#fff;--bg:#f4f7fa;
+  --green:#16a34a;--green-bg:#f0fdf4;--red:#dc2626;--red-bg:#fef2f2;
+  --amber:#d97706;--amber-bg:#fffbeb;
+  --shadow:0 2px 12px rgba(0,0,0,0.07);--shadow-lg:0 8px 32px rgba(0,0,0,0.1);
+  --radius:12px;--radius-sm:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--slate);-webkit-font-smoothing:antialiased;min-height:100vh;}
+
+/* HEADER */
+.hdr{background:var(--white);border-bottom:1px solid var(--border);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);position:sticky;top:0;z-index:100;}
+.hdr-left{display:flex;align-items:center;gap:16px;}
+.logo{font-size:20px;font-weight:700;color:var(--teal);letter-spacing:-0.5px;}
+.divider{width:1px;height:28px;background:var(--border);}
+.hdr-meta{font-size:12px;color:var(--slate-light);}
+.hdr-meta strong{color:var(--slate-mid);display:block;font-size:13px;}
+.hdr-right{display:flex;align-items:center;gap:10px;}
+.read-only-badge{background:var(--amber-bg);border:1px solid #fed7aa;color:var(--amber);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;letter-spacing:0.2px;}
+
+/* EXPIRY BANNER */
+.expiry-banner{background:var(--amber-bg);border-bottom:1px solid #fed7aa;padding:10px 32px;display:flex;align-items:center;justify-content:space-between;}
+.expiry-left{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--amber);}
+.expiry-timer{font-family:'DM Mono',monospace;font-weight:600;font-size:13px;color:var(--amber);}
+
+/* LAYOUT */
+.container{max-width:960px;margin:0 auto;padding:32px 24px;}
+
+/* REPORT HEADER CARD */
+.report-hdr-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:28px 32px;margin-bottom:20px;box-shadow:var(--shadow);}
+.report-hdr-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;}
+.report-title-block h1{font-size:20px;font-weight:700;color:var(--slate);letter-spacing:-0.3px;}
+.report-title-block p{font-size:13px;color:var(--slate-light);margin-top:4px;}
+.report-status{display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
+.status-pill{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.3px;}
+.status-pending{background:var(--amber-bg);color:var(--amber);border:1px solid #fed7aa;}
+.ref-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding-top:20px;border-top:1px solid var(--border);}
+.ref-item label{font-size:10px;font-weight:700;color:var(--slate-light);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:4px;}
+.ref-item span{font-size:13px;font-weight:600;color:var(--slate-mid);}
+
+/* SECTION CARDS */
+.section-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden;box-shadow:var(--shadow);}
+.section-card-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;cursor:pointer;user-select:none;border-bottom:1px solid var(--border);background:var(--slate-pale);}
+.section-card-hdr:hover{background:#eef2f7;}
+.section-card-hdr-left{display:flex;align-items:center;gap:12px;}
+.section-num{width:28px;height:28px;border-radius:50%;background:var(--teal-light);color:var(--teal);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.section-card-title{font-size:13px;font-weight:600;color:var(--slate);}
+.section-toggle{font-size:18px;color:var(--slate-light);transition:transform 0.2s;}
+.section-toggle.open{transform:rotate(180deg);}
+.section-body{padding:20px 24px;display:none;}
+.section-body.open{display:block;}
+
+/* DATA TABLE */
+.data-table{width:100%;border-collapse:collapse;}
+.data-table th{text-align:left;font-size:10px;font-weight:700;color:var(--slate-light);letter-spacing:0.5px;text-transform:uppercase;padding:8px 12px;background:var(--slate-pale);border-bottom:1px solid var(--border);}
+.data-table td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px;color:var(--slate-mid);}
+.data-table tr:last-child td{border-bottom:none;}
+.data-table tr:nth-child(even) td{background:#fafbfc;}
+
+/* HSE VIEW */
+.hse-view-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);}
+.hse-view-item:last-child{border-bottom:none;}
+.hse-view-q{font-size:12px;color:var(--slate-mid);flex:1;}
+.badge{padding:3px 10px;border-radius:10px;font-size:10px;font-weight:700;}
+.badge-yes{background:var(--green-bg);color:var(--green);}
+.badge-no{background:var(--red-bg);color:var(--red);}
+.badge-na{background:var(--slate-pale);color:var(--slate-light);}
+
+/* NARRATIVE */
+.narrative-box{background:var(--slate-pale);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 20px;font-size:13px;color:var(--slate-mid);line-height:1.8;}
+
+/* PHOTO GRID */
+.photo-grid-view{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.photo-thumb-view{border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:4/3;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:24px;}
+
+/* APPROVAL PANEL */
+.approval-panel{background:var(--white);border:2px solid var(--teal);border-radius:var(--radius);padding:28px 32px;margin-top:24px;box-shadow:var(--shadow-lg);}
+.approval-panel h2{font-size:18px;font-weight:700;color:var(--slate);margin-bottom:6px;letter-spacing:-0.3px;}
+.approval-panel p{font-size:13px;color:var(--slate-light);margin-bottom:24px;line-height:1.6;}
+.approval-actions{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+.btn-approve{background:var(--teal);color:#fff;border:none;padding:16px;border-radius:var(--radius-sm);font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.15s;letter-spacing:0.2px;}
+.btn-approve:hover{background:var(--teal-mid);}
+.btn-changes{background:var(--white);color:var(--red);border:2px solid var(--red);padding:16px;border-radius:var(--radius-sm);font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s;}
+.btn-changes:hover{background:var(--red-bg);}
+.comments-area{display:none;}
+.comments-area.visible{display:block;}
+.comments-area label{font-size:11px;font-weight:700;color:var(--slate-mid);text-transform:uppercase;letter-spacing:0.3px;display:block;margin-bottom:8px;}
+.comments-area textarea{width:100%;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;font-size:13px;font-family:'Inter',sans-serif;color:var(--slate);min-height:100px;resize:vertical;outline:none;}
+.comments-area textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(11,110,94,0.1);}
+.btn-send-comments{background:var(--red);color:#fff;border:none;padding:10px 22px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;margin-top:10px;transition:background 0.15s;}
+.btn-send-comments:hover{background:#b91c1c;}
+
+/* FOOTER NOTE */
+.footer-note{text-align:center;font-size:11px;color:var(--slate-light);margin-top:20px;padding-bottom:40px;line-height:1.8;}
+
+/* TIMER */
+#timerDisplay{font-weight:700;color:var(--amber);}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-left">
+    <div class="logo">GQS</div>
+    <div class="divider"></div>
+    <div class="hdr-meta">
+      <strong>Inspection Report — Belisama Gas Project</strong>
+      Secure client review portal
+    </div>
+  </div>
+  <div class="hdr-right">
+    <div class="read-only-badge">🔒 Read only — approve or request changes below</div>
+  </div>
+</header>
+
+<!-- EXPIRY BANNER -->
+<div class="expiry-banner">
+  <div class="expiry-left">
+    ⏱ This review link expires in: <span id="timerDisplay">47:52:10</span>
+  </div>
+  <div style="font-size:11px;color:var(--amber);">You'll receive a reminder email 48 hours before expiry</div>
+</div>
+
+<div class="container">
+
+  <!-- REPORT HEADER -->
+  <div class="report-hdr-card">
+    <div class="report-hdr-top">
+      <div class="report-title-block">
+        <h1>Inspection Report — Visit #GQS591-001-0001-IR01</h1>
+        <p>Submitted by Matthew Shannon · GQS Group · Awaiting your approval</p>
+      </div>
+      <div class="report-status">
+        <span class="status-pill status-pending">⏳ Pending client approval</span>
+        <span style="font-size:11px;color:var(--slate-light);">Submitted 24 Aug 2026</span>
+      </div>
+    </div>
+    <div class="ref-grid">
+      <div class="ref-item"><label>Client</label><span>Hancock Energy</span></div>
+      <div class="ref-item"><label>Project</label><span>Belisama Gas Project</span></div>
+      <div class="ref-item"><label>GQS number</label><span>GQS591-001-0001</span></div>
+      <div class="ref-item"><label>Visit date</label><span>22 Aug 2026</span></div>
+      <div class="ref-item"><label>Inspector</label><span>Matthew Shannon</span></div>
+      <div class="ref-item"><label>Vendor</label><span>TBA</span></div>
+      <div class="ref-item"><label>CTR number</label><span>HCE001</span></div>
+      <div class="ref-item"><label>PO number</label><span>—</span></div>
+    </div>
+  </div>
+
+  <!-- SECTION: HSE -->
+  <div class="section-card">
+    <div class="section-card-hdr" onclick="toggleSection(this)">
+      <div class="section-card-hdr-left">
+        <div class="section-num">1</div>
+        <div class="section-card-title">HSE checklist</div>
+      </div>
+      <span class="section-toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="hse-view-item"><div class="hse-view-q">Safety induction received?</div><span class="badge badge-yes">Yes</span></div>
+      <div class="hse-view-item"><div class="hse-view-q">All persons wearing suitable PPE?</div><span class="badge badge-yes">Yes</span></div>
+      <div class="hse-view-item"><div class="hse-view-q">Site clean and well organised?</div><span class="badge badge-yes">Yes</span></div>
+      <div class="hse-view-item"><div class="hse-view-q">All personnel working safely?</div><span class="badge badge-yes">Yes</span></div>
+      <div class="hse-view-item"><div class="hse-view-q">Machinery well maintained and operated safely?</div><span class="badge badge-yes">Yes</span></div>
+      <div class="hse-view-item"><div class="hse-view-q">Visit free from incidents or dangerous occurrences?</div><span class="badge badge-yes">Yes</span></div>
+      <div class="hse-view-item"><div class="hse-view-q">Management conveying a positive H&S culture?</div><span class="badge badge-yes">Yes</span></div>
+    </div>
+  </div>
+
+  <!-- SECTION: TIMESHEET -->
+  <div class="section-card">
+    <div class="section-card-hdr" onclick="toggleSection(this)">
+      <div class="section-card-hdr-left">
+        <div class="section-num">2</div>
+        <div class="section-card-title">Timesheet & expenses</div>
+      </div>
+      <span class="section-toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <table class="data-table">
+        <thead><tr><th>Category</th><th>Value</th><th>Category</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Work time</td><td>8 hrs</td><td>Mileage</td><td>120 km</td></tr>
+          <tr><td>Travel time</td><td>2 hrs</td><td>Accommodation</td><td>—</td></tr>
+          <tr><td>Report time</td><td>1 hr</td><td>Flights</td><td>—</td></tr>
+          <tr><td>Overtime</td><td>—</td><td>Per diem</td><td>—</td></tr>
+          <tr><td><strong>Total hours</strong></td><td><strong>11 hrs</strong></td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION: ATTENDEES -->
+  <div class="section-card">
+    <div class="section-card-hdr" onclick="toggleSection(this)">
+      <div class="section-card-hdr-left">
+        <div class="section-num">3</div>
+        <div class="section-card-title">Attendees</div>
+      </div>
+      <span class="section-toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <table class="data-table">
+        <thead><tr><th>Name</th><th>Company</th><th>Position</th></tr></thead>
+        <tbody>
+          <tr><td>Matthew Shannon</td><td>GQS Group</td><td>Lead Inspector</td></tr>
+          <tr><td>Jake Morton</td><td>Hancock Energy</td><td>Client Representative</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION: CALIBRATION -->
+  <div class="section-card">
+    <div class="section-card-hdr" onclick="toggleSection(this)">
+      <div class="section-card-hdr-left">
+        <div class="section-num">4</div>
+        <div class="section-card-title">Calibration status</div>
+      </div>
+      <span class="section-toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <table class="data-table">
+        <thead><tr><th>Instrument</th><th>Tag no.</th><th>Cert. no.</th><th>Expiry</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Digital thickness gauge</td><td>DTG-001</td><td>CERT-2026-0441</td><td>Dec 2026</td><td><span class="badge badge-yes">Valid</span></td></tr>
+          <tr><td>Torque wrench</td><td>TW-003</td><td>CERT-2026-0188</td><td>Nov 2026</td><td><span class="badge badge-yes">Valid</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION: DOCUMENTS -->
+  <div class="section-card">
+    <div class="section-card-hdr" onclick="toggleSection(this)">
+      <div class="section-card-hdr-left">
+        <div class="section-num">5</div>
+        <div class="section-card-title">Documents</div>
+      </div>
+      <span class="section-toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <p style="font-size:12px;font-weight:700;color:var(--slate-mid);margin-bottom:10px;">Issued</p>
+      <table class="data-table" style="margin-bottom:20px;">
+        <thead><tr><th>Type</th><th>Issued?</th><th>Document number</th></tr></thead>
+        <tbody>
+          <tr><td>Inspection Release Certificate (IRN)</td><td><span class="badge badge-yes">Yes</span></td><td>IRN-2026-0091</td></tr>
+          <tr><td>NCR</td><td><span class="badge badge-no">No</span></td><td>—</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:12px;font-weight:700;color:var(--slate-mid);margin-bottom:10px;">Used</p>
+      <table class="data-table">
+        <thead><tr><th>Document title</th><th>Document number</th><th>Revision</th></tr></thead>
+        <tbody>
+          <tr><td>Inspection & Test Plan (ITP)</td><td>ITP-BEL-2026-01</td><td>Rev 2</td></tr>
+          <tr><td>Dimensional Drawing</td><td>DWG-BEL-0041</td><td>Rev A</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION: VISIT REPORT -->
+  <div class="section-card">
+    <div class="section-card-hdr" onclick="toggleSection(this)">
+      <div class="section-card-hdr-left">
+        <div class="section-num">6</div>
+        <div class="section-card-title">Visit report narrative</div>
+      </div>
+      <span class="section-toggle open">▾</span>
+    </div>
+    <div class="section-body open">
+      <div class="narrative-box">
+        Inspection visit was attended on 22 August 2026 at the vendor facility. This report covers the inspection activities performed by the GQS inspector on behalf of Hancock Energy for the Belisama Gas Project.<br><br>
+        Inspector performed 100% final dimensional and visual inspection of the equipment as per the approved Inspection and Test Plan (ITP-BEL-2026-01). All results were found to be acceptable. Details as follows:<br><br>
+        • Visual inspection performed — no surface defects, burrs, cracks or pitting found. Surface condition acceptable.<br>
+        • Dimensional check performed against approved drawing DWG-BEL-0041 Rev A — all critical dimensions within tolerance.<br>
+        • Material traceability verified. Heat number and serial number clearly stamped on equipment and traceable to mill certificate.<br>
+        • Documentation reviewed and found acceptable. IRN issued with acceptable result.<br><br>
+        No non-conformances raised during this visit. Further visit not required.
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: PHOTOS -->
+  <div class="section-card">
+    <div class="section-card-hdr" onclick="toggleSection(this)">
+      <div class="section-card-hdr-left">
+        <div class="section-num">7</div>
+        <div class="section-card-title">Photographs</div>
+      </div>
+      <span class="section-toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="photo-grid-view">
+        <div class="photo-thumb-view" style="background:#e4f4f1;color:var(--teal);">📷<br/><span style="font-size:10px;margin-top:4px;display:block;">Photo 1</span></div>
+        <div class="photo-thumb-view" style="background:#e4f4f1;color:var(--teal);">📷<br/><span style="font-size:10px;margin-top:4px;display:block;">Photo 2</span></div>
+        <div class="photo-thumb-view" style="background:#e4f4f1;color:var(--teal);">📷<br/><span style="font-size:10px;margin-top:4px;display:block;">Photo 3</span></div>
+      </div>
+      <p style="font-size:11px;color:var(--slate-light);margin-top:12px;">3 photographs attached to this report.</p>
+    </div>
+  </div>
+
+  <!-- APPROVAL PANEL -->
+  <div class="approval-panel">
+    <h2>Your approval is required</h2>
+    <p>Please review all sections above carefully. Once you approve, a signed PDF will be automatically generated and sent to both Hancock Energy and GQS. This action cannot be undone.</p>
+    <div class="approval-actions">
+      <button class="btn-approve" onclick="approveReport()">✅ Approve report</button>
+      <button class="btn-changes" onclick="requestChanges()">✏️ Request changes</button>
+    </div>
+    <div class="comments-area" id="commentsArea">
+      <label>Your comments for the GQS coordinator</label>
+      <textarea placeholder="Please describe what changes are required. Be as specific as possible so the inspector can address your concerns."></textarea>
+      <button class="btn-send-comments" onclick="sendComments()">Send comments to coordinator →</button>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    This is a secure, read-only view of your GQS inspection report.<br>
+    This link will expire on <strong>26 Aug 2026 at 17:00 AWST</strong>. You will receive a reminder email 48 hours before expiry.<br>
+    Questions? Contact your GQS coordinator: <strong>Matthew Shannon</strong> · info@gqsgroup.com
+  </div>
+
+</div>
+
+<script>
+// Countdown timer (demo — starts at 47h 52m 10s)
+let secs = 47*3600 + 52*60 + 10;
+function updateTimer() {
+  const h = Math.floor(secs/3600);
+  const m = Math.floor((secs%3600)/60);
+  const s = secs%60;
+  document.getElementById('timerDisplay').textContent =
+    String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  if(secs > 0) secs--;
+}
+setInterval(updateTimer, 1000);
+updateTimer();
+
+function toggleSection(hdr) {
+  const body = hdr.nextElementSibling;
+  const toggle = hdr.querySelector('.section-toggle');
+  body.classList.toggle('open');
+  toggle.classList.toggle('open');
+}
+
+function approveReport() {
+  if(!confirm('Are you sure you want to approve this report? A signed PDF will be generated and sent to all parties. This cannot be undone.')) return;
+  document.body.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:Inter,sans-serif;background:#f4f7fa;padding:40px;text-align:center;">
+    <div style="background:#fff;border:1px solid #e1e8f0;border-radius:16px;padding:48px;max-width:500px;box-shadow:0 8px 32px rgba(0,0,0,0.1);">
+      <div style="font-size:52px;margin-bottom:16px;">✅</div>
+      <h2 style="font-size:22px;font-weight:700;color:#141e2b;margin-bottom:8px;">Report approved</h2>
+      <p style="color:#6b7f94;font-size:14px;line-height:1.7;margin-bottom:24px;">Thank you. The inspection report has been approved and a signed PDF has been generated automatically.<br><br>Copies have been sent to <strong>Hancock Energy</strong> and <strong>GQS Group</strong>. The report status in IGRIS has been updated to <strong style="color:#0b6e5e;">Approved & Closed</strong>.</p>
+      <div style="background:#f2faf8;border:1px solid #e4f4f1;border-radius:8px;padding:16px;font-size:12px;color:#3a4f63;text-align:left;line-height:1.8;">
+        🔒 All links have been permanently closed.<br>
+        📄 Approved PDF sent to your registered email.<br>
+        📁 Report stored in IGRIS: <strong>GQS591-001-0001-IR01</strong>
+      </div>
+    </div>
+  </div>`;
+}
+
+function requestChanges() {
+  document.getElementById('commentsArea').classList.toggle('visible');
+}
+
+function sendComments() {
+  const txt = document.querySelector('#commentsArea textarea').value.trim();
+  if(!txt) { alert('Please enter your comments before sending.'); return; }
+  document.querySelector('.approval-panel').innerHTML = `
+    <div style="text-align:center;padding:20px 0;">
+      <div style="font-size:40px;margin-bottom:12px;">📨</div>
+      <h3 style="font-size:16px;font-weight:700;color:var(--slate);margin-bottom:8px;">Comments sent to coordinator</h3>
+      <p style="font-size:13px;color:var(--slate-light);line-height:1.6;">Your comments have been sent to the GQS coordinator. They will review your feedback, update the report, and send you a new review link.</p>
+    </div>`;
+}
+</script>
+</body>
+</html>
