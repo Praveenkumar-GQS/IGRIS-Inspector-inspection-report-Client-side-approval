@@ -240,8 +240,9 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
   <div id="simulateBar" style="display:none;background:#1e293b;padding:10px 24px;align-items:center;justify-content:space-between;">
     <span style="font-size:12px;color:rgba(255,255,255,0.7);">🧪 Demo mode — simulate inspector actions:</span>
     <div style="display:flex;gap:8px;">
-      <button class="btn" style="background:#7c3aed;color:#fff;border:none;font-size:11px;padding:5px 14px;" onclick="simulateSubmit()">Simulate: Inspector submits report</button>
-      <button class="btn" style="background:#16a34a;color:#fff;border:none;font-size:11px;padding:5px 14px;" onclick="simulateClientApprove()">Simulate: Client approves</button>
+      <button class="btn" id="simulateInspectorBtn" style="background:#7c3aed;color:#fff;border:none;font-size:11px;padding:5px 14px;" onclick="simulateSubmit()">Simulate: Inspector submits report</button>
+      <button class="btn" id="simulateClientBtn" style="background:#16a34a;color:#fff;border:none;font-size:11px;padding:5px 14px;" onclick="simulateClientApprove()">👁 Preview: Client approval portal</button>
+      <button class="btn" id="previewClientBtn" style="display:none;background:#0e8a76;color:#fff;border:none;font-size:11px;padding:5px 14px;" onclick="window.open('gqs_client_approval_portal.html','_blank')">👁 Open client approval portal →</button>
     </div>
   </div>
 
@@ -378,13 +379,17 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
 
 <div id="reviewCollapsibleBody">
 <div class="review-tabs" id="reviewTabs" style="display:flex;">
-        <div class="review-tab active" onclick="switchTab(this,'tab-hse')">HSE checklist</div>
+        <div class="review-tab active" onclick="switchTab(this,'tab-contact')">Contact</div>
+        <div class="review-tab" onclick="switchTab(this,'tab-jobdetails')">Job details</div>
         <div class="review-tab" onclick="switchTab(this,'tab-timesheet')">Timesheet</div>
+        <div class="review-tab" onclick="switchTab(this,'tab-hse')">HSE checklist</div>
         <div class="review-tab" onclick="switchTab(this,'tab-attendees')">Attendees</div>
-        <div class="review-tab" onclick="switchTab(this,'tab-calibration')">Calibration</div>
         <div class="review-tab" onclick="switchTab(this,'tab-documents')">Documents</div>
-        <div class="review-tab" onclick="switchTab(this,'tab-narrative')">Visit report</div>
+        <div class="review-tab" onclick="switchTab(this,'tab-calibration')">Calibration</div>
         <div class="review-tab" onclick="switchTab(this,'tab-photos')">Photos</div>
+        <div class="review-tab" onclick="switchTab(this,'tab-narrative')">Visit report</div>
+        <div class="review-tab" onclick="switchTab(this,'tab-relcert')">Release cert.</div>
+        <div class="review-tab" onclick="switchTab(this,'tab-ncr')">NCR</div>
       </div>
 
       <div id="reviewTabContent">
@@ -739,17 +744,22 @@ function sendToClient() {
   document.getElementById('btnClient').textContent = '✓ Sent to client';
   document.getElementById('btnClient').style.background = '#16a34a';
   document.getElementById('btnClient').style.borderColor = '#15803d';
-  document.getElementById('reviewBadge').textContent = '✓ Approved — sent to Hancock Energy';
-  document.getElementById('reviewBadge').className = 'badge badge-approved';
+  document.getElementById('reviewBadge').textContent = 'Sent to Hancock Energy — awaiting approval';
+  document.getElementById('reviewBadge').className = 'badge badge-pending';
   document.getElementById('coordActions').style.display = 'none';
-  showToast('📨 Client approval link sent · Inspector link locked');
+  showToast('📨 Client approval link sent to Hancock Energy · Inspector link locked');
+  // Show the preview client portal button in simulate bar
+  document.getElementById('previewClientBtn').style.display = 'inline-flex';
+  document.getElementById('simulateClientBtn').style.display = 'none';
+}
 
-  // Simulate client approving after 4 seconds for demo
-  setTimeout(() => {
-    workflowState = 4;
-    refreshAll();
-    showToast('🎉 Hancock Energy has approved the report — PDF generated!');
-  }, 4000);
+function clientApprovedCallback() {
+  // Called when client approves — updates IGRIS status
+  workflowState = 4;
+  refreshAll();
+  document.getElementById('reviewBadge').textContent = '✓ Approved & Closed';
+  document.getElementById('reviewBadge').className = 'badge badge-approved';
+  showToast('🎉 Hancock Energy approved — PDF generated & sent to all parties!');
 }
 
 function toggleReviewPanel() {
@@ -785,12 +795,8 @@ function simulateSubmit() {
 }
 
 function simulateClientApprove() {
-  workflowState = 4;
-  refreshAll();
-  document.getElementById('reviewBadge').textContent = '✓ Approved & Closed';
-  document.getElementById('reviewBadge').className = 'badge badge-approved';
-  document.getElementById('coordActions').style.display = 'none';
-  showToast('🎉 Hancock Energy approved — PDF generated!');
+  window.open('gqs_client_approval_portal.html', '_blank');
+  showToast('👁 Opening client approval portal in new tab...');
 }
 
 function showToast(msg) {
