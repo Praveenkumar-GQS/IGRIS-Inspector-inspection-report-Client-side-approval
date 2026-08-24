@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>IGRIS — Visit Page</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px;-webkit-font-smoothing:antialiased;}
+
+/* TOPBAR */
+.topbar{background:#2d2d2d;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;}
+.topbar-left{display:flex;align-items:center;gap:12px;}
+.test-badge{background:#cc0000;color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;border:2px solid #fff;transform:rotate(-5deg);letter-spacing:1px;}
+.topbar-icons{display:flex;align-items:center;gap:16px;}
+.topbar-icon{color:rgba(255,255,255,0.7);font-size:16px;cursor:pointer;}
+.topbar-user{font-size:11px;color:rgba(255,255,255,0.6);text-align:right;line-height:1.5;}
+.topbar-user strong{color:#fff;font-size:12px;}
+.flov-logo{font-size:18px;font-weight:800;color:#fff;letter-spacing:-0.5px;margin-left:16px;padding-left:16px;border-left:1px solid rgba(255,255,255,0.2);}
+.flov-logo span{color:#f59e0b;}
+
+/* LAYOUT */
+.layout{display:flex;min-height:calc(100vh - 44px);}
+
+/* SIDEBAR */
+.sidebar{width:180px;background:#3a3a3a;flex-shrink:0;}
+.sidebar-logo{padding:16px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.sidebar-logo img{height:32px;}
+.sidebar-logo-text{font-size:18px;font-weight:800;color:#0e8a76;letter-spacing:-0.5px;}
+.sidebar-logo-text span{color:#fff;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 16px;color:rgba(255,255,255,0.65);cursor:pointer;font-size:12px;font-weight:500;transition:all 0.15s;border-left:3px solid transparent;}
+.nav-item:hover{background:rgba(255,255,255,0.06);color:#fff;}
+.nav-item.active{background:rgba(14,138,118,0.2);color:#4ecdc4;border-left-color:#0e8a76;}
+.nav-icon{font-size:14px;width:18px;text-align:center;}
+
+/* MAIN */
+.main{flex:1;overflow-x:auto;}
+
+/* PAGE HEADER */
+.page-hdr{background:#fff;border-bottom:1px solid #dde3ea;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.page-hdr-left h2{font-size:13px;color:#666;font-weight:400;}
+.page-hdr-left h1{font-size:16px;font-weight:700;color:#222;margin-top:2px;}
+.page-hdr-right{display:flex;align-items:center;gap:8px;}
+
+/* BUTTONS */
+.btn{padding:7px 16px;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s;border:1px solid transparent;white-space:nowrap;}
+.btn-amber{background:#f59e0b;color:#fff;border-color:#d97706;}
+.btn-amber:hover{background:#d97706;}
+.btn-teal{background:#0e8a76;color:#fff;border-color:#0b6e5e;}
+.btn-teal:hover{background:#0b6e5e;}
+.btn-outline{background:#fff;color:#444;border-color:#ccc;}
+.btn-outline:hover{background:#f5f5f5;}
+.btn-red{background:#dc2626;color:#fff;border-color:#b91c1c;}
+.btn-red:hover{background:#b91c1c;}
+.btn-green{background:#16a34a;color:#fff;border-color:#15803d;}
+.btn-green:hover{background:#15803d;}
+.btn-purple{background:#7c3aed;color:#fff;border-color:#6d28d9;}
+.btn-purple:hover{background:#6d28d9;}
+.btn-sm{padding:5px 12px;font-size:11px;}
+
+/* ALERT */
+.alert{padding:10px 16px;border-radius:4px;margin:16px 24px 0;font-size:12px;}
+.alert-red{background:#fef2f2;border:1px solid #fecaca;color:#dc2626;}
+.alert-teal{background:#f0fdf4;border:1px solid #bbf7d0;color:#16a34a;}
+.alert-amber{background:#fffbeb;border:1px solid #fde68a;color:#d97706;}
+.alert-blue{background:#eff6ff;border:1px solid #bfdbfe;color:#1d4ed8;}
+
+/* CONTENT */
+.content{padding:16px 24px;}
+
+/* REPORT STATUS STRIP */
+.status-strip{background:#fff;border:1px solid #dde3ea;border-radius:6px;padding:12px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;}
+.status-steps{display:flex;align-items:center;gap:0;}
+.status-step{display:flex;align-items:center;gap:8px;padding:6px 16px;font-size:11px;font-weight:600;color:#999;border-radius:20px;}
+.status-step.done{color:#16a34a;background:#f0fdf4;}
+.status-step.active{color:#0e8a76;background:#f0fdf9;border:1px solid #a7f3d0;}
+.status-step.locked{color:#7c3aed;background:#f5f3ff;}
+.status-step.pending{color:#d97706;background:#fffbeb;}
+.step-arrow{color:#ccc;margin:0 4px;font-size:14px;}
+.status-right{font-size:11px;color:#999;}
+.link-indicator{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;}
+.link-dot{width:8px;height:8px;border-radius:50%;}
+.link-dot.active{background:#22c55e;box-shadow:0 0 0 2px rgba(34,197,94,0.25);}
+.link-dot.locked{background:#7c3aed;}
+.link-dot.inactive{background:#ccc;}
+
+/* CARD */
+.card{background:#fff;border:1px solid #dde3ea;border-radius:6px;margin-bottom:16px;overflow:hidden;}
+.card-hdr{background:#0e8a76;color:#fff;padding:8px 16px;font-size:12px;font-weight:700;letter-spacing:0.3px;display:flex;align-items:center;justify-content:space-between;}
+.card-body{padding:16px 20px;}
+
+/* FIELD GRID */
+.field-grid{display:grid;grid-template-columns:160px 1fr 160px 1fr;gap:8px 16px;align-items:baseline;}
+.field-label{font-size:12px;font-weight:600;color:#555;}
+.field-val{font-size:12px;color:#222;}
+.field-val select,.field-val input[type=text],.field-val input[type=date]{border:1px solid #ccc;border-radius:3px;padding:3px 8px;font-size:12px;font-family:'Inter',sans-serif;color:#222;background:#fff;}
+.field-val input[type=checkbox]{width:14px;height:14px;}
+
+/* SECTION HDR */
+.section-hdr{background:#0e8a76;color:#fff;padding:7px 16px;font-size:12px;font-weight:700;margin:0 -20px 12px;letter-spacing:0.3px;}
+
+/* EXPENSE TABLE */
+.exp-table{width:100%;border-collapse:collapse;font-size:11px;}
+.exp-table th{background:#0e8a76;color:#fff;padding:6px 8px;text-align:left;font-weight:600;white-space:nowrap;}
+.exp-table td{padding:6px 8px;border-bottom:1px solid #eee;}
+.exp-table tr.total-row td{background:#e6f4f1;font-weight:700;color:#0b6e5e;}
+
+/* ══════════════════════════════════════
+   COORDINATOR REVIEW PANEL (NEW)
+══════════════════════════════════════ */
+.review-panel{background:#fff;border:2px solid #0e8a76;border-radius:6px;margin-bottom:16px;overflow:hidden;}
+.review-panel-hdr{background:#0e8a76;color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;}
+.review-panel-hdr-left{display:flex;align-items:center;gap:10px;}
+.review-panel-title{font-size:13px;font-weight:700;}
+.review-panel-sub{font-size:11px;opacity:0.8;}
+.review-panel-body{padding:0;}
+
+/* REVIEW TABS */
+.review-tabs{display:flex;border-bottom:1px solid #dde3ea;background:#f7f9fb;}
+.review-tab{padding:9px 18px;font-size:11px;font-weight:600;color:#888;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;}
+.review-tab:hover{color:#0e8a76;}
+.review-tab.active{color:#0e8a76;border-bottom-color:#0e8a76;background:#fff;}
+
+/* REVIEW CONTENT */
+.review-content{padding:16px 20px;display:none;}
+.review-content.active{display:block;}
+
+/* HSE TABLE IN REVIEW */
+.hse-review-item{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid #f0f0f0;font-size:12px;}
+.hse-review-item:last-child{border-bottom:none;}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;}
+.badge-yes{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;}
+.badge-no{background:#fef2f2;color:#dc2626;border:1px solid #fecaca;}
+.badge-pending{background:#fffbeb;color:#d97706;border:1px solid #fde68a;}
+.badge-locked{background:#f5f3ff;color:#7c3aed;border:1px solid #ddd6fe;}
+
+/* NARRATIVE BOX */
+.narrative-box{background:#f7f9fb;border:1px solid #dde3ea;border-radius:4px;padding:12px 16px;font-size:12px;color:#444;line-height:1.8;}
+
+/* REVIEW DATA TABLE */
+.review-table{width:100%;border-collapse:collapse;font-size:11px;}
+.review-table th{background:#f7f9fb;color:#666;padding:7px 10px;text-align:left;font-weight:700;border-bottom:1px solid #dde3ea;letter-spacing:0.3px;text-transform:uppercase;font-size:10px;}
+.review-table td{padding:7px 10px;border-bottom:1px solid #f0f0f0;color:#333;}
+.review-table tr:last-child td{border-bottom:none;}
+
+/* COORDINATOR ACTIONS */
+.coord-actions{background:#f7f9fb;border-top:2px solid #dde3ea;padding:16px 20px;display:flex;align-items:flex-start;gap:16px;}
+.coord-actions-left{flex:1;}
+.coord-actions-left label{font-size:11px;font-weight:700;color:#555;display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.3px;}
+.coord-actions-left textarea{width:100%;border:1px solid #ccc;border-radius:4px;padding:8px 12px;font-size:12px;font-family:'Inter',sans-serif;color:#222;resize:vertical;min-height:70px;outline:none;}
+.coord-actions-left textarea:focus{border-color:#0e8a76;box-shadow:0 0 0 2px rgba(14,138,118,0.15);}
+.coord-actions-right{display:flex;flex-direction:column;gap:8px;padding-top:22px;}
+
+/* PHOTO GRID */
+.photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.photo-item{aspect-ratio:4/3;border-radius:4px;background:#e4f4f1;display:flex;align-items:center;justify-content:center;font-size:22px;border:1px solid #dde3ea;color:#0e8a76;}
+
+/* LINK MANAGEMENT BOX */
+.link-mgmt{background:#fff;border:1px solid #dde3ea;border-radius:6px;margin-bottom:16px;overflow:hidden;}
+.link-mgmt-hdr{background:#3a3a3a;color:#fff;padding:8px 16px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:8px;}
+.link-mgmt-body{padding:16px 20px;}
+.link-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border:1px solid #dde3ea;border-radius:5px;margin-bottom:8px;background:#fafbfc;}
+.link-row:last-child{margin-bottom:0;}
+.link-info{display:flex;align-items:center;gap:10px;}
+.link-label{font-size:12px;font-weight:600;color:#333;}
+.link-sub{font-size:11px;color:#999;margin-top:2px;}
+.link-actions{display:flex;gap:6px;}
+
+/* MODAL OVERLAY */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:500;display:none;align-items:center;justify-content:center;}
+.modal-overlay.visible{display:flex;}
+.modal{background:#fff;border-radius:8px;padding:28px 32px;max-width:440px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.2);}
+.modal h3{font-size:16px;font-weight:700;color:#222;margin-bottom:8px;}
+.modal p{font-size:13px;color:#666;line-height:1.6;margin-bottom:20px;}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;}
+.modal input[type=email]{width:100%;border:1px solid #ccc;border-radius:4px;padding:8px 12px;font-size:13px;margin-bottom:16px;font-family:'Inter',sans-serif;outline:none;}
+.modal input[type=email]:focus{border-color:#0e8a76;}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:#222;color:#fff;padding:12px 20px;border-radius:6px;font-size:13px;font-weight:500;z-index:999;transform:translateY(80px);opacity:0;transition:all 0.3s;pointer-events:none;}
+.toast.show{transform:translateY(0);opacity:1;}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="test-badge">TEST</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:20px;">
+    <div class="topbar-icons">
+      <span class="topbar-icon">🏠</span>
+      <span class="topbar-icon">👤</span>
+      <span class="topbar-icon">⚙️</span>
+    </div>
+    <div class="topbar-user">
+      <strong>Praveenkumar Gunasekaran</strong>
+      IT Manager · GQS IN•GQS India
+    </div>
+    <div class="flov-logo">flov<span>/</span></div>
+  </div>
+</div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-logo" style="padding:14px 16px;">
+    <div class="sidebar-logo-text">GQ<span>S</span>✓</div>
+  </div>
+  <div class="nav-item"><span class="nav-icon">🏠</span>Home</div>
+  <div class="nav-item"><span class="nav-icon">📄</span>Contracts</div>
+  <div class="nav-item"><span class="nav-icon">✅</span>GQS</div>
+  <div class="nav-item"><span class="nav-icon">£</span>Costings</div>
+  <div class="nav-item active"><span class="nav-icon">🔍</span>Inspection</div>
+  <div class="nav-item"><span class="nav-icon">🛒</span>Purchasing</div>
+  <div class="nav-item"><span class="nav-icon">💰</span>Sales Invoicing</div>
+  <div class="nav-item"><span class="nav-icon">📊</span>Accounts</div>
+  <div class="nav-item"><span class="nav-icon">🔧</span>Maintenance</div>
+  <div class="nav-item"><span class="nav-icon">👥</span>Client</div>
+  <div class="nav-item"><span class="nav-icon">🏭</span>Vendors</div>
+  <div class="nav-item"><span class="nav-icon">📈</span>Reports</div>
+</nav>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- PAGE HEADER -->
+  <div class="page-hdr">
+    <div class="page-hdr-left">
+      <h2>Report</h2>
+      <h1>GQS Reference: GQS591-001-0001/0001 &nbsp;<span style="font-size:13px;font-weight:500;color:#0e8a76;">(Inspector submitted — pending coordinator review)</span></h1>
+    </div>
+    <div class="page-hdr-right">
+      <button class="btn btn-outline" onclick="showToast('Timesheet opened')">View Timesheet</button>
+      <!-- ★ NEW BUTTONS ★ -->
+      <button class="btn btn-teal" onclick="showInspectorLinkModal()" id="btnInspector">📋 Generate inspector link</button>
+      <button class="btn btn-purple" id="btnSendClient" onclick="showClientLinkModal()" disabled style="opacity:0.45;cursor:not-allowed;">📨 Send to client</button>
+    </div>
+  </div>
+
+  <!-- ALERTS -->
+  <div class="alert alert-teal" style="margin:12px 24px 0;">
+    ✅ Inspector has submitted the report. Please review all sections below, then either send feedback or approve and send to the client.
+  </div>
+
+  <div class="content">
+
+    <!-- STATUS STRIP -->
+    <div class="status-strip">
+      <div class="status-steps">
+        <div class="status-step done">✓ Inspector link sent</div>
+        <div class="step-arrow">›</div>
+        <div class="status-step done">✓ Inspector submitted</div>
+        <div class="step-arrow">›</div>
+        <div class="status-step active">⏳ Coordinator review</div>
+        <div class="step-arrow">›</div>
+        <div class="status-step" style="color:#bbb;">Client approval</div>
+        <div class="step-arrow">›</div>
+        <div class="status-step" style="color:#bbb;">Approved & closed</div>
+      </div>
+      <div class="status-right">
+        <div class="link-indicator"><div class="link-dot active"></div>Inspector link: <strong style="color:#16a34a;">Active & editable</strong></div>
+        <div class="link-indicator" style="margin-top:4px;"><div class="link-dot inactive"></div>Client link: <strong style="color:#aaa;">Not yet sent</strong></div>
+      </div>
+    </div>
+
+    <!-- EXISTING IGRIS FIELDS -->
+    <div class="card">
+      <div class="card-hdr">Visit Details</div>
+      <div class="card-body">
+        <div class="field-grid">
+          <div class="field-label">Client:</div>
+          <div class="field-val">Hancock Energy</div>
+          <div class="field-label">Inspector:</div>
+          <div class="field-val"><select><option>Matthew Shannon</option></select> <a href="#" style="color:#0e8a76;font-size:11px;margin-left:6px;">Worker</a></div>
+
+          <div class="field-label">Client Contact:</div>
+          <div class="field-val"><select><option>Jake Morton</option></select></div>
+          <div class="field-label">SCS Contact:</div>
+          <div class="field-val">Matthew Shannon</div>
+
+          <div class="field-label">PO Number:</div>
+          <div class="field-val"><input type="text" value="" style="width:160px;"/></div>
+          <div class="field-label">Vendor PO No:</div>
+          <div class="field-val">HCE001</div>
+
+          <div class="field-label">Cost Centre:</div>
+          <div class="field-val">N/A</div>
+          <div class="field-label"></div>
+          <div class="field-val"></div>
+
+          <div class="field-label">Vendor:</div>
+          <div class="field-val">TBA</div>
+          <div class="field-label">Dates:</div>
+          <div class="field-val">From: <input type="date" value="2026-08-22"/> To: <input type="date" value="2026-08-22"/></div>
+
+          <div class="field-label">Revisit:</div>
+          <div class="field-val"><a href="#" style="color:#0e8a76;">GQS591-001-0001/0002</a></div>
+          <div class="field-label">Location:</div>
+          <div class="field-val">Belisama Gas Field, WA, Australia</div>
+
+          <div class="field-label">Assignment Status:</div>
+          <div class="field-val">Open</div>
+          <div class="field-label"></div><div class="field-val"></div>
+
+          <div class="field-label">Report Received:</div>
+          <div class="field-val"><input type="date" value="2026-08-24"/></div>
+          <div class="field-label">Report Sent:</div>
+          <div class="field-val"><input type="date" value=""/></div>
+
+          <div class="field-label">Remote Inspection:</div>
+          <div class="field-val"><input type="checkbox"/></div>
+          <div class="field-label"></div><div class="field-val"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCOPE OF WORK -->
+    <div class="card">
+      <div class="card-hdr">Scope of Work</div>
+      <div class="card-body" style="font-size:12px;color:#444;line-height:1.8;">
+        CTR: HCE001<br>
+        PO: —<br>
+        VENDOR INSPECTION AT TBA<br>
+        PROJECT: Belisama Gas Project
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         ★ NEW: COORDINATOR REVIEW PANEL ★
+    ══════════════════════════════════════ -->
+    <div class="review-panel">
+      <div class="review-panel-hdr">
+        <div class="review-panel-hdr-left">
+          <span style="font-size:16px;">📋</span>
+          <div>
+            <div class="review-panel-title">Inspector submission — coordinator review</div>
+            <div class="review-panel-sub">Submitted by Matthew Shannon · 24 Aug 2026 09:42 AWST · Review all sections before sending to client</div>
+          </div>
+        </div>
+        <span class="badge badge-pending">Awaiting coordinator review</span>
+      </div>
+
+      <!-- REVIEW TABS -->
+      <div class="review-tabs">
+        <div class="review-tab active" onclick="switchTab(this,'tab-hse')">HSE checklist</div>
+        <div class="review-tab" onclick="switchTab(this,'tab-timesheet')">Timesheet</div>
+        <div class="review-tab" onclick="switchTab(this,'tab-attendees')">Attendees</div>
+        <div class="review-tab" onclick="switchTab(this,'tab-calibration')">Calibration</div>
+        <div class="review-tab" onclick="switchTab(this,'tab-documents')">Documents</div>
+        <div class="review-tab" onclick="switchTab(this,'tab-narrative')">Visit report</div>
+        <div class="review-tab" onclick="switchTab(this,'tab-photos')">Photos</div>
+      </div>
+
+      <!-- TAB: HSE -->
+      <div class="review-content active" id="tab-hse">
+        <div class="hse-review-item"><span>Safety induction received?</span><span class="badge badge-yes">Yes</span></div>
+        <div class="hse-review-item"><span>All persons wearing suitable PPE?</span><span class="badge badge-yes">Yes</span></div>
+        <div class="hse-review-item"><span>Site clean and well organised?</span><span class="badge badge-yes">Yes</span></div>
+        <div class="hse-review-item"><span>All personnel working safely?</span><span class="badge badge-yes">Yes</span></div>
+        <div class="hse-review-item"><span>Machinery well maintained and operated safely?</span><span class="badge badge-yes">Yes</span></div>
+        <div class="hse-review-item"><span>Visit free from incidents or dangerous occurrences?</span><span class="badge badge-yes">Yes</span></div>
+        <div class="hse-review-item"><span>Management conveying a positive H&S culture?</span><span class="badge badge-yes">Yes</span></div>
+        <div style="margin-top:12px;"><div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px;">Additional HSE notes</div>
+        <div class="narrative-box">No additional HSE concerns noted during this visit.</div></div>
+      </div>
+
+      <!-- TAB: TIMESHEET -->
+      <div class="review-content" id="tab-timesheet">
+        <table class="exp-table">
+          <thead><tr><th>Category</th><th>Hours</th><th>Category</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Work time</td><td>8.00</td><td>Mileage</td><td>120 km</td></tr>
+            <tr><td>Travel time</td><td>2.00</td><td>Accommodation</td><td>—</td></tr>
+            <tr><td>Report time</td><td>1.00</td><td>Flights</td><td>—</td></tr>
+            <tr><td>Overtime</td><td>—</td><td>Per diem</td><td>—</td></tr>
+            <tr class="total-row"><td><strong>Total hours</strong></td><td><strong>11.00</strong></td><td colspan="2"></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TAB: ATTENDEES -->
+      <div class="review-content" id="tab-attendees">
+        <table class="review-table">
+          <thead><tr><th>Name</th><th>Company</th><th>Position</th></tr></thead>
+          <tbody>
+            <tr><td>Matthew Shannon</td><td>GQS Group</td><td>Lead Inspector</td></tr>
+            <tr><td>Jake Morton</td><td>Hancock Energy</td><td>Client Representative</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TAB: CALIBRATION -->
+      <div class="review-content" id="tab-calibration">
+        <table class="review-table">
+          <thead><tr><th>Instrument</th><th>Tag no.</th><th>Cert. no.</th><th>Expiry</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Digital thickness gauge</td><td>DTG-001</td><td>CERT-2026-0441</td><td>Dec 2026</td><td><span class="badge badge-yes">Valid</span></td></tr>
+            <tr><td>Torque wrench</td><td>TW-003</td><td>CERT-2026-0188</td><td>Nov 2026</td><td><span class="badge badge-yes">Valid</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TAB: DOCUMENTS -->
+      <div class="review-content" id="tab-documents">
+        <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px;">Documents issued</div>
+        <table class="review-table" style="margin-bottom:16px;">
+          <thead><tr><th>Type</th><th>Issued?</th><th>Document number</th></tr></thead>
+          <tbody>
+            <tr><td>Inspection Release Certificate (IRN)</td><td><span class="badge badge-yes">Yes</span></td><td>IRN-2026-0091</td></tr>
+            <tr><td>NCR</td><td><span class="badge badge-no">No</span></td><td>—</td></tr>
+          </tbody>
+        </table>
+        <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px;">Documents used</div>
+        <table class="review-table">
+          <thead><tr><th>Document title</th><th>Doc number</th><th>Revision</th></tr></thead>
+          <tbody>
+            <tr><td>Inspection & Test Plan (ITP)</td><td>ITP-BEL-2026-01</td><td>Rev 2</td></tr>
+            <tr><td>Dimensional Drawing</td><td>DWG-BEL-0041</td><td>Rev A</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TAB: NARRATIVE -->
+      <div class="review-content" id="tab-narrative">
+        <div class="narrative-box">
+          Inspection visit was attended on 22 August 2026 at the vendor facility. This report covers the inspection activities performed by the GQS inspector on behalf of Hancock Energy for the Belisama Gas Project.<br><br>
+          Inspector performed 100% final dimensional and visual inspection of the equipment as per the approved Inspection and Test Plan (ITP-BEL-2026-01). All results were found to be acceptable.<br><br>
+          • Visual inspection performed — no surface defects, burrs, cracks or pitting found. Surface condition acceptable.<br>
+          • Dimensional check performed against approved drawing DWG-BEL-0041 Rev A — all critical dimensions within tolerance.<br>
+          • Material traceability verified. Heat number and serial number clearly stamped and traceable to mill certificate.<br>
+          • Documentation reviewed and found acceptable. IRN issued with acceptable result.<br><br>
+          No non-conformances raised during this visit. Further visit not required.
+        </div>
+      </div>
+
+      <!-- TAB: PHOTOS -->
+      <div class="review-content" id="tab-photos">
+        <div class="photo-grid">
+          <div class="photo-item">📷</div>
+          <div class="photo-item">📷</div>
+          <div class="photo-item">📷</div>
+          <div class="photo-item" style="background:#f7f9fb;color:#ccc;font-size:13px;">+ more</div>
+        </div>
+        <p style="font-size:11px;color:#999;margin-top:10px;">3 photographs submitted</p>
+      </div>
+
+      <!-- COORDINATOR ACTIONS -->
+      <div class="coord-actions">
+        <div class="coord-actions-left">
+          <label>Feedback to inspector (optional — only needed if changes required)</label>
+          <textarea id="feedbackText" placeholder="e.g. Please add more detail to the visit narrative. The calibration cert for DTG-001 needs to be attached."></textarea>
+        </div>
+        <div class="coord-actions-right">
+          <button class="btn btn-red" onclick="sendFeedback()">✏️ Send feedback to inspector</button>
+          <button class="btn btn-green" onclick="approveAndSendToClient()">✅ Approve — send to client</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LINK MANAGEMENT -->
+    <div class="link-mgmt">
+      <div class="link-mgmt-hdr">🔗 Link management</div>
+      <div class="link-mgmt-body">
+        <div class="link-row">
+          <div class="link-info">
+            <div class="link-dot active" style="width:10px;height:10px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,0.2);"></div>
+            <div>
+              <div class="link-label">Inspector link — Matthew Shannon</div>
+              <div class="link-sub">Active & editable · Sent 23 Aug 2026 · Will lock when report is sent to client</div>
+            </div>
+          </div>
+          <div class="link-actions">
+            <button class="btn btn-outline btn-sm" onclick="showToast('Link copied to clipboard')">Copy link</button>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Link resent to inspector')">Resend</button>
+          </div>
+        </div>
+        <div class="link-row" style="opacity:0.5;">
+          <div class="link-info">
+            <div class="link-dot inactive" style="width:10px;height:10px;border-radius:50%;background:#ccc;"></div>
+            <div>
+              <div class="link-label">Client link — Hancock Energy</div>
+              <div class="link-sub">Not yet sent · Will be generated when you approve and send to client</div>
+            </div>
+          </div>
+          <div class="link-actions">
+            <button class="btn btn-outline btn-sm" disabled>Not active</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPENSE TABLE (existing IGRIS section) -->
+    <div class="card">
+      <div class="card-hdr">Daily Expense Breakdown</div>
+      <div class="card-body" style="padding:0;">
+        <table class="exp-table" style="margin:0;">
+          <thead><tr><th>Day</th><th>Date</th><th>Work Time</th><th>Travel Time</th><th>Report Time</th><th>Other Time</th><th>Mileage</th><th>Accom Cost</th><th>Flight Cost</th><th>Meal</th><th>Tolls</th><th>Per Diem</th><th>Incidentals</th><th>Other Amount</th><th>Description</th><th>Total Cost</th></tr></thead>
+          <tbody>
+            <tr><td>Monday</td><td>22-Aug-2026</td><td>8.00</td><td>2.00</td><td>1.00</td><td>0.00</td><td>120</td><td>$0.00</td><td>$0.00</td><td>$0.00</td><td>$0.00</td><td>$0.00</td><td>$0.00</td><td>$0.00</td><td>—</td><td>$0.00</td></tr>
+            <tr class="total-row"><td colspan="2"><strong>Totals</strong></td><td><strong>8.00</strong></td><td><strong>2.00</strong></td><td><strong>1.00</strong></td><td><strong>0.00</strong></td><td><strong>120</strong></td><td colspan="9"></td><td><strong>$0.00</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- end content -->
+</div><!-- end main -->
+</div><!-- end layout -->
+
+<!-- MODAL: INSPECTOR LINK -->
+<div class="modal-overlay" id="inspectorModal">
+  <div class="modal">
+    <h3>📋 Generate inspector report link</h3>
+    <p>This will generate a secure, editable link for the inspector to complete the digital report form. The link will remain open and editable until you approve and send the report to the client.</p>
+    <label style="font-size:11px;font-weight:700;color:#555;display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.3px;">Inspector email</label>
+    <input type="email" value="matthew.shannon@gqsgroup.com" id="inspectorEmail"/>
+    <div style="display:flex;gap:8px;justify-content:flex-end;">
+      <button class="btn btn-outline" onclick="closeModal('inspectorModal')">Cancel</button>
+      <button class="btn btn-teal" onclick="generateInspectorLink()">Generate & send link</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: CLIENT LINK -->
+<div class="modal-overlay" id="clientModal">
+  <div class="modal">
+    <h3>📨 Send report to client for approval</h3>
+    <p>This will <strong>lock the inspector's link</strong> and send a secure approval link to Hancock Energy. The client will have 48 hours to review and approve before the link expires.</p>
+    <label style="font-size:11px;font-weight:700;color:#555;display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.3px;">Client email</label>
+    <input type="email" value="admin@hancockenergy.com.au" id="clientEmail"/>
+    <div style="font-size:11px;color:#d97706;background:#fffbeb;border:1px solid #fde68a;border-radius:4px;padding:8px 12px;margin-bottom:16px;">
+      ⚠️ Once sent, the inspector's link will be permanently locked to read-only.
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;">
+      <button class="btn btn-outline" onclick="closeModal('clientModal')">Cancel</button>
+      <button class="btn btn-purple" onclick="sendToClient()">Lock inspector link & send to client</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+function switchTab(el, tabId) {
+  document.querySelectorAll('.review-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.review-content').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+function showInspectorLinkModal() {
+  document.getElementById('inspectorModal').classList.add('visible');
+}
+
+function showClientLinkModal() {
+  document.getElementById('clientModal').classList.add('visible');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('visible');
+}
+
+function generateInspectorLink() {
+  closeModal('inspectorModal');
+  showToast('✅ Inspector link sent to matthew.shannon@gqsgroup.com');
+  document.getElementById('btnInspector').textContent = '✓ Inspector link sent';
+  document.getElementById('btnInspector').style.background = '#16a34a';
+}
+
+function sendFeedback() {
+  const txt = document.getElementById('feedbackText').value.trim();
+  if(!txt) { showToast('⚠️ Please enter feedback before sending'); return; }
+  showToast('✏️ Feedback sent to inspector — link remains editable');
+  document.getElementById('feedbackText').value = '';
+  document.querySelector('.review-panel-hdr .badge').textContent = 'Feedback sent — awaiting resubmission';
+  document.querySelector('.review-panel-hdr .badge').className = 'badge badge-pending';
+}
+
+function approveAndSendToClient() {
+  closeModal('clientModal');
+  document.getElementById('clientModal').classList.add('visible');
+  // enable send to client button
+  const btn = document.getElementById('btnSendClient');
+  btn.disabled = false;
+  btn.style.opacity = '1';
+  btn.style.cursor = 'pointer';
+}
+
+function sendToClient() {
+  closeModal('clientModal');
+  showToast('📨 Client approval link sent to Hancock Energy · Inspector link locked');
+
+  // Update status strip
+  document.querySelectorAll('.status-step')[2].className = 'status-step done';
+  document.querySelectorAll('.status-step')[2].textContent = '✓ Coordinator approved';
+  document.querySelectorAll('.status-step')[3].className = 'status-step active';
+  document.querySelectorAll('.status-step')[3].textContent = '⏳ Client approval';
+
+  // Update link indicators
+  document.querySelectorAll('.link-indicator')[0].innerHTML = '<div class="link-dot locked" style="width:8px;height:8px;border-radius:50%;background:#7c3aed;"></div>Inspector link: <strong style="color:#7c3aed;">Locked — read only</strong>';
+  document.querySelectorAll('.link-indicator')[1].innerHTML = '<div class="link-dot active" style="width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 2px rgba(34,197,94,0.25);"></div>Client link: <strong style="color:#16a34a;">Active — sent to Hancock Energy</strong>';
+
+  // Update review panel badge
+  document.querySelector('.review-panel-hdr .badge').textContent = '✓ Approved — sent to client';
+  document.querySelector('.review-panel-hdr .badge').className = 'badge badge-yes';
+
+  // Update page title
+  document.querySelector('.page-hdr-left h1 span').textContent = '(Coordinator approved — awaiting client sign-off)';
+
+  // Update alert
+  document.querySelector('.alert').className = 'alert alert-blue';
+  document.querySelector('.alert').textContent = '📨 Report sent to Hancock Energy for approval. Inspector link is now locked. You will be notified when the client approves.';
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
