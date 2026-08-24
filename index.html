@@ -233,6 +233,15 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
     ℹ️ No inspector link generated yet. Click "Generate inspector link" to send the inspector their report form.
   </div>
 
+  <!-- SIMULATE BAR (demo only) -->
+  <div id="simulateBar" style="display:none;background:#1e293b;padding:10px 24px;display:none;align-items:center;justify-content:space-between;">
+    <span style="font-size:12px;color:rgba(255,255,255,0.7);">🧪 Demo mode — simulate inspector actions:</span>
+    <div style="display:flex;gap:8px;">
+      <button class="btn" style="background:#7c3aed;color:#fff;border:none;font-size:11px;padding:5px 14px;" onclick="simulateSubmit()">Simulate: Inspector submits report</button>
+      <button class="btn" style="background:#16a34a;color:#fff;border:none;font-size:11px;padding:5px 14px;" onclick="simulateClientApprove()">Simulate: Client approves</button>
+    </div>
+  </div>
+
   <div class="content">
 
     <!-- ══════════════════════════
@@ -645,17 +654,8 @@ function generateInspectorLink() {
   // Enable client button visually (still logically disabled until step 3)
   showToast('✅ Inspector link sent to matthew.shannon@gqsgroup.com');
 
-  // Simulate inspector submitting after 3 seconds for demo
-  setTimeout(() => {
-    workflowState = 2;
-    refreshAll();
-    document.getElementById('reviewPanel').style.display = 'block';
-    document.getElementById('reviewCollapsibleBody').style.display = 'block';
-    document.getElementById('reviewToggleIcon').style.transform = 'rotate(0deg)';
-    document.getElementById('btnClient').disabled = false;
-    setTimeout(() => document.getElementById('reviewPanel').scrollIntoView({behavior:'smooth', block:'start'}), 100);
-    showToast('🔔 Matthew Shannon has submitted the report — review below');
-  }, 3000);
+  // Show simulate button for demo purposes
+  document.getElementById('simulateBar').style.display = 'flex';
 }
 
 function sendFeedback() {
@@ -702,6 +702,28 @@ function switchTab(el, tabId) {
   document.getElementById(tabId).classList.add('active');
 }
 
+function simulateSubmit() {
+  workflowState = 2;
+  refreshAll();
+  document.getElementById('reviewPanel').style.display = 'block';
+  document.getElementById('reviewCollapsibleBody').style.display = 'block';
+  document.getElementById('reviewToggleIcon').style.transform = 'rotate(0deg)';
+  document.getElementById('btnClient').disabled = false;
+  document.getElementById('btnClient').style.opacity = '1';
+  document.getElementById('btnClient').style.cursor = 'pointer';
+  setTimeout(() => document.getElementById('reviewPanel').scrollIntoView({behavior:'smooth', block:'start'}), 200);
+  showToast('🔔 Matthew Shannon has submitted the report — review below');
+}
+
+function simulateClientApprove() {
+  workflowState = 4;
+  refreshAll();
+  document.getElementById('reviewBadge').textContent = '✓ Approved & Closed';
+  document.getElementById('reviewBadge').className = 'badge badge-approved';
+  document.getElementById('coordActions').style.display = 'none';
+  showToast('🎉 Hancock Energy approved — PDF generated!');
+}
+
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -711,9 +733,8 @@ function showToast(msg) {
 
 // Init
 refreshAll();
-// Hide review panel and its body on load
 document.getElementById('reviewPanel').style.display = 'none';
-document.getElementById('reviewCollapsibleBody').style.display = 'block';
+document.getElementById('simulateBar').style.display = 'none';
 </script>
 </body>
 </html>
