@@ -172,6 +172,8 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
 .toast.show{transform:translateY(0);opacity:1;}
 .show-block { display: block !important; }
 .show-flex { display: flex !important; }
+#simulateBar { display: none; }
+#reviewPanel { display: none; }
 </style>
 </head>
 <body>
@@ -236,7 +238,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
   </div>
 
   <!-- SIMULATE BAR (demo only) -->
-  <div id="simulateBar" style="display:none;background:#1e293b;padding:10px 24px;align-items:center;justify-content:space-between;">
+  <div id="simulateBar" style="background:#1e293b;padding:10px 24px;align-items:center;justify-content:space-between;">
     <span style="font-size:12px;color:rgba(255,255,255,0.7);">🧪 Demo mode — simulate inspector actions:</span>
     <div style="display:flex;gap:8px;">
       <button class="btn" style="background:#7c3aed;color:#fff;border:none;font-size:11px;padding:5px 14px;" onclick="simulateSubmit()">Simulate: Inspector submits report</button>
@@ -358,7 +360,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
     </div>
 
     <!-- COORDINATOR REVIEW PANEL -->
-    <div class="review-panel" id="reviewPanel" style="display:none;">
+    <div class="review-panel" id="reviewPanel">
 
       <div class="review-panel-hdr" onclick="toggleReviewPanel()" style="cursor:pointer;user-select:none;">
         <div style="display:flex;align-items:center;gap:10px;">
