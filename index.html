@@ -718,6 +718,7 @@ function showClientModal() { document.getElementById('clientModal').classList.ad
 function closeModal(id) { document.getElementById(id).classList.remove('visible'); }
 
 function generateInspectorLink() {
+  closeModal('inspectorModal');
   workflowState = 1;
   refreshAll();
   document.getElementById('btnInspector').textContent = '✓ Inspector link sent';
