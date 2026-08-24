@@ -3,108 +3,115 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>GQS — Report Approval</title>
+<title>GQS — Inspection Report Approval</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-:root{
-  --teal:#0b6e5e;--teal-mid:#0e8a76;--teal-light:#e4f4f1;--teal-pale:#f2faf8;
-  --slate:#141e2b;--slate-mid:#3a4f63;--slate-light:#6b7f94;--slate-pale:#f7f9fb;
-  --border:#e1e8f0;--white:#fff;--bg:#f4f7fa;
-  --green:#16a34a;--green-bg:#f0fdf4;--red:#dc2626;--red-bg:#fef2f2;
-  --amber:#d97706;--amber-bg:#fffbeb;
-  --shadow:0 2px 12px rgba(0,0,0,0.07);--shadow-lg:0 8px 32px rgba(0,0,0,0.1);
-  --radius:12px;--radius-sm:8px;
-}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--slate);-webkit-font-smoothing:antialiased;min-height:100vh;}
+body{font-family:'Inter',sans-serif;background:#f4f7fa;color:#1a2533;-webkit-font-smoothing:antialiased;min-height:100vh;}
 
 /* HEADER */
-.hdr{background:var(--white);border-bottom:1px solid var(--border);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);position:sticky;top:0;z-index:100;}
+.hdr{background:#1a2533;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:100;}
 .hdr-left{display:flex;align-items:center;gap:16px;}
-.logo{font-size:20px;font-weight:700;color:var(--teal);letter-spacing:-0.5px;}
-.divider{width:1px;height:28px;background:var(--border);}
-.hdr-meta{font-size:12px;color:var(--slate-light);}
-.hdr-meta strong{color:var(--slate-mid);display:block;font-size:13px;}
-.hdr-right{display:flex;align-items:center;gap:10px;}
-.read-only-badge{background:var(--amber-bg);border:1px solid #fed7aa;color:var(--amber);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;letter-spacing:0.2px;}
+.hdr-logo img{height:32px;}
+.hdr-breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.5);}
+.hdr-breadcrumb span{color:rgba(255,255,255,0.5);}
+.hdr-breadcrumb strong{color:#fff;}
+.hdr-breadcrumb .sep{color:rgba(255,255,255,0.3);}
+.hdr-sub{font-size:11px;color:#0e8a76;margin-top:2px;}
+.hdr-right{display:flex;align-items:center;gap:16px;}
+.hdr-user{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.8);font-size:12px;font-weight:500;}
+.hdr-avatar{width:32px;height:32px;border-radius:50%;background:#0e8a76;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.hdr-bell{position:relative;cursor:pointer;}
+.hdr-bell-icon{font-size:18px;color:rgba(255,255,255,0.6);}
+.hdr-badge{position:absolute;top:-4px;right:-4px;background:#dc2626;color:#fff;font-size:9px;font-weight:700;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
 
 /* EXPIRY BANNER */
-.expiry-banner{background:var(--amber-bg);border-bottom:1px solid #fed7aa;padding:10px 32px;display:flex;align-items:center;justify-content:space-between;}
-.expiry-left{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--amber);}
-.expiry-timer{font-family:'DM Mono',monospace;font-weight:600;font-size:13px;color:var(--amber);}
+.expiry-banner{background:#fff8ed;border-bottom:1px solid #fde68a;padding:10px 32px;display:flex;align-items:center;justify-content:space-between;}
+.expiry-left{display:flex;align-items:center;gap:8px;font-size:12px;color:#d97706;font-weight:500;}
+.expiry-timer{font-family:'Courier New',monospace;font-weight:700;font-size:14px;color:#d97706;}
+.expiry-right{font-size:11px;color:#d97706;}
 
-/* LAYOUT */
-.container{max-width:960px;margin:0 auto;padding:32px 24px;}
+/* CONTAINER */
+.container{max-width:860px;margin:0 auto;padding:28px 20px 60px;}
 
 /* REPORT HEADER CARD */
-.report-hdr-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:28px 32px;margin-bottom:20px;box-shadow:var(--shadow);}
-.report-hdr-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;}
-.report-title-block h1{font-size:20px;font-weight:700;color:var(--slate);letter-spacing:-0.3px;}
-.report-title-block p{font-size:13px;color:var(--slate-light);margin-top:4px;}
-.report-status{display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
-.status-pill{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.3px;}
-.status-pending{background:var(--amber-bg);color:var(--amber);border:1px solid #fed7aa;}
-.ref-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding-top:20px;border-top:1px solid var(--border);}
-.ref-item label{font-size:10px;font-weight:700;color:var(--slate-light);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:4px;}
-.ref-item span{font-size:13px;font-weight:600;color:var(--slate-mid);}
+.report-card{background:#fff;border-radius:12px;padding:24px 28px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+.report-card-top{display:flex;align-items:flex-start;gap:20px;margin-bottom:20px;}
+.report-icon{width:56px;height:56px;border-radius:12px;background:#e4f4f1;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+.report-title-block{flex:1;}
+.report-title-block h1{font-size:18px;font-weight:700;color:#1a2533;letter-spacing:-0.3px;margin-bottom:4px;}
+.report-title-block p{font-size:12px;color:#6b7f94;}
+.report-status{display:flex;flex-direction:column;align-items:flex-end;gap:4px;}
+.status-pill{padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:6px;}
+.status-pending{background:#fff8ed;color:#d97706;border:1px solid #fde68a;}
+.status-date{font-size:11px;color:#aaa;}
+.meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding-top:20px;border-top:1px solid #f0f2f5;}
+.meta-item{display:flex;flex-direction:column;gap:3px;}
+.meta-label{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;display:flex;align-items:center;gap:5px;}
+.meta-label span{font-size:13px;}
+.meta-val{font-size:13px;font-weight:600;color:#1a2533;}
 
-/* SECTION CARDS */
-.section-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden;box-shadow:var(--shadow);}
-.section-card-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;cursor:pointer;user-select:none;border-bottom:1px solid var(--border);background:var(--slate-pale);}
-.section-card-hdr:hover{background:#eef2f7;}
-.section-card-hdr-left{display:flex;align-items:center;gap:12px;}
-.section-num{width:28px;height:28px;border-radius:50%;background:var(--teal-light);color:var(--teal);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;}
-.section-card-title{font-size:13px;font-weight:600;color:var(--slate);}
-.section-toggle{font-size:18px;color:var(--slate-light);transition:transform 0.2s;}
-.section-toggle.open{transform:rotate(180deg);}
-.section-body{padding:20px 24px;display:none;}
-.section-body.open{display:block;}
+/* COLLAPSIBLE SECTIONS */
+.section-card{background:#fff;border-radius:12px;margin-bottom:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.section-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;cursor:pointer;user-select:none;transition:background 0.15s;}
+.section-hdr:hover{background:#fafbfc;}
+.section-hdr-left{display:flex;align-items:center;gap:14px;}
+.section-num{width:28px;height:28px;border-radius:50%;background:#0e8a76;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.section-icon{font-size:16px;color:#6b7f94;}
+.section-title{font-size:14px;font-weight:600;color:#1a2533;}
+.section-arrow{font-size:14px;color:#aaa;transition:transform 0.2s;}
+.section-arrow.open{transform:rotate(90deg);}
+.section-body{padding:0 24px 20px;display:none;border-top:1px solid #f0f2f5;}
+.section-body.open{display:block;padding-top:16px;}
 
-/* DATA TABLE */
-.data-table{width:100%;border-collapse:collapse;}
-.data-table th{text-align:left;font-size:10px;font-weight:700;color:var(--slate-light);letter-spacing:0.5px;text-transform:uppercase;padding:8px 12px;background:var(--slate-pale);border-bottom:1px solid var(--border);}
-.data-table td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px;color:var(--slate-mid);}
-.data-table tr:last-child td{border-bottom:none;}
-.data-table tr:nth-child(even) td{background:#fafbfc;}
+/* HSE */
+.hse-item{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:6px;font-size:13px;color:#3a4f63;margin-bottom:4px;}
+.hse-item:nth-child(even){background:#f7f9fb;}
+.hse-icon{font-size:14px;color:#aaa;margin-right:10px;}
+.badge{padding:4px 12px;border-radius:20px;font-size:10px;font-weight:700;}
+.badge-yes{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;}
+.badge-no{background:#fef2f2;color:#dc2626;border:1px solid #fecaca;}
+.badge-valid{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;}
 
-/* HSE VIEW */
-.hse-view-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);}
-.hse-view-item:last-child{border-bottom:none;}
-.hse-view-q{font-size:12px;color:var(--slate-mid);flex:1;}
-.badge{padding:3px 10px;border-radius:10px;font-size:10px;font-weight:700;}
-.badge-yes{background:var(--green-bg);color:var(--green);}
-.badge-no{background:var(--red-bg);color:var(--red);}
-.badge-na{background:var(--slate-pale);color:var(--slate-light);}
+/* TABLES */
+.review-table{width:100%;border-collapse:collapse;font-size:12px;}
+.review-table th{text-align:left;font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;padding:8px 12px;border-bottom:1px solid #f0f2f5;}
+.review-table td{padding:10px 12px;border-bottom:1px solid #f7f9fb;color:#3a4f63;}
+.review-table tr:last-child td{border-bottom:none;}
+.review-table tr:nth-child(even) td{background:#fafbfc;}
 
 /* NARRATIVE */
-.narrative-box{background:var(--slate-pale);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 20px;font-size:13px;color:var(--slate-mid);line-height:1.8;}
+.narrative-box{background:#f7f9fb;border:1px solid #e8edf2;border-radius:8px;padding:16px 20px;font-size:13px;color:#3a4f63;line-height:1.9;}
 
 /* PHOTO GRID */
-.photo-grid-view{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
-.photo-thumb-view{border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:4/3;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:24px;}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.photo-item{aspect-ratio:4/3;border-radius:8px;background:#e4f4f1;display:flex;align-items:center;justify-content:center;font-size:28px;border:1px solid #dde3ea;color:#0e8a76;}
+
+/* TIMESHEET */
+.ts-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.ts-item{background:#f7f9fb;border-radius:8px;padding:12px 16px;}
+.ts-item-label{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;}
+.ts-item-val{font-size:16px;font-weight:700;color:#1a2533;}
+.ts-item-val.total{color:#0e8a76;font-size:20px;}
 
 /* APPROVAL PANEL */
-.approval-panel{background:var(--white);border:2px solid var(--teal);border-radius:var(--radius);padding:28px 32px;margin-top:24px;box-shadow:var(--shadow-lg);}
-.approval-panel h2{font-size:18px;font-weight:700;color:var(--slate);margin-bottom:6px;letter-spacing:-0.3px;}
-.approval-panel p{font-size:13px;color:var(--slate-light);margin-bottom:24px;line-height:1.6;}
-.approval-actions{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
-.btn-approve{background:var(--teal);color:#fff;border:none;padding:16px;border-radius:var(--radius-sm);font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.15s;letter-spacing:0.2px;}
-.btn-approve:hover{background:var(--teal-mid);}
-.btn-changes{background:var(--white);color:var(--red);border:2px solid var(--red);padding:16px;border-radius:var(--radius-sm);font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s;}
-.btn-changes:hover{background:var(--red-bg);}
-.comments-area{display:none;}
-.comments-area.visible{display:block;}
-.comments-area label{font-size:11px;font-weight:700;color:var(--slate-mid);text-transform:uppercase;letter-spacing:0.3px;display:block;margin-bottom:8px;}
-.comments-area textarea{width:100%;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;font-size:13px;font-family:'Inter',sans-serif;color:var(--slate);min-height:100px;resize:vertical;outline:none;}
-.comments-area textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(11,110,94,0.1);}
-.btn-send-comments{background:var(--red);color:#fff;border:none;padding:10px 22px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;margin-top:10px;transition:background 0.15s;}
-.btn-send-comments:hover{background:#b91c1c;}
+.approval-panel{background:#fff;border-radius:12px;padding:28px;margin-top:20px;box-shadow:0 4px 20px rgba(14,138,118,0.12);border:2px solid #0e8a76;}
+.approval-panel h2{font-size:16px;font-weight:700;color:#1a2533;margin-bottom:6px;}
+.approval-panel p{font-size:13px;color:#6b7f94;margin-bottom:24px;line-height:1.6;}
+.approval-btns{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+.btn-approve{background:#0e8a76;color:#fff;border:none;padding:16px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;transition:background 0.15s;}
+.btn-approve:hover{background:#0b6e5e;}
+.btn-changes{background:#fff;color:#dc2626;border:2px solid #dc2626;padding:16px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.15s;}
+.btn-changes:hover{background:#fef2f2;}
+.comments-wrap{display:none;}
+.comments-wrap.visible{display:block;}
+.comments-wrap label{font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.3px;display:block;margin-bottom:8px;}
+.comments-wrap textarea{width:100%;border:1px solid #dde3ea;border-radius:8px;padding:12px 16px;font-size:13px;font-family:'Inter',sans-serif;min-height:90px;resize:vertical;outline:none;color:#1a2533;}
+.comments-wrap textarea:focus{border-color:#0e8a76;box-shadow:0 0 0 3px rgba(14,138,118,0.1);}
+.btn-send{background:#dc2626;color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;margin-top:10px;display:inline-flex;align-items:center;gap:6px;}
 
-/* FOOTER NOTE */
-.footer-note{text-align:center;font-size:11px;color:var(--slate-light);margin-top:20px;padding-bottom:40px;line-height:1.8;}
-
-/* TIMER */
-#timerDisplay{font-weight:700;color:var(--amber);}
+/* FOOTER */
+.footer{text-align:center;font-size:11px;color:#aaa;padding:0 20px 40px;line-height:1.9;}
 </style>
 </head>
 <body>
@@ -112,106 +119,123 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--slate);-web
 <!-- HEADER -->
 <header class="hdr">
   <div class="hdr-left">
-    <div class="logo">GQS</div>
-    <div class="divider"></div>
-    <div class="hdr-meta">
-      <strong>Inspection Report — Belisama Gas Project</strong>
-      Secure client review portal
+    <div class="hdr-logo"><img src="data:image/jpeg;base64,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" alt="GQS"/></div>
+    <div style="width:1px;height:28px;background:rgba(255,255,255,0.1);margin:0 8px;"></div>
+    <div>
+      <div class="hdr-breadcrumb">
+        <span>Inspection Report</span>
+        <span class="sep">›</span>
+        <strong>Belisama Gas Project</strong>
+      </div>
+      <div class="hdr-sub">Secure client review portal</div>
     </div>
   </div>
   <div class="hdr-right">
-    <div class="read-only-badge">🔒 Read only — approve or request changes below</div>
+    <div class="hdr-bell">
+      <div class="hdr-bell-icon">🔔</div>
+      <div class="hdr-badge">3</div>
+    </div>
+    <div style="width:1px;height:24px;background:rgba(255,255,255,0.1);"></div>
+    <div class="hdr-user">
+      <div class="hdr-avatar">PK</div>
+      <span>Praveen Kumar</span>
+      <span style="color:rgba(255,255,255,0.3);">▾</span>
+    </div>
   </div>
 </header>
 
 <!-- EXPIRY BANNER -->
 <div class="expiry-banner">
   <div class="expiry-left">
-    ⏱ This review link expires in: <span id="timerDisplay">47:52:10</span>
+    ⏱ This review link expires in: <span class="expiry-timer" id="timer">47:51:29</span>
   </div>
-  <div style="font-size:11px;color:var(--amber);">You'll receive a reminder email 48 hours before expiry</div>
+  <div class="expiry-right">You'll receive a reminder email 48 hours before expiry</div>
 </div>
 
 <div class="container">
 
   <!-- REPORT HEADER -->
-  <div class="report-hdr-card">
-    <div class="report-hdr-top">
+  <div class="report-card">
+    <div class="report-card-top">
+      <div class="report-icon">📋</div>
       <div class="report-title-block">
         <h1>Inspection Report — Visit #GQS591-001-0001-IR01</h1>
         <p>Submitted by Matthew Shannon · GQS Group · Awaiting your approval</p>
       </div>
       <div class="report-status">
-        <span class="status-pill status-pending">⏳ Pending client approval</span>
-        <span style="font-size:11px;color:var(--slate-light);">Submitted 24 Aug 2026</span>
+        <div class="status-pill status-pending">⏳ Pending client approval</div>
+        <div class="status-date">Submitted 24 Aug 2026</div>
       </div>
     </div>
-    <div class="ref-grid">
-      <div class="ref-item"><label>Client</label><span>Hancock Energy</span></div>
-      <div class="ref-item"><label>Project</label><span>Belisama Gas Project</span></div>
-      <div class="ref-item"><label>GQS number</label><span>GQS591-001-0001</span></div>
-      <div class="ref-item"><label>Visit date</label><span>22 Aug 2026</span></div>
-      <div class="ref-item"><label>Inspector</label><span>Matthew Shannon</span></div>
-      <div class="ref-item"><label>Vendor</label><span>TBA</span></div>
-      <div class="ref-item"><label>CTR number</label><span>HCE001</span></div>
-      <div class="ref-item"><label>PO number</label><span>—</span></div>
+    <div class="meta-grid">
+      <div class="meta-item"><div class="meta-label"><span>👤</span>Client</div><div class="meta-val">Hancock Energy</div></div>
+      <div class="meta-item"><div class="meta-label"><span>📁</span>Project</div><div class="meta-val">Belisama Gas Project</div></div>
+      <div class="meta-item"><div class="meta-label"><span>🔢</span>GQS number</div><div class="meta-val">GQS591-001-0001</div></div>
+      <div class="meta-item"><div class="meta-label"><span>📅</span>Visit date</div><div class="meta-val">22 Aug 2026</div></div>
+      <div class="meta-item"><div class="meta-label"><span>🔍</span>Inspector</div><div class="meta-val">Matthew Shannon</div></div>
+      <div class="meta-item"><div class="meta-label"><span>🏭</span>Vendor</div><div class="meta-val">TBA</div></div>
+      <div class="meta-item"><div class="meta-label"><span>🏷</span>CTR number</div><div class="meta-val">HCE001</div></div>
+      <div class="meta-item"><div class="meta-label"><span>📄</span>PO number</div><div class="meta-val">—</div></div>
     </div>
   </div>
 
-  <!-- SECTION: HSE -->
+  <!-- SECTION 1: HSE -->
   <div class="section-card">
-    <div class="section-card-hdr" onclick="toggleSection(this)">
-      <div class="section-card-hdr-left">
+    <div class="section-hdr" onclick="toggleSection(this)">
+      <div class="section-hdr-left">
         <div class="section-num">1</div>
-        <div class="section-card-title">HSE checklist</div>
+        <span class="section-icon">🛡️</span>
+        <span class="section-title">HSE checklist</span>
       </div>
-      <span class="section-toggle">▾</span>
+      <span class="section-arrow open">›</span>
     </div>
-    <div class="section-body">
-      <div class="hse-view-item"><div class="hse-view-q">Safety induction received?</div><span class="badge badge-yes">Yes</span></div>
-      <div class="hse-view-item"><div class="hse-view-q">All persons wearing suitable PPE?</div><span class="badge badge-yes">Yes</span></div>
-      <div class="hse-view-item"><div class="hse-view-q">Site clean and well organised?</div><span class="badge badge-yes">Yes</span></div>
-      <div class="hse-view-item"><div class="hse-view-q">All personnel working safely?</div><span class="badge badge-yes">Yes</span></div>
-      <div class="hse-view-item"><div class="hse-view-q">Machinery well maintained and operated safely?</div><span class="badge badge-yes">Yes</span></div>
-      <div class="hse-view-item"><div class="hse-view-q">Visit free from incidents or dangerous occurrences?</div><span class="badge badge-yes">Yes</span></div>
-      <div class="hse-view-item"><div class="hse-view-q">Management conveying a positive H&S culture?</div><span class="badge badge-yes">Yes</span></div>
+    <div class="section-body open">
+      <div class="hse-item"><span><span class="hse-icon">📋</span>Safety induction received?</span><span class="badge badge-yes">Yes</span></div>
+      <div class="hse-item"><span><span class="hse-icon">📋</span>All persons wearing suitable PPE?</span><span class="badge badge-yes">Yes</span></div>
+      <div class="hse-item"><span><span class="hse-icon">📋</span>Site clean and well organised?</span><span class="badge badge-yes">Yes</span></div>
+      <div class="hse-item"><span><span class="hse-icon">📋</span>All personnel working safely?</span><span class="badge badge-yes">Yes</span></div>
+      <div class="hse-item"><span><span class="hse-icon">📋</span>Machinery well maintained and operated safely?</span><span class="badge badge-yes">Yes</span></div>
+      <div class="hse-item"><span><span class="hse-icon">📋</span>Visit free from incidents or dangerous occurrences?</span><span class="badge badge-yes">Yes</span></div>
+      <div class="hse-item"><span><span class="hse-icon">📋</span>Management conveying a positive H&S culture?</span><span class="badge badge-yes">Yes</span></div>
     </div>
   </div>
 
-  <!-- SECTION: TIMESHEET -->
+  <!-- SECTION 2: TIMESHEET -->
   <div class="section-card">
-    <div class="section-card-hdr" onclick="toggleSection(this)">
-      <div class="section-card-hdr-left">
+    <div class="section-hdr" onclick="toggleSection(this)">
+      <div class="section-hdr-left">
         <div class="section-num">2</div>
-        <div class="section-card-title">Timesheet & expenses</div>
+        <span class="section-icon">⏱️</span>
+        <span class="section-title">Timesheet</span>
       </div>
-      <span class="section-toggle">▾</span>
+      <span class="section-arrow">›</span>
     </div>
     <div class="section-body">
-      <table class="data-table">
-        <thead><tr><th>Category</th><th>Value</th><th>Category</th><th>Value</th></tr></thead>
-        <tbody>
-          <tr><td>Work time</td><td>8 hrs</td><td>Mileage</td><td>120 km</td></tr>
-          <tr><td>Travel time</td><td>2 hrs</td><td>Accommodation</td><td>—</td></tr>
-          <tr><td>Report time</td><td>1 hr</td><td>Flights</td><td>—</td></tr>
-          <tr><td>Overtime</td><td>—</td><td>Per diem</td><td>—</td></tr>
-          <tr><td><strong>Total hours</strong></td><td><strong>11 hrs</strong></td><td></td><td></td></tr>
-        </tbody>
-      </table>
+      <div class="ts-grid">
+        <div class="ts-item"><div class="ts-item-label">Work time</div><div class="ts-item-val">8.00 hrs</div></div>
+        <div class="ts-item"><div class="ts-item-label">Travel time</div><div class="ts-item-val">2.00 hrs</div></div>
+        <div class="ts-item"><div class="ts-item-label">Report time</div><div class="ts-item-val">1.00 hrs</div></div>
+        <div class="ts-item"><div class="ts-item-label">Mileage</div><div class="ts-item-val">120 km</div></div>
+        <div class="ts-item" style="grid-column:span 2;background:#e4f4f1;">
+          <div class="ts-item-label">Total hours</div>
+          <div class="ts-item-val total">11.00 hrs</div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- SECTION: ATTENDEES -->
+  <!-- SECTION 3: ATTENDEES -->
   <div class="section-card">
-    <div class="section-card-hdr" onclick="toggleSection(this)">
-      <div class="section-card-hdr-left">
+    <div class="section-hdr" onclick="toggleSection(this)">
+      <div class="section-hdr-left">
         <div class="section-num">3</div>
-        <div class="section-card-title">Attendees</div>
+        <span class="section-icon">👥</span>
+        <span class="section-title">Attendees</span>
       </div>
-      <span class="section-toggle">▾</span>
+      <span class="section-arrow">›</span>
     </div>
     <div class="section-body">
-      <table class="data-table">
+      <table class="review-table">
         <thead><tr><th>Name</th><th>Company</th><th>Position</th></tr></thead>
         <tbody>
           <tr><td>Matthew Shannon</td><td>GQS Group</td><td>Lead Inspector</td></tr>
@@ -221,47 +245,47 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--slate);-web
     </div>
   </div>
 
-  <!-- SECTION: CALIBRATION -->
+  <!-- SECTION 4: CALIBRATION -->
   <div class="section-card">
-    <div class="section-card-hdr" onclick="toggleSection(this)">
-      <div class="section-card-hdr-left">
+    <div class="section-hdr" onclick="toggleSection(this)">
+      <div class="section-hdr-left">
         <div class="section-num">4</div>
-        <div class="section-card-title">Calibration status</div>
+        <span class="section-icon">🔬</span>
+        <span class="section-title">Calibration</span>
       </div>
-      <span class="section-toggle">▾</span>
+      <span class="section-arrow">›</span>
     </div>
     <div class="section-body">
-      <table class="data-table">
+      <table class="review-table">
         <thead><tr><th>Instrument</th><th>Tag no.</th><th>Cert. no.</th><th>Expiry</th><th>Status</th></tr></thead>
         <tbody>
-          <tr><td>Digital thickness gauge</td><td>DTG-001</td><td>CERT-2026-0441</td><td>Dec 2026</td><td><span class="badge badge-yes">Valid</span></td></tr>
-          <tr><td>Torque wrench</td><td>TW-003</td><td>CERT-2026-0188</td><td>Nov 2026</td><td><span class="badge badge-yes">Valid</span></td></tr>
+          <tr><td>Digital thickness gauge</td><td>DTG-001</td><td>CERT-2026-0441</td><td>Dec 2026</td><td><span class="badge badge-valid">Valid</span></td></tr>
+          <tr><td>Torque wrench</td><td>TW-003</td><td>CERT-2026-0188</td><td>Nov 2026</td><td><span class="badge badge-valid">Valid</span></td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- SECTION: DOCUMENTS -->
+  <!-- SECTION 5: DOCUMENTS -->
   <div class="section-card">
-    <div class="section-card-hdr" onclick="toggleSection(this)">
-      <div class="section-card-hdr-left">
+    <div class="section-hdr" onclick="toggleSection(this)">
+      <div class="section-hdr-left">
         <div class="section-num">5</div>
-        <div class="section-card-title">Documents</div>
+        <span class="section-icon">📄</span>
+        <span class="section-title">Documents</span>
       </div>
-      <span class="section-toggle">▾</span>
+      <span class="section-arrow">›</span>
     </div>
     <div class="section-body">
-      <p style="font-size:12px;font-weight:700;color:var(--slate-mid);margin-bottom:10px;">Issued</p>
-      <table class="data-table" style="margin-bottom:20px;">
+      <table class="review-table" style="margin-bottom:16px;">
         <thead><tr><th>Type</th><th>Issued?</th><th>Document number</th></tr></thead>
         <tbody>
           <tr><td>Inspection Release Certificate (IRN)</td><td><span class="badge badge-yes">Yes</span></td><td>IRN-2026-0091</td></tr>
           <tr><td>NCR</td><td><span class="badge badge-no">No</span></td><td>—</td></tr>
         </tbody>
       </table>
-      <p style="font-size:12px;font-weight:700;color:var(--slate-mid);margin-bottom:10px;">Used</p>
-      <table class="data-table">
-        <thead><tr><th>Document title</th><th>Document number</th><th>Revision</th></tr></thead>
+      <table class="review-table">
+        <thead><tr><th>Document title</th><th>Doc number</th><th>Revision</th></tr></thead>
         <tbody>
           <tr><td>Inspection & Test Plan (ITP)</td><td>ITP-BEL-2026-01</td><td>Rev 2</td></tr>
           <tr><td>Dimensional Drawing</td><td>DWG-BEL-0041</td><td>Rev A</td></tr>
@@ -270,44 +294,46 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--slate);-web
     </div>
   </div>
 
-  <!-- SECTION: VISIT REPORT -->
+  <!-- SECTION 6: VISIT REPORT -->
   <div class="section-card">
-    <div class="section-card-hdr" onclick="toggleSection(this)">
-      <div class="section-card-hdr-left">
+    <div class="section-hdr" onclick="toggleSection(this)">
+      <div class="section-hdr-left">
         <div class="section-num">6</div>
-        <div class="section-card-title">Visit report narrative</div>
+        <span class="section-icon">📝</span>
+        <span class="section-title">Visit report</span>
       </div>
-      <span class="section-toggle open">▾</span>
+      <span class="section-arrow">›</span>
     </div>
-    <div class="section-body open">
+    <div class="section-body">
       <div class="narrative-box">
         Inspection visit was attended on 22 August 2026 at the vendor facility. This report covers the inspection activities performed by the GQS inspector on behalf of Hancock Energy for the Belisama Gas Project.<br><br>
-        Inspector performed 100% final dimensional and visual inspection of the equipment as per the approved Inspection and Test Plan (ITP-BEL-2026-01). All results were found to be acceptable. Details as follows:<br><br>
+        Inspector performed 100% final dimensional and visual inspection of the equipment as per the approved Inspection and Test Plan (ITP-BEL-2026-01). All results were found to be acceptable.<br><br>
         • Visual inspection performed — no surface defects, burrs, cracks or pitting found. Surface condition acceptable.<br>
         • Dimensional check performed against approved drawing DWG-BEL-0041 Rev A — all critical dimensions within tolerance.<br>
-        • Material traceability verified. Heat number and serial number clearly stamped on equipment and traceable to mill certificate.<br>
+        • Material traceability verified. Heat number and serial number clearly stamped and traceable to mill certificate.<br>
         • Documentation reviewed and found acceptable. IRN issued with acceptable result.<br><br>
         No non-conformances raised during this visit. Further visit not required.
       </div>
     </div>
   </div>
 
-  <!-- SECTION: PHOTOS -->
+  <!-- SECTION 7: PHOTOS -->
   <div class="section-card">
-    <div class="section-card-hdr" onclick="toggleSection(this)">
-      <div class="section-card-hdr-left">
+    <div class="section-hdr" onclick="toggleSection(this)">
+      <div class="section-hdr-left">
         <div class="section-num">7</div>
-        <div class="section-card-title">Photographs</div>
+        <span class="section-icon">📷</span>
+        <span class="section-title">Photos</span>
       </div>
-      <span class="section-toggle">▾</span>
+      <span class="section-arrow">›</span>
     </div>
     <div class="section-body">
-      <div class="photo-grid-view">
-        <div class="photo-thumb-view" style="background:#e4f4f1;color:var(--teal);">📷<br/><span style="font-size:10px;margin-top:4px;display:block;">Photo 1</span></div>
-        <div class="photo-thumb-view" style="background:#e4f4f1;color:var(--teal);">📷<br/><span style="font-size:10px;margin-top:4px;display:block;">Photo 2</span></div>
-        <div class="photo-thumb-view" style="background:#e4f4f1;color:var(--teal);">📷<br/><span style="font-size:10px;margin-top:4px;display:block;">Photo 3</span></div>
+      <div class="photo-grid">
+        <div class="photo-item">📷</div>
+        <div class="photo-item">📷</div>
+        <div class="photo-item">📷</div>
       </div>
-      <p style="font-size:11px;color:var(--slate-light);margin-top:12px;">3 photographs attached to this report.</p>
+      <p style="font-size:11px;color:#aaa;margin-top:10px;">3 photographs attached</p>
     </div>
   </div>
 
@@ -315,74 +341,77 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--slate);-web
   <div class="approval-panel">
     <h2>Your approval is required</h2>
     <p>Please review all sections above carefully. Once you approve, a signed PDF will be automatically generated and sent to both Hancock Energy and GQS. This action cannot be undone.</p>
-    <div class="approval-actions">
+    <div class="approval-btns">
       <button class="btn-approve" onclick="approveReport()">✅ Approve report</button>
       <button class="btn-changes" onclick="requestChanges()">✏️ Request changes</button>
     </div>
-    <div class="comments-area" id="commentsArea">
+    <div class="comments-wrap" id="commentsWrap">
       <label>Your comments for the GQS coordinator</label>
-      <textarea placeholder="Please describe what changes are required. Be as specific as possible so the inspector can address your concerns."></textarea>
-      <button class="btn-send-comments" onclick="sendComments()">Send comments to coordinator →</button>
+      <textarea placeholder="Please describe what changes are required..."></textarea>
+      <button class="btn-send" onclick="sendComments()">📨 Send comments to coordinator</button>
     </div>
   </div>
 
-  <div class="footer-note">
+  <div class="footer">
     This is a secure, read-only view of your GQS inspection report.<br>
     This link will expire on <strong>26 Aug 2026 at 17:00 AWST</strong>. You will receive a reminder email 48 hours before expiry.<br>
-    Questions? Contact your GQS coordinator: <strong>Matthew Shannon</strong> · info@gqsgroup.com
+    Questions? Contact: <strong>Matthew Shannon</strong> · info@gqsgroup.com
   </div>
 
 </div>
 
 <script>
-// Countdown timer (demo — starts at 47h 52m 10s)
-let secs = 47*3600 + 52*60 + 10;
-function updateTimer() {
-  const h = Math.floor(secs/3600);
-  const m = Math.floor((secs%3600)/60);
-  const s = secs%60;
-  document.getElementById('timerDisplay').textContent =
-    String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+// Timer
+let secs = 47*3600 + 51*60 + 29;
+function tick() {
+  const h = String(Math.floor(secs/3600)).padStart(2,'0');
+  const m = String(Math.floor((secs%3600)/60)).padStart(2,'0');
+  const s = String(secs%60).padStart(2,'0');
+  document.getElementById('timer').textContent = h+':'+m+':'+s;
   if(secs > 0) secs--;
 }
-setInterval(updateTimer, 1000);
-updateTimer();
+setInterval(tick, 1000);
 
 function toggleSection(hdr) {
   const body = hdr.nextElementSibling;
-  const toggle = hdr.querySelector('.section-toggle');
+  const arrow = hdr.querySelector('.section-arrow');
   body.classList.toggle('open');
-  toggle.classList.toggle('open');
+  arrow.classList.toggle('open');
 }
 
 function approveReport() {
   if(!confirm('Are you sure you want to approve this report? A signed PDF will be generated and sent to all parties. This cannot be undone.')) return;
   document.body.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:Inter,sans-serif;background:#f4f7fa;padding:40px;text-align:center;">
-    <div style="background:#fff;border:1px solid #e1e8f0;border-radius:16px;padding:48px;max-width:500px;box-shadow:0 8px 32px rgba(0,0,0,0.1);">
+    <div style="background:#fff;border-radius:16px;padding:48px;max-width:520px;box-shadow:0 8px 32px rgba(0,0,0,0.1);">
       <div style="font-size:52px;margin-bottom:16px;">✅</div>
-      <h2 style="font-size:22px;font-weight:700;color:#141e2b;margin-bottom:8px;">Report approved</h2>
-      <p style="color:#6b7f94;font-size:14px;line-height:1.7;margin-bottom:24px;">Thank you. The inspection report has been approved and a signed PDF has been generated automatically.<br><br>Copies have been sent to <strong>Hancock Energy</strong> and <strong>GQS Group</strong>. The report status in IGRIS has been updated to <strong style="color:#0b6e5e;">Approved & Closed</strong>.</p>
-      <div style="background:#f2faf8;border:1px solid #e4f4f1;border-radius:8px;padding:16px;font-size:12px;color:#3a4f63;text-align:left;line-height:1.8;">
-        🔒 All links have been permanently closed.<br>
-        📄 Approved PDF sent to your registered email.<br>
-        📁 Report stored in IGRIS: <strong>GQS591-001-0001-IR01</strong>
+      <h2 style="font-size:22px;font-weight:700;color:#1a2533;margin-bottom:8px;">Report approved</h2>
+      <p style="color:#6b7f94;font-size:14px;line-height:1.7;margin-bottom:24px;">Thank you for approving the inspection report for the <strong>Belisama Gas Project</strong>. A signed PDF has been automatically generated and sent to all parties.</p>
+      <div style="background:#f2faf8;border:1px solid #e4f4f1;border-radius:10px;padding:16px;font-size:12px;color:#3a4f63;text-align:left;line-height:2;margin-bottom:16px;">
+        ✅ Report status in IGRIS: <strong style="color:#0e8a76;">Approved & Closed</strong><br>
+        🔒 All links permanently closed<br>
+        📄 Approved PDF sent to: <strong>admin@hancockenergy.com.au</strong><br>
+        📄 Approved PDF sent to: <strong>info@gqsgroup.com</strong><br>
+        📁 Reference: <strong>GQS591-001-0001-IR01</strong>
+      </div>
+      <div style="background:#fff8ed;border:1px solid #fde68a;border-radius:8px;padding:12px 16px;font-size:12px;color:#92400e;text-align:left;">
+        ℹ️ The GQS coordinator has been notified automatically in IGRIS.
       </div>
     </div>
   </div>`;
 }
 
 function requestChanges() {
-  document.getElementById('commentsArea').classList.toggle('visible');
+  document.getElementById('commentsWrap').classList.toggle('visible');
 }
 
 function sendComments() {
-  const txt = document.querySelector('#commentsArea textarea').value.trim();
+  const txt = document.querySelector('#commentsWrap textarea').value.trim();
   if(!txt) { alert('Please enter your comments before sending.'); return; }
   document.querySelector('.approval-panel').innerHTML = `
     <div style="text-align:center;padding:20px 0;">
       <div style="font-size:40px;margin-bottom:12px;">📨</div>
-      <h3 style="font-size:16px;font-weight:700;color:var(--slate);margin-bottom:8px;">Comments sent to coordinator</h3>
-      <p style="font-size:13px;color:var(--slate-light);line-height:1.6;">Your comments have been sent to the GQS coordinator. They will review your feedback, update the report, and send you a new review link.</p>
+      <h3 style="font-size:16px;font-weight:700;color:#1a2533;margin-bottom:8px;">Comments sent</h3>
+      <p style="font-size:13px;color:#6b7f94;line-height:1.6;">Your comments have been sent to the GQS coordinator. They will update the report and send you a new review link.</p>
     </div>`;
 }
 </script>
