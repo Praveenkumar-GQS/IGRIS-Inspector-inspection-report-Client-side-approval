@@ -387,18 +387,37 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
         <div class="review-tab" onclick="switchTab(this,'tab-photos')">Photos</div>
       </div>
 
-      <div id="reviewTabContent"><div class="review-content active" id="tab-hse" style="">
-        <div class="hse-review-item"><span>Safety induction received?</span><span class="badge badge-yes">Yes</span></div>
-        <div class="hse-review-item"><span>All persons wearing suitable PPE?</span><span class="badge badge-yes">Yes</span></div>
-        <div class="hse-review-item"><span>Site clean and well organised?</span><span class="badge badge-yes">Yes</span></div>
-        <div class="hse-review-item"><span>All personnel working safely?</span><span class="badge badge-yes">Yes</span></div>
-        <div class="hse-review-item"><span>Machinery well maintained and operated safely?</span><span class="badge badge-yes">Yes</span></div>
-        <div class="hse-review-item"><span>Visit free from incidents or dangerous occurrences?</span><span class="badge badge-yes">Yes</span></div>
-        <div class="hse-review-item"><span>Management conveying a positive H&S culture?</span><span class="badge badge-yes">Yes</span></div>
-        <div style="margin-top:12px;"><div style="font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px;">Additional HSE notes</div>
-        <div class="narrative-box">No additional HSE concerns noted during this visit.</div></div>
+      <div id="reviewTabContent">
+
+      <!-- TAB: CONTACT -->
+      <div class="review-content active" id="tab-contact">
+        <table class="review-table">
+          <thead><tr><th>Field</th><th>Value</th><th>Field</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Client</td><td>Hancock Energy</td><td>Inspector</td><td>Matthew Shannon</td></tr>
+            <tr><td>Client contact</td><td>Jake Morton</td><td>GQS contact</td><td>Matthew Shannon</td></tr>
+          </tbody>
+        </table>
       </div>
 
+      <!-- TAB: JOB DETAILS -->
+      <div class="review-content" id="tab-jobdetails">
+        <table class="review-table">
+          <thead><tr><th>Field</th><th>Value</th><th>Field</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>GQS number</td><td>GQS591-001-0001</td><td>PO number</td><td>—</td></tr>
+            <tr><td>CTR number</td><td>HCE001</td><td>Cost centre</td><td>N/A</td></tr>
+            <tr><td>Vendor name</td><td>TBA</td><td>Vendor location</td><td>Belisama Gas Field, WA</td></tr>
+            <tr><td>Project</td><td>Belisama Gas Project</td><td>Visit dates</td><td>22 Aug 2026</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:14px;">
+          <div style="font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px;">Scope of work</div>
+          <div class="narrative-box">VENDOR INSPECTION AT TBA — PROJECT: Belisama Gas Project</div>
+        </div>
+      </div>
+
+      <!-- TAB: TIMESHEET -->
       <div class="review-content" id="tab-timesheet">
         <table class="exp-table">
           <thead><tr><th>Category</th><th>Hours</th><th>Category</th><th>Value</th></tr></thead>
@@ -412,6 +431,22 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
         </table>
       </div>
 
+      <!-- TAB: HSE -->
+      <div class="review-content" id="tab-hse">
+        <div class="hse-review-item"><span>Safety induction received?</span><span class="badge badge-yes">Yes</span></div>
+        <div class="hse-review-item"><span>All persons wearing suitable PPE?</span><span class="badge badge-yes">Yes</span></div>
+        <div class="hse-review-item"><span>Site clean and well organised?</span><span class="badge badge-yes">Yes</span></div>
+        <div class="hse-review-item"><span>All personnel working safely?</span><span class="badge badge-yes">Yes</span></div>
+        <div class="hse-review-item"><span>Machinery well maintained and operated safely?</span><span class="badge badge-yes">Yes</span></div>
+        <div class="hse-review-item"><span>Visit free from incidents or dangerous occurrences?</span><span class="badge badge-yes">Yes</span></div>
+        <div class="hse-review-item"><span>Management conveying a positive H&S culture?</span><span class="badge badge-yes">Yes</span></div>
+        <div style="margin-top:12px;">
+          <div style="font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px;">Additional HSE notes</div>
+          <div class="narrative-box">No additional HSE concerns noted during this visit.</div>
+        </div>
+      </div>
+
+      <!-- TAB: ATTENDEES -->
       <div class="review-content" id="tab-attendees">
         <table class="review-table">
           <thead><tr><th>Name</th><th>Company</th><th>Position</th></tr></thead>
@@ -422,16 +457,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
         </table>
       </div>
 
-      <div class="review-content" id="tab-calibration">
-        <table class="review-table">
-          <thead><tr><th>Instrument</th><th>Tag no.</th><th>Cert. no.</th><th>Expiry</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td>Digital thickness gauge</td><td>DTG-001</td><td>CERT-2026-0441</td><td>Dec 2026</td><td><span class="badge badge-yes">Valid</span></td></tr>
-            <tr><td>Torque wrench</td><td>TW-003</td><td>CERT-2026-0188</td><td>Nov 2026</td><td><span class="badge badge-yes">Valid</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-
+      <!-- TAB: DOCUMENTS -->
       <div class="review-content" id="tab-documents">
         <div style="font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px;">Documents issued</div>
         <table class="review-table" style="margin-bottom:16px;">
@@ -451,6 +477,29 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
         </table>
       </div>
 
+      <!-- TAB: CALIBRATION -->
+      <div class="review-content" id="tab-calibration">
+        <table class="review-table">
+          <thead><tr><th>Instrument</th><th>Tag no.</th><th>Cert. no.</th><th>Expiry</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Digital thickness gauge</td><td>DTG-001</td><td>CERT-2026-0441</td><td>Dec 2026</td><td><span class="badge badge-yes">Valid</span></td></tr>
+            <tr><td>Torque wrench</td><td>TW-003</td><td>CERT-2026-0188</td><td>Nov 2026</td><td><span class="badge badge-yes">Valid</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TAB: PHOTOS -->
+      <div class="review-content" id="tab-photos">
+        <div class="photo-grid">
+          <div class="photo-item">📷</div>
+          <div class="photo-item">📷</div>
+          <div class="photo-item">📷</div>
+          <div class="photo-item" style="background:#f7f9fb;color:#ccc;font-size:12px;">+more</div>
+        </div>
+        <p style="font-size:11px;color:#999;margin-top:10px;">3 photographs submitted</p>
+      </div>
+
+      <!-- TAB: VISIT REPORT -->
       <div class="review-content" id="tab-narrative">
         <div class="narrative-box">
           Inspection visit was attended on 22 August 2026 at the vendor facility. This report covers the inspection activities performed by the GQS inspector on behalf of Hancock Energy for the Belisama Gas Project.<br><br>
@@ -462,14 +511,27 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
         </div>
       </div>
 
-      <div class="review-content" id="tab-photos">
-        <div class="photo-grid">
-          <div class="photo-item">📷</div>
-          <div class="photo-item">📷</div>
-          <div class="photo-item">📷</div>
-          <div class="photo-item" style="background:#f7f9fb;color:#ccc;font-size:12px;">+more</div>
+      <!-- TAB: RELEASE CERT -->
+      <div class="review-content" id="tab-relcert">
+        <table class="review-table">
+          <thead><tr><th>Field</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Inspection Release Certificate (IRN)</td><td><span class="badge badge-yes">Issued</span></td></tr>
+            <tr><td>IRN number</td><td>IRN-2026-0091</td></tr>
+            <tr><td>Material released</td><td><span class="badge badge-yes">Yes — Full release</span></td></tr>
+            <tr><td>Conditional release details</td><td>—</td></tr>
+            <tr><td>Further visit required</td><td><span class="badge badge-no">No</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TAB: NCR -->
+      <div class="review-content" id="tab-ncr">
+        <div style="text-align:center;padding:32px;color:#aaa;">
+          <div style="font-size:32px;margin-bottom:10px;">✅</div>
+          <div style="font-size:13px;font-weight:600;color:#999;">No NCRs raised</div>
+          <div style="font-size:12px;color:#bbb;margin-top:4px;">No non-conformances were recorded during this inspection visit.</div>
         </div>
-        <p style="font-size:11px;color:#999;margin-top:10px;">3 photographs submitted</p>
       </div>
 
 </div><!-- end reviewTabContent -->
