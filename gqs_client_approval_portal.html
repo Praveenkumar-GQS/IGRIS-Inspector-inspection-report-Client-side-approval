@@ -57,10 +57,10 @@ body{font-family:Inter,sans-serif;background-image:url("gqs_bg.png");background-
 .section-num{width:28px;height:28px;border-radius:50%;background:#0e8a76;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .section-icon{font-size:16px;}
 .section-title{font-size:14px;font-weight:600;color:#1a2533;}
-.section-arrow{font-size:16px;color:#aaa;transition:transform 0.2s;font-style:normal;}
+.section-arrow{font-size:16px;color:#aaa;transition:transform 0.2s;font-style:normal;display:inline-block;}
 .section-arrow.open{transform:rotate(90deg);}
 .section-body{padding:0 22px 18px;display:none;border-top:1px solid #f0f2f5;padding-top:0;}
-.section-body.open{display:block;padding-top:16px;}
+
 
 /* HSE */
 .hse-item{display:flex;align-items:center;justify-content:space-between;padding:9px 10px;border-radius:6px;font-size:13px;color:#3a4f63;margin-bottom:3px;}
@@ -163,11 +163,10 @@ body{font-family:Inter,sans-serif;background-image:url("gqs_bg.png");background-
 
   <!-- 1: CONTACT -->
   <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
+    <div class="section-hdr">
       <div class="section-hdr-left"><div class="section-num">1</div><span class="section-icon">👤</span><span class="section-title">Contact details</span></div>
-      <i class="section-arrow">›</i>
     </div>
-    <div class="section-body">
+    <div class="section-body open">
       <table class="review-table"><thead><tr><th>Field</th><th>Value</th><th>Field</th><th>Value</th></tr></thead>
       <tbody><tr><td>Client</td><td>Hancock Energy</td><td>Inspector</td><td>Matthew Shannon</td></tr>
       <tr><td>Client contact</td><td>Jake Morton</td><td>GQS contact</td><td>Matthew Shannon</td></tr></tbody></table>
@@ -176,11 +175,10 @@ body{font-family:Inter,sans-serif;background-image:url("gqs_bg.png");background-
 
   <!-- 2: JOB DETAILS -->
   <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
+    <div class="section-hdr">
       <div class="section-hdr-left"><div class="section-num">2</div><span class="section-icon">📋</span><span class="section-title">Job details</span></div>
-      <i class="section-arrow">›</i>
     </div>
-    <div class="section-body">
+    <div class="section-body open">
       <table class="review-table" style="margin-bottom:14px;"><thead><tr><th>Field</th><th>Value</th><th>Field</th><th>Value</th></tr></thead>
       <tbody><tr><td>GQS number</td><td>GQS591-001-0001</td><td>PO number</td><td>—</td></tr>
       <tr><td>CTR number</td><td>HCE001</td><td>Cost centre</td><td>N/A</td></tr>
@@ -193,11 +191,10 @@ body{font-family:Inter,sans-serif;background-image:url("gqs_bg.png");background-
 
   <!-- 3: TIMESHEET -->
   <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
+    <div class="section-hdr">
       <div class="section-hdr-left"><div class="section-num">3</div><span class="section-icon">⏱️</span><span class="section-title">Timesheet</span></div>
-      <i class="section-arrow">›</i>
     </div>
-    <div class="section-body">
+    <div class="section-body open">
       <div class="ts-grid">
         <div class="ts-item"><div class="ts-label">Work time</div><div class="ts-val">8.00 hrs</div></div>
         <div class="ts-item"><div class="ts-label">Travel time</div><div class="ts-val">2.00 hrs</div></div>
@@ -210,11 +207,10 @@ body{font-family:Inter,sans-serif;background-image:url("gqs_bg.png");background-
 
   <!-- 4: HSE -->
   <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
+    <div class="section-hdr">
       <div class="section-hdr-left"><div class="section-num">4</div><span class="section-icon">🛡️</span><span class="section-title">HSE checklist</span></div>
-      <i class="section-arrow">›</i>
     </div>
-    <div class="section-body">
+    <div class="section-body open">
       <div class="hse-item"><span>Safety induction received?</span><span class="badge badge-yes">Yes</span></div>
       <div class="hse-item"><span>All persons wearing suitable PPE?</span><span class="badge badge-yes">Yes</span></div>
       <div class="hse-item"><span>Site clean and well organised?</span><span class="badge badge-yes">Yes</span></div>
@@ -227,11 +223,10 @@ body{font-family:Inter,sans-serif;background-image:url("gqs_bg.png");background-
 
   <!-- 5: ATTENDEES -->
   <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
+    <div class="section-hdr">
       <div class="section-hdr-left"><div class="section-num">5</div><span class="section-icon">👥</span><span class="section-title">Attendees</span></div>
-      <i class="section-arrow">›</i>
     </div>
-    <div class="section-body">
+    <div class="section-body open">
       <table class="review-table"><thead><tr><th>Name</th><th>Company</th><th>Position</th></tr></thead>
       <tbody><tr><td>Matthew Shannon</td><td>GQS Group</td><td>Lead Inspector</td></tr>
       <tr><td>Jake Morton</td><td>Hancock Energy</td><td>Client Representative</td></tr></tbody></table>
@@ -240,11 +235,10 @@ body{font-family:Inter,sans-serif;background-image:url("gqs_bg.png");background-
 
   <!-- 6: DOCUMENTS -->
   <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
+    <div class="section-hdr">
       <div class="section-hdr-left"><div class="section-num">6</div><span class="section-icon">📄</span><span class="section-title">Documents</span></div>
-      <i class="section-arrow">›</i>
     </div>
-    <div class="section-body">
+    <div class="section-body open">
       <div class="section-sub-label">Documents issued</div>
       <table class="review-table" style="margin-bottom:14px;"><thead><tr><th>Type</th><th>Issued?</th><th>Number</th></tr></thead>
       <tbody><tr><td>Inspection Release Certificate (IRN)</td><td><span class="badge badge-yes">Yes</span></td><td>IRN-2026-0091</td></tr>
@@ -258,11 +252,10 @@ body{font-family:Inter,sans-serif;background-image:url("gqs_bg.png");background-
 
   <!-- 7: CALIBRATION -->
   <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
+    <div class="section-hdr">
       <div class="section-hdr-left"><div class="section-num">7</div><span class="section-icon">🔬</span><span class="section-title">Calibration</span></div>
-      <i class="section-arrow">›</i>
     </div>
-    <div class="section-body">
+    <div class="section-body open">
       <table class="review-table"><thead><tr><th>Instrument</th><th>Tag no.</th><th>Cert. no.</th><th>Expiry</th><th>Status</th></tr></thead>
       <tbody><tr><td>Digital thickness gauge</td><td>DTG-001</td><td>CERT-2026-0441</td><td>Dec 2026</td><td><span class="badge badge-valid">Valid</span></td></tr>
       <tr><td>Torque wrench</td><td>TW-003</td><td>CERT-2026-0188</td><td>Nov 2026</td><td><span class="badge badge-valid">Valid</span></td></tr></tbody></table>
@@ -271,11 +264,10 @@ body{font-family:Inter,sans-serif;background-image:url("gqs_bg.png");background-
 
   <!-- 8: PHOTOS -->
   <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
+    <div class="section-hdr">
       <div class="section-hdr-left"><div class="section-num">8</div><span class="section-icon">📷</span><span class="section-title">Photos</span></div>
-      <i class="section-arrow">›</i>
     </div>
-    <div class="section-body">
+    <div class="section-body open">
       <div class="photo-grid">
         <div class="photo-item">📷</div><div class="photo-item">📷</div><div class="photo-item">📷</div>
       </div>
@@ -285,11 +277,10 @@ body{font-family:Inter,sans-serif;background-image:url("gqs_bg.png");background-
 
   <!-- 9: VISIT REPORT -->
   <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
+    <div class="section-hdr">
       <div class="section-hdr-left"><div class="section-num">9</div><span class="section-icon">📝</span><span class="section-title">Visit report</span></div>
-      <i class="section-arrow">›</i>
     </div>
-    <div class="section-body">
+    <div class="section-body open">
       <div class="narrative-box">
         Inspection visit was attended on 22 August 2026 at the vendor facility for the Belisama Gas Project.<br><br>
         Inspector performed 100% final dimensional and visual inspection per ITP-BEL-2026-01. All results acceptable.<br><br>
@@ -303,11 +294,10 @@ body{font-family:Inter,sans-serif;background-image:url("gqs_bg.png");background-
 
   <!-- 10: RELEASE CERT -->
   <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
+    <div class="section-hdr">
       <div class="section-hdr-left"><div class="section-num">10</div><span class="section-icon">📜</span><span class="section-title">Release certificate</span></div>
-      <i class="section-arrow">›</i>
     </div>
-    <div class="section-body">
+    <div class="section-body open">
       <table class="review-table"><thead><tr><th>Field</th><th>Value</th></tr></thead>
       <tbody>
         <tr><td>IRN issued</td><td><span class="badge badge-yes">Yes</span></td></tr>
@@ -318,13 +308,29 @@ body{font-family:Inter,sans-serif;background-image:url("gqs_bg.png");background-
     </div>
   </div>
 
-  <!-- 11: NCR -->
+  <!-- 11: SUPPORTING DOCUMENTS -->
   <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
-      <div class="section-hdr-left"><div class="section-num">11</div><span class="section-icon">⚠️</span><span class="section-title">Non-conformance (NCR)</span></div>
-      <i class="section-arrow">›</i>
+    <div class="section-hdr">
+      <div class="section-hdr-left"><div class="section-num">11</div><span class="section-icon">📎</span><span class="section-title">Supporting documents</span></div>
     </div>
-    <div class="section-body">
+    <div class="section-body open">
+      <table class="review-table">
+        <thead><tr><th>Document title</th><th>Type</th><th>Reference</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Mill Certificate — Heat #MC2026-441</td><td>Certificate</td><td>MC-2026-441</td><td><span class="badge badge-yes">Verified</span></td></tr>
+          <tr><td>Weld Procedure Specification</td><td>Procedure</td><td>WPS-BEL-001</td><td><span class="badge badge-yes">Verified</span></td></tr>
+          <tr><td>Dimensional Report</td><td>Report</td><td>DIM-2026-0091</td><td><span class="badge badge-yes">Verified</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 12: NCR -->
+  <div class="section-card">
+    <div class="section-hdr">
+      <div class="section-hdr-left"><div class="section-num">12</div><span class="section-icon">⚠️</span><span class="section-title">Non-conformance (NCR)</span></div>
+    </div>
+    <div class="section-body open">
       <div style="text-align:center;padding:20px 0;">
         <div style="font-size:32px;margin-bottom:8px;">✅</div>
         <div style="font-size:13px;font-weight:600;color:#999;">No NCRs raised</div>
@@ -365,12 +371,6 @@ setInterval(()=>{
   if(secs>0)secs--;
 },1000);
 
-function tog(hdr){
-  const body=hdr.nextElementSibling;
-  const arrow=hdr.querySelector('.section-arrow');
-  body.classList.toggle('open');
-  arrow.classList.toggle('open');
-}
 
 function approveReport(){
   if(!confirm('Approve this report? A signed PDF will be generated and sent to all parties.'))return;
