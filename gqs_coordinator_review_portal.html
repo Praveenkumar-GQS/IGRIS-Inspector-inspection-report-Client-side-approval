@@ -540,13 +540,19 @@ No non-conformances raised. Further visit not required.</textarea></div>
 <div class="modal-overlay" id="approveModal">
   <div class="modal">
     <div class="modal-title">✅ Approve & send to client</div>
-    <div class="modal-sub">This will lock the inspector's link and send a secure approval link to Hancock Energy. They will have 48 hours to review and approve.</div>
-    <div class="warn-box">⚠️ Once sent, the inspector's link will be permanently locked to read-only.</div>
+    <div class="modal-sub">This will lock the inspector's link and send a secure approval link to Hancock Energy. Please confirm your details below.</div>
+    <div class="warn-box">⚠️ Once approved, the inspector's link will be permanently locked to read-only.</div>
+    <label class="modal-email-label">Coordinator name</label>
+    <input type="text" class="modal-email" id="coordName" placeholder="Your full name" value="Matthew Shannon"/>
+    <label class="modal-email-label">Approval date</label>
+    <input type="date" class="modal-email" id="coordDate"/>
+    <label class="modal-email-label">Approval time</label>
+    <input type="time" class="modal-email" id="coordTime"/>
     <label class="modal-email-label">Client email</label>
-    <input type="email" class="modal-email" value="admin@hancockenergy.com.au"/>
+    <input type="email" class="modal-email" id="clientEmail" value="admin@hancockenergy.com.au"/>
     <div class="modal-actions">
       <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-approve" onclick="approveAndSend()">Lock inspector link & send to client</button>
+      <button class="btn btn-approve" onclick="approveAndSend()">✅ Approve & send to client</button>
     </div>
   </div>
 </div>
@@ -608,6 +614,12 @@ function sendFeedback(){
 }
 
 function showApproveModal(){
+  // Pre-fill current date and time
+  const now = new Date();
+  const dateStr = now.toISOString().split('T')[0];
+  const timeStr = now.toTimeString().slice(0,5);
+  document.getElementById('coordDate').value = dateStr;
+  document.getElementById('coordTime').value = timeStr;
   document.getElementById('approveModal').classList.add('visible');
 }
 
@@ -616,9 +628,31 @@ function closeModal(){
 }
 
 function approveAndSend(){
+  const name = document.getElementById('coordName').value.trim();
+  const date = document.getElementById('coordDate').value;
+  const time = document.getElementById('coordTime').value;
+  if(!name){ alert('Please enter your name before approving.'); return; }
+  if(!date || !time){ alert('Please confirm the approval date and time.'); return; }
   closeModal();
-  try{ const ch = new BroadcastChannel('gqs_coordinator'); ch.postMessage('coordinator_approved'); ch.close(); }catch(e){}
-  document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:Inter,sans-serif;background:var(--bg);padding:40px;text-align:center;"><div style="background:#fff;border-radius:16px;padding:48px;max-width:500px;box-shadow:0 8px 32px rgba(0,0,0,0.1);border:1px solid var(--border);"><div style="font-size:52px;margin-bottom:16px;">✅</div><h2 style="font-size:20px;font-weight:700;color:var(--slate);font-family:DM Sans,sans-serif;margin-bottom:8px;">Report approved</h2><p style="color:var(--slate-light);font-size:14px;line-height:1.7;margin-bottom:24px;">The inspection report has been approved and a secure review link has been sent to <strong>Hancock Energy</strong>. The inspector\'s link is now locked.</p><div style="background:var(--teal-pale);border:1px solid var(--teal-light);border-radius:10px;padding:16px;font-size:12px;color:var(--slate-mid);text-align:left;line-height:2;"><span>🔒 Inspector link: <strong>Locked — read only</strong></span><br><span>📨 Client link sent to: <strong>admin@hancockenergy.com.au</strong></span><br><span>📊 IGRIS status: <strong style="color:var(--teal);">Awaiting client approval</strong></span></div><button onclick="window.close()" style="margin-top:20px;background:var(--teal);color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;">Close this tab</button></div></div>';
+  // Format date nicely
+  const d = new Date(date + 'T' + time);
+  const formatted = d.toLocaleDateString('en-AU', {day:'2-digit',month:'short',year:'numeric'}) + ' at ' + time + ' AWST';
+  try{ const ch = new BroadcastChannel('gqs_coordinator'); ch.postMessage({type:'coordinator_approved', name:name, datetime:formatted}); ch.close(); }catch(e){}
+  document.body.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:Inter,sans-serif;background:#f7f9fc;padding:40px;text-align:center;">
+    <div style="background:#fff;border-radius:16px;padding:48px;max-width:500px;box-shadow:0 8px 32px rgba(0,0,0,0.1);border:1px solid #e2e8f0;">
+      <div style="font-size:52px;margin-bottom:16px;">✅</div>
+      <h2 style="font-size:20px;font-weight:700;color:#1a2533;font-family:DM Sans,sans-serif;margin-bottom:8px;">Report approved</h2>
+      <p style="color:#6b7f94;font-size:14px;line-height:1.7;margin-bottom:24px;">The inspection report has been approved and a secure review link has been sent to <strong>Hancock Energy</strong>. The inspector's link is now locked.</p>
+      <div style="background:#f0faf8;border:1px solid #e6f4f2;border-radius:10px;padding:16px;font-size:12px;color:#3d5166;text-align:left;line-height:2.2;">
+        👤 Approved by: <strong>${name}</strong><br>
+        📅 Approval date & time: <strong>${formatted}</strong><br>
+        🔒 Inspector link: <strong>Locked — read only</strong><br>
+        📨 Client link sent to: <strong>${document.getElementById('clientEmail').value}</strong><br>
+        📊 IGRIS status: <strong style="color:#0d6e63;">Awaiting client approval</strong>
+      </div>
+      <button onclick="window.close()" style="margin-top:20px;background:#0d6e63;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;">Close this tab</button>
+    </div>
+  </div>`;
 }
 
 function showToast(msg){
