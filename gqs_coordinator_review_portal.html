@@ -4,147 +4,158 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>GQS — Coordinator Review</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
+:root{
+  --teal:#0d6e63;--teal-mid:#138a7d;--teal-light:#e6f4f2;--teal-pale:#f0faf8;
+  --slate:#1a2533;--slate-mid:#3d5166;--slate-light:#6b7f94;
+  --border:#e2e8f0;--bg:#f7f9fc;--white:#fff;
+  --red:#dc2626;--amber:#d97706;--green:#16a34a;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md:0 4px 16px rgba(0,0,0,0.08);
+  --radius:12px;--radius-sm:8px;
+}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:Inter,sans-serif;background:#f4f7fa;color:#1a2533;-webkit-font-smoothing:antialiased;min-height:100vh;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--slate);font-size:14px;min-height:100vh;-webkit-font-smoothing:antialiased;}
 
 /* HEADER */
-.hdr{background:#1a2533;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:100;}
-.hdr-left{display:flex;align-items:center;gap:12px;}
-.hdr-logo img{height:28px;width:auto;}
-.hdr-divider{width:1px;height:26px;background:rgba(255,255,255,0.15);}
-.hdr-text .hdr-breadcrumb{font-size:12px;color:rgba(255,255,255,0.5);}
-.hdr-text .hdr-breadcrumb strong{color:#fff;}
-.hdr-text .hdr-sub{font-size:11px;color:#d97706;margin-top:2px;}
+.hdr{background:var(--slate);border-bottom:1px solid rgba(255,255,255,0.08);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:200;box-shadow:var(--shadow-md);}
+.logo-wrap{display:flex;align-items:center;gap:10px;}
+.logo-img{height:30px;width:auto;}
+.logo-divider{width:1px;height:28px;background:rgba(255,255,255,0.15);margin:0 14px;}
+.hdr-info .hdr-title{font-size:13px;font-weight:600;color:#fff;letter-spacing:-0.1px;}
+.hdr-info .hdr-sub{font-size:11px;color:var(--amber);margin-top:2px;}
 .hdr-right{display:flex;align-items:center;gap:10px;}
-.hdr-user{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.85);font-size:12px;font-weight:500;}
-.hdr-avatar{width:32px;height:32px;border-radius:50%;background:#7c3aed;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;}
-.review-badge{background:#d97706;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:0.3px;}
+.review-badge{background:var(--amber);color:#fff;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;}
+.hdr-avatar{width:34px;height:34px;border-radius:50%;background:#7c3aed;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.hdr-user{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.8);font-size:12px;font-weight:500;}
 
 /* ACTION BAR */
-.action-bar{background:#fff;border-bottom:2px solid #e8edf2;padding:12px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:60px;z-index:99;}
-.action-bar-left{font-size:12px;color:#6b7f94;}
-.action-bar-left strong{color:#1a2533;}
-.action-bar-right{display:flex;gap:10px;}
-.btn{padding:8px 18px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;transition:all 0.15s;border:1px solid transparent;display:inline-flex;align-items:center;gap:6px;}
-.btn-feedback{background:#fff;color:#dc2626;border-color:#dc2626;}
+.action-bar{background:var(--white);border-bottom:2px solid var(--border);padding:10px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:64px;z-index:99;box-shadow:var(--shadow-sm);}
+.action-bar-left{font-size:12px;color:var(--slate-light);}
+.action-bar-left strong{color:var(--slate);}
+.action-bar-right{display:flex;gap:8px;}
+.btn{padding:8px 18px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s;border:1px solid transparent;display:inline-flex;align-items:center;gap:6px;}
+.btn-feedback{background:var(--white);color:var(--red);border-color:var(--red);}
 .btn-feedback:hover{background:#fef2f2;}
-.btn-approve{background:#0e8a76;color:#fff;border-color:#0b6e5e;}
-.btn-approve:hover{background:#0b6e5e;}
-.btn-outline{background:#fff;color:#444;border-color:#ccc;}
+.btn-approve{background:var(--teal);color:#fff;border-color:var(--teal-mid);}
+.btn-approve:hover{background:var(--teal-mid);}
+.btn-outline{background:var(--white);color:var(--slate-mid);border-color:var(--border);}
 .btn-outline:hover{background:#f5f5f5;}
 
 /* CONTAINER */
-.container{max-width:860px;margin:0 auto;padding:24px 20px 60px;}
+.container{max-width:860px;margin:0 auto;padding:28px 20px 60px;}
 
-/* REPORT HEADER */
-.report-card{background:#fff;border-radius:12px;padding:22px 26px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,0.06);}
-.report-top{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px;}
-.report-icon{width:48px;height:48px;border-radius:10px;background:#e4f4f1;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
-.report-title h1{font-size:16px;font-weight:700;color:#1a2533;margin-bottom:3px;}
-.report-title p{font-size:12px;color:#6b7f94;}
-.report-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;margin-left:auto;}
-.status-pill{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;background:#fff8ed;color:#d97706;border:1px solid #fde68a;}
-.meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding-top:16px;border-top:1px solid #f0f2f5;}
-.meta-label{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:3px;}
-.meta-val{font-size:13px;font-weight:600;color:#1a2533;}
+/* REPORT CARD */
+.report-card{background:var(--white);border-radius:var(--radius);padding:24px 28px;margin-bottom:16px;box-shadow:var(--shadow-md);border:1px solid var(--border);}
+.report-eyebrow{font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.report-title{font-size:18px;font-weight:800;color:var(--slate);letter-spacing:-0.5px;font-family:'DM Sans',sans-serif;margin-bottom:4px;}
+.report-sub{font-size:12px;color:var(--slate-light);margin-bottom:20px;}
+.status-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;background:#fff8ed;color:var(--amber);border:1px solid #fde68a;float:right;margin-top:-30px;}
+.meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding-top:18px;border-top:1px solid var(--border);}
+.meta-label{font-size:10px;font-weight:700;color:var(--slate-light);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;}
+.meta-val{font-size:13px;font-weight:600;color:var(--slate);}
 
-/* SECTIONS */
-.section-card{background:#fff;border-radius:12px;margin-bottom:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
-.section-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;cursor:pointer;user-select:none;gap:10px;}
-.section-hdr:hover{background:#fafbfc;}
-.section-hdr-left{display:flex;align-items:center;gap:12px;flex:1;}
-.section-num{width:26px;height:26px;border-radius:50%;background:#0e8a76;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.section-icon{font-size:15px;}
-.section-title{font-size:13px;font-weight:600;color:#1a2533;}
-.section-arrow{font-size:16px;color:#aaa;transition:transform 0.2s;font-style:normal;}
-.section-hdr-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.section-arrow.open{transform:rotate(90deg);}
-.section-body{padding:0 22px 16px;display:none;border-top:1px solid #f0f2f5;}
-.section-body.open{display:block;padding-top:14px;}
+/* SECTION CARD */
+.sec-card{background:var(--white);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--border);}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;padding:15px 22px;cursor:pointer;user-select:none;transition:background 0.15s;}
+.sec-hdr:hover{background:var(--teal-pale);}
+.sec-hdr-left{display:flex;align-items:center;gap:12px;flex:1;}
+.sec-num{width:28px;height:28px;border-radius:50%;background:var(--teal);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'DM Sans',sans-serif;}
+.sec-icon{font-size:16px;}
+.sec-title{font-size:13px;font-weight:600;color:var(--slate);font-family:'DM Sans',sans-serif;}
+.edited-badge{background:#fff8ed;color:var(--amber);border:1px solid #fde68a;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:8px;vertical-align:middle;}
+.sec-hdr-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.btn-edit{background:var(--white);color:var(--teal);border:1px solid var(--teal);padding:4px 12px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s;}
+.btn-edit:hover{background:var(--teal-light);}
+.btn-edit.editing{background:var(--teal);color:#fff;}
+.sec-arrow{font-size:14px;color:var(--slate-light);transition:transform 0.2s;font-style:normal;}
+.sec-arrow.open{transform:rotate(90deg);}
+.sec-body{padding:0 22px 18px;display:none;border-top:1px solid var(--border);}
+.sec-body.open{display:block;padding-top:16px;}
+
+/* DATA TABLE */
+.data-table{width:100%;border-collapse:collapse;font-size:12px;}
+.data-table th{text-align:left;font-size:10px;font-weight:700;color:var(--slate-light);text-transform:uppercase;letter-spacing:0.5px;padding:8px 12px;border-bottom:1px solid var(--border);background:var(--bg);}
+.data-table td{padding:10px 12px;border-bottom:1px solid #f5f7fa;color:var(--slate-mid);}
+.data-table tr:last-child td{border-bottom:none;}
 
 /* HSE */
-.hse-item{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:6px;font-size:13px;color:#3a4f63;margin-bottom:3px;}
-.hse-item:nth-child(even){background:#f7f9fb;}
+.hse-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:8px;font-size:13px;color:var(--slate-mid);margin-bottom:4px;border:1px solid transparent;transition:all 0.15s;}
+.hse-row:nth-child(even){background:var(--bg);}
+.hse-row:hover{border-color:var(--border);}
 
 /* BADGES */
-.badge{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;}
-.badge-yes{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;}
-.badge-no{background:#fef2f2;color:#dc2626;border:1px solid #fecaca;}
-.badge-valid{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;}
+.badge{padding:4px 12px;border-radius:20px;font-size:10px;font-weight:700;display:inline-block;}
+.badge-yes{background:#f0fdf4;color:var(--green);border:1px solid #bbf7d0;}
+.badge-no{background:#fef2f2;color:var(--red);border:1px solid #fecaca;}
+.badge-valid{background:#f0fdf4;color:var(--green);border:1px solid #bbf7d0;}
 
-/* TABLES */
-.review-table{width:100%;border-collapse:collapse;font-size:12px;}
-.review-table th{text-align:left;font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:0.4px;padding:8px 10px;border-bottom:1px solid #f0f2f5;}
-.review-table td{padding:9px 10px;border-bottom:1px solid #f7f9fb;color:#3a4f63;}
-.review-table tr:last-child td{border-bottom:none;}
-
-/* TIMESHEET */
-.ts-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.ts-item{background:#f7f9fb;border-radius:8px;padding:12px 14px;}
-.ts-label{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px;}
-.ts-val{font-size:15px;font-weight:700;color:#1a2533;}
-.ts-total{background:#e4f4f1;grid-column:span 2;}
-.ts-total .ts-val{color:#0e8a76;font-size:18px;}
+/* TIMESHEET CARDS */
+.ts-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.ts-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;}
+.ts-card-label{font-size:10px;font-weight:700;color:var(--slate-light);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
+.ts-card-val{font-size:18px;font-weight:700;color:var(--slate);font-family:'DM Sans',sans-serif;}
+.ts-total{background:var(--teal-pale);border-color:var(--teal-light);grid-column:span 2;}
+.ts-total .ts-card-val{color:var(--teal);font-size:22px;}
 
 /* NARRATIVE */
-.narrative-box{background:#f7f9fb;border:1px solid #e8edf2;border-radius:8px;padding:14px 18px;font-size:13px;color:#3a4f63;line-height:1.9;}
+.narrative{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 20px;font-size:13px;color:var(--slate-mid);line-height:1.9;}
 
 /* PHOTOS */
-.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-.photo-item{aspect-ratio:4/3;border-radius:8px;background:#e4f4f1;display:flex;align-items:center;justify-content:center;font-size:26px;border:1px solid #dde3ea;color:#0e8a76;}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.photo-item{aspect-ratio:4/3;border-radius:var(--radius-sm);background:var(--teal-light);display:flex;align-items:center;justify-content:center;font-size:28px;border:1px solid var(--border);color:var(--teal);}
 
-.sub-label{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px;margin-top:12px;}
+/* EDIT MODE */
+.edit-mode{background:#fffbeb;border:1px solid #fde68a;border-radius:var(--radius-sm);padding:16px;margin-top:10px;display:none;}
+.edit-mode.visible{display:block;}
+.edit-note{font-size:11px;color:var(--amber);margin-bottom:12px;display:flex;align-items:center;gap:6px;font-weight:500;}
+.edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.edit-field label{font-size:10px;font-weight:700;color:var(--slate-mid);text-transform:uppercase;letter-spacing:0.3px;display:block;margin-bottom:5px;}
+.edit-field input,.edit-field textarea,.edit-field select{width:100%;border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-size:12px;font-family:'Inter',sans-serif;color:var(--slate);outline:none;background:#fff;transition:border 0.15s;}
+.edit-field input:focus,.edit-field textarea:focus,.edit-field select:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(13,110,99,0.08);}
+.edit-field textarea{resize:vertical;min-height:100px;line-height:1.7;}
+.edit-actions{display:flex;gap:8px;margin-top:14px;}
+.btn-save{background:var(--teal);color:#fff;border:none;padding:8px 18px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;display:inline-flex;align-items:center;gap:5px;}
+.btn-save:hover{background:var(--teal-mid);}
+.btn-cancel-edit{background:#fff;color:var(--slate-mid);border:1px solid var(--border);padding:8px 14px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+
+.sub-label{font-size:10px;font-weight:700;color:var(--slate-light);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;margin-top:14px;display:block;}
 
 /* FEEDBACK PANEL */
-.feedback-panel{background:#fff;border-radius:12px;padding:24px;margin-top:14px;border:2px solid #dc2626;box-shadow:0 4px 20px rgba(220,38,38,0.08);display:none;}
+.feedback-panel{background:#fff;border-radius:var(--radius);padding:24px 28px;margin-top:14px;border:2px solid var(--red);box-shadow:var(--shadow-md);display:none;}
 .feedback-panel.visible{display:block;}
-.feedback-panel h3{font-size:14px;font-weight:700;color:#1a2533;margin-bottom:6px;}
-.feedback-panel p{font-size:12px;color:#6b7f94;margin-bottom:16px;line-height:1.6;}
-.feedback-panel label{font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.3px;display:block;margin-bottom:8px;}
-.feedback-panel textarea{width:100%;border:1px solid #dde3ea;border-radius:8px;padding:12px;font-size:13px;font-family:Inter,sans-serif;min-height:100px;resize:vertical;outline:none;color:#1a2533;}
-.feedback-panel textarea:focus{border-color:#dc2626;box-shadow:0 0 0 3px rgba(220,38,38,0.08);}
-.btn-send-feedback{background:#dc2626;color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;margin-top:10px;display:inline-flex;align-items:center;gap:6px;}
-.btn-send-feedback:hover{background:#b91c1c;}
+.feedback-title{font-size:15px;font-weight:700;color:var(--slate);font-family:'DM Sans',sans-serif;margin-bottom:6px;}
+.feedback-sub{font-size:12px;color:var(--slate-light);margin-bottom:16px;line-height:1.6;}
+.feedback-label{font-size:10px;font-weight:700;color:var(--slate-mid);text-transform:uppercase;letter-spacing:0.3px;display:block;margin-bottom:8px;}
+.feedback-textarea{width:100%;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;font-size:13px;font-family:'Inter',sans-serif;min-height:100px;resize:vertical;outline:none;color:var(--slate);}
+.feedback-textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,0.08);}
+.btn-send-feedback{background:var(--red);color:#fff;border:none;padding:10px 20px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
 
 /* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:500;display:none;align-items:center;justify-content:center;}
 .modal-overlay.visible{display:flex;}
-.modal{background:#fff;border-radius:12px;padding:28px 32px;max-width:440px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.15);}
-.modal h3{font-size:16px;font-weight:700;color:#1a2533;margin-bottom:8px;}
-.modal p{font-size:13px;color:#6b7f94;line-height:1.6;margin-bottom:16px;}
-.warn-box{font-size:11px;color:#d97706;background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:8px 12px;margin-bottom:16px;}
+.modal{background:#fff;border-radius:var(--radius);padding:28px 32px;max-width:440px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.15);}
+.modal-title{font-size:16px;font-weight:700;color:var(--slate);font-family:'DM Sans',sans-serif;margin-bottom:8px;}
+.modal-sub{font-size:13px;color:var(--slate-light);line-height:1.6;margin-bottom:16px;}
+.warn-box{font-size:11px;color:var(--amber);background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:8px 12px;margin-bottom:16px;}
+.modal-email-label{font-size:10px;font-weight:700;color:var(--slate-mid);text-transform:uppercase;letter-spacing:0.3px;display:block;margin-bottom:6px;}
+.modal-email{width:100%;border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-size:13px;font-family:'Inter',sans-serif;outline:none;margin-bottom:16px;}
+.modal-email:focus{border-color:var(--teal);}
 .modal-actions{display:flex;gap:10px;justify-content:flex-end;}
 
-/* EDIT BUTTON */
-.section-hdr-right{display:flex;align-items:center;gap:10px;}
-.btn-edit{background:#fff;color:#0e8a76;border:1px solid #0e8a76;padding:4px 12px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;transition:all 0.15s;white-space:nowrap;}
-.btn-edit:hover{background:#f0fdf4;}
-.btn-edit.editing{background:#0e8a76;color:#fff;}
-.btn-save{background:#0e8a76;color:#fff;border:none;padding:6px 14px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;margin-top:12px;display:inline-flex;align-items:center;gap:5px;}
-.btn-save:hover{background:#0b6e5e;}
-.btn-cancel-edit{background:#fff;color:#6b7f94;border:1px solid #ccc;padding:6px 12px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;margin-top:12px;margin-left:6px;}
-.edit-mode{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:14px;margin-top:10px;display:none;}
-.edit-mode.visible{display:block;}
-.edit-mode label{font-size:10px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.3px;display:block;margin-bottom:5px;margin-top:10px;}
-.edit-mode label:first-child{margin-top:0;}
-.edit-mode input,.edit-mode textarea,.edit-mode select{width:100%;border:1px solid #e8edf2;border-radius:6px;padding:7px 10px;font-size:12px;font-family:Inter,sans-serif;color:#1a2533;outline:none;background:#fff;}
-.edit-mode input:focus,.edit-mode textarea:focus{border-color:#0e8a76;box-shadow:0 0 0 2px rgba(14,138,118,0.1);}
-.edit-mode textarea{resize:vertical;min-height:80px;}
-.edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.edit-note{font-size:11px;color:#d97706;background:#fffbeb;border-radius:4px;padding:6px 10px;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
-.edited-badge{background:#fff8ed;color:#d97706;border:1px solid #fde68a;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;margin-left:6px;}
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--slate);color:#fff;padding:12px 20px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;z-index:999;opacity:0;transition:opacity 0.3s;pointer-events:none;}
 </style>
 </head>
 <body>
 
 <header class="hdr">
-  <div class="hdr-left">
-    <div class="hdr-logo"><img src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAhoAAADxCAYAAACNpR5OAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAIdUAACHVAQSctJ0AAC9mSURBVHhe7d0LnBxVnS/wE96LvOQh8tBAMtNd1UN4OPfDQh7TXTUzSXavcn3FVXbX9eKu67o+r66sLjifVZPpqup5dFX1hJAICoJkmK6qmYQoIIKrKwsCi66igqL4gPAKyDuEpO85NScRyJmZMHOquqvq9/18fp8ZBKeqTlXX+Xc9ziEAAAAg32KvbWHJz23vDgqNrKYUKCO8OQAAAECaBpmn+cp/iTrfzMRXt7ZV2w7mLQIAAACyaH7hfGHnm6Esqbf18uYAAAAAWc5ZXzi6e1zc+WYlJU/9NW8OAAAAkGge7WQnRJ1vVqIH6ku8LQAAAECmLj+/KOtXM4qe+i+8OQAAAECWzjs6DyzWCztFnW9WotXV39OmmDfZIgAAACCNHihXiTrfrITdMllSbz+DNwcAAADIcna97WQtUIUdcFZS8vLreHMAAACALJ3rOg8s+uovRJ1vVqLX88+0VQnGzAAAAJCtayz/6Yw/ALqz5Oc+yJsDAAAAZCmyWyb1/A5B55uZaL56O28OAAAAkKWvQfYreeoNos43K9EC9bnilSedzJsEAAAAZNHqBb1nokPYAWci44WG7uVs3hwAAAAgS9EtHCbsfDMU3Ve38eYAAAAAmbRAXS/qfLMSNmYGmwafNwcAAADI0uW1qz2bM3zLhEbz8jfy5gAAAABZ3jrReWjRy20Tdb5ZiV7PP3HOxpOP5k0CAAAAsmiesronw2Nm6H5hp15X/pk3BwAAAMjStWlBe6muZHfSNFpgaXX1Nt4cAAAAIMvKLW0H6756e7ZHAFVf1MYXdvAmAQAAAFlKvvrBnk3ZHjND89Vv8OYAAAAAWRZf/aYT9QlB55uhlILcg7w5AAAAQCbNU64Rdb7Zidoo+fl38eYAAAAAWbo2Kuf2XpfdWybsDRt9LHcrbw4AAACQ5ZyNhaNLgZrdt0zCqE8URo87jDcJAAAAyFKqK2uzPGZG90ShoXv5T/DmAAAAAFm6xtT2ns2quAPOQmiBVQrUX/PmAAAAAFkWB/nDddrJCjvgjET3C88X623n8CYBAAAAWYqe8rnMj5nhKRt4cwAAAIAsPWML2rVAfVHYAWckmq/+fvH3jzmcNwkAAABI0Uf20311U6aHGZ9ghUbhQ7xFAAAAQBY2KFWWx8xgBVbXWP57vDkAAABAlqVb2o7rnshwkUGj+YUXCqPkIN4kAAAAIEt3oFyS5VsmPROFRlegjPDmAAAAAFm0oL1r+TdPE3bAmUj4lkn+Z7w5AACgZVlXvI4Mjiwg5eE3pz7V6sl8qxOtOJE7Vg+Uh4UdcEZCt3/7kmsXlniTAABAy/qSO5+YToVY7jj9WU91Ks5GWnAs5VueWEVfHRB1vllJz0RHo+S1X8WbAwAAWp7lvodUaltJ7bIGqV6a4qxvEMN5gpjVlXzLE0fb1H6G5os74KxED9SHixMnHMubBAAAEqFiv50WHHeR4XUNWnSkN4NracFBt9Gqvo1veWJ0TpxwaHeg3pbpSdPothc99cO8SQAAIFFW2woxndtTX2xURiaLDcN9H9/yRCgF+Y9neswMmqKvfp83BwAAJFL/4AJScb5Lhi4RdNBpCi02Ri5vEMv5O3L55YfwrW9Zi7/RtlAP1BdEnW9WonnK9qJfOJM3CQAAJJbhnEgM+1vhbQZhJ52iDNOCynD/hfS1drFR8gujWb5l0ru5o9FVzzu8OQAAIPHYa69G1Ut9sTEw0iCD7FaR/a+kr3oE3/qW0hXkz8v0mBk0uq9izAwAgNTp6zuImNUN4dsarEMWddRpCNs29sxGf7WffOxjB/OtbwnL6soJ+rgq7Hwzk4lCY5mnLOdNAgAAqWO5V5JB2hmnudgIHxClBZXp/BtZ4xzDt7zpil7ukizfMunZ1NEo1fObeHMAAEBqVapracHxfOpvpbiXsWLDIf1Dp/Atb5qiny/pExm+msGGGffVrSs3th3HmwQAAFLNqH6RFht/TH2x4XylQbdzlFjVAt/y2K3c0naE5iv3ZnnSNJZioHyKNwkAAGRCxf4sMd2tqS827PW02KjdQMprz+ZbHqsuL/cF9qaFqPPNQtjtIt1Tb+1cRw7kTQIAAJlRtj9IO+PHUj/WBhu23HTvIqa9hG95LJbU288o+cp2UQeclWi++lLJayvyJgEAgMwx3X+infFvUj+KKNs+y/kJKdfeybc8crqvXt8zIe6AM5HxQqPLzw/y5gAAgMxik7FZ7g/JMP3mL+qk05Kw2Kg9TfpHVvEtj0yXn/tIlm+ZsOie8jjpI/vxJgEAgEwrV8+hxcatZCjlVzbYMymG+xwx7ffzLZeOjZmhBdm+ZdJ7HZudNY9J0wAA4GUq1c5wyPIszPxqOS8S0/0A33KpNF+5Msu3THomOhpagDEzAABAxKwuJOWqn/rbKAO02DDd50nF+QTfcik0r/2dy7+V8WHGvcJTf/6NfNPHLwEAgFY1OHgCMdzLwnEoRJ10WhJe2XBfImX7s3zL56S3fvobSp7yB1Hnm5Ww6e81T72INwkAAMAU1vUdSjthi7i02Ej7/CgD7PVet49v+ayV6jlHz/hbJrqv/rAwSg7iTQIAADADyx0OZ0VNe7HBrt6U7X8lq1btz7f8NSmNdSzRPGWXsAPOUDQ/v5g3CQAAwD4ynH5i0Q45C0OWlx2T9PUdxbd8n8y/fP4hml+4M8uTprGZWUu+chlvEgAAgNeo374ofHgy7cXG8Hr609lABgZO4ls+vQaZp/nKl9mzCcIOOCMp+srWxcGbTuStAgAAMAtr7I9nothg86NUnI1kaCTPt3xqtNDoritXZvlNk57NhUaXl7+AtwgAAMAc9DsfImya+SzMj2K515OKrfAtn1L3WPsCPVCuWXFDBouN8fC5jC28KQAAACSojFxATOe36S822Myv7g2k7KzgWz6lcDRQv1DtvT5jxcbmjkaX167yZgAAAJDEGDqPdsb3p35gr8li4x5abPTyLZ9S5x2dB5Z8xey9nnbAGXgwlD2XUqwrF/PNBwAAkMxw/5J2wreGtxlEnXRawuZ/sWo/IaYz42Rsq0bJ/sXx9s/1XFdopPotFDZmhqf+D99sAACAiJTts2mx8Z3UFxvhzK/uA7S4eh/f8mkV67mLdV/dldpiY1xtaGPtf8k3FwAAIEJm7XTaCfuTb2sIOum0hD2TYrq/J4b9Eb7l0yp5+U/ogbIzbROs9WzqYDOzXsE3EwAAIAZrBtqIUa2GQ5aLOum0hBUblruN9Lv7NJ9HMch/uNtTn0/VlQ1ffbToY9I0AACIm7HhcNoJW8S9TNxJpyXhZGy1HaTiVPiWT0sby5+vb2LTpws67aRlXG3QIiOS6fUBAABm1scmY6utJs6G9M+Pwp7b2Mdiozih/q3uKy+y2w7CDjwJGQ/HzPgRG6SMbxYAAEAT9I0eRCznc2SIfvNPc7HBwrax7AzSAms/vvVT0sfzq7Sg8GDv5oQWG5sKjdJ4bgnfHAAAgCZiHa9Z/QwZoJ1xqosNvm2Wczn5WPVgvvVTKvn5FXqg/rh3S7KKDXYlplTP9/PNAAAAaAGjo/sTo3oBGb4k/bdRwisbta+TC8tH8q2fEptKXfeV7/ZuSc4oorqvPrQ4yB/ONwEAAKCF9A99gFjujtTfRhlkQ7K7E6Sv7yC+5VPq8vOLNE/5ThImY2PrWPTVt/NVBwAAaEHm8DuIWdsx2RkLOum0pBoO7DVOLPtUvuVT0q5d2KH7yldaudhgr+Xqvvo1vsoAAAAtzHDeSjvjP2Rj5tfa98iA28a3fEpsMjbakV/aqpOxaZ66Q9/UfhJfXQAAgBZnuV20E/7Z5Kuhgk46LZmcbO4HxBhZxrd8Svr4qccXfeXLPezKRisN7LWp0FhWz3+GryYAAEBClNeeTYuNO8OZUUWddFoSzo/CJmNzV/ItnxJ70LLLV9d0b1bFnX7MYbdMir56Z+fECYfyVQQAAEgQ0z2TWE6Q/vlRwmc27t2Xydg6RxccWfTy/9L7zY6mX9nQ/EJjmb9wMV81AACABGIPTJrO1eEooqJOOi2ZnB/lt6Rif55v+ZTO2Xjyn+m++sGe65p3ZYNdzSh56hBfJQAAgAQrV08mZq1KnJRPxsbetjHtJ2n6+JZPZ55eb3/HypsWNeXKhh4ojaVb2o7j6wIAAJBwa5xjiOn+e+ofEGXjiFjO06RS3af5UUp15X/3XBfvZGxsxFKtntP5KgAAAKQEm/nVdFaT4ZQ/sxEWG+4LpOKu4Vs+ra56/jzNV5/rmYh+yHJ2y0SrK1v4ogEAAFKmvO5IYrr/SGz2zEbKhyyv1J6hhdVX+JZPa1k9p2uB8kjUM7+WAnXn4iCf54sFAABIoXXrDgznR7EvoR2yoJNOS8IrG7UdxBy+gm/5tIoTuaUlX/llVMUGm1GWvfHCFwcAAJBibDI2y35nOOhVmudHmbyNspMY7ma+5dNaUm8/Qw/yv4timnnNV3+0eAMmTQMAgCwpD/cSw6Ed8lpxR52GsGKDbV/ZvZH09R3At3xKGi02ir56h8xiQ9+kNpb5eYyZAQAAGVSuLiYV9ykymOJigyXcPvcH5GNbDuZbPqWl31Byuq/eKmOa+Z7xjoYW5K/hfxoAACCD2Ciihvt46idjmxzY6y76+5v4lk9J8zoWar7y9eXfnFuxoQf5p3uC/In8zwIAAGRUv7OIdsK/SP1YG5PFxj3Eqhb4lk+pOFp4o+YpG7q3zO42ir6p0CiO5f6W/zkAAICMM9a20874u9koNmr3EdM5l2/5lJZubDuOFhtGD5sfRVBMTBfdV+9YWW2b8VYNAABAdljufNoBT5BqOA17esOGLDfsXxPDnfGKQ9E/46guX/nIihv2/TbK8utPaxQ3LmzjfwIAAAD2MJwTielelvr5UdjbKJa7lVSqf823fErFm+cf0uWp71lxwyJhYfHysFFGS3X14/z/CgAAAHupVI4lFfcCMnQpf2ND0FGnIZNjbTxCM2NhsGp01f7Fem7l8utoQTHFZGxs3hTdVx9js8Ty/xsAAAAI9Y0eRKy1BVJxfh5e3WC3G0SdddIzeWXjCWI4H+ZbPp15xXr+3RorLF5VbLBRRYuB+mSXn1/E/1sAAACY0fDwm4nlvJfmJ+E8KdX1kw9UpmlU0ckrG9tIZaTMt3pKxb7iASU/113y8zvZRGnsKsbyb53W0HzlrqVbcqfz/wwAAAD2Wd/NB5By9WRiDXWRit1HO+Ubw6sAtcsaxE1JapfzqzbuV/lWT61B5hWvXVgqBcqLxUB9TPdzn9Q3tZ/E/y0AAADMmnXF64g18gbSP3QKqTg5Uql2kgH77FRkyP1zYg7v21UJWmx0ee2qtlmdj2cyAAAAAAAAAAAAAAAAAAAAACA52Ghx7GGZMnvNyf006bcvoj+HkJelUqvQn5+mPz9BBpx3kYHqOWTNmmN4C6be4qvfdOJyX+nUPPU9+njh012++nn6+xCyd/RA6WNtpPmF85fU23qXjrUv4M2YDZb1BmLaS+jn5T3hZ8Z0L97zOUL+FNNZTX/Sc4rzofCcUhk5ixjG4bwVARKOjQFv1q6mB/ltxLB/S6waGz3tcfrzj7QjfYb+/iz9/QXkZam4z4dtU3FZnqT/2+P058P0f/sdPZHeSf95jJTdj5K+oaN4Kyda11j+/JKXu0r3cv+l1/MP6L76CM3jul/4ox6oz9Dfn6W/v4Dsne5AfW6yjQp/pL8/0e0XHi0G6u+7ffVO2m512q7/rzBaOIw3dfKZw+eH55PKyO3h54F9Lti4BbvPJxWcT6bIc5Pn29rT4TmlUnuM/r6VGLX7aaH2n8RyriT9tAABSAxWNRvuj+jB/BDNU/RE8CL9uSsczEQU0cAnWY+onVgm//0OGnbSeIQWbz+hxccwb/nE6PJzH9H9/N20Q9xKO8mnaCf5Iu0kd4UD17CR8pBZZU/bBTS+umOySAsLt//pDhSDN3+yGCMXhOcTy3mQdpI4n8wmonbaHcvdFbYpK9Ys90H68y5afLyftz5Ai2ET6Ex+86bfLF52cL/6oEfmnpe3LfvGMvnN7hq+J1qW5uVr9Bv4w6wDDIfbfXnHiMjP7uKD/h5eBaFtX/KVLXx3tDbDvmjyfMKu7L3qmEfk55Xty658sLb/J743AJqsXHsn7eQeDatinAyak8k23xHuB9N5B98zLUP31L9gl/VpR7d997fvvTpFJNrwdqf74CW2L7qDfGvODNlfOYtY9u/osfw8zidNyp52d5+l//wI+ZJ9Kt87ADHr69uPWM73w28cOBm0RiZPDs8Q0/0G30tN1bmOHKj5+Ru7A/VpFBctlHBfqM8VfeXeztEFR/Ld1XymWw4v4Q8Ijm2kCeEFh+VsIxXn7/leAoiJs+YYYtj30YNxJ4qMFsvk/thBzNp/8L3VFD03dh5ZGlPu0f3CThQZLRi+T/Qx9XdLvVNzfLc1T8XdQrMd55MWTFhs1J4jlt2aV8EghQYGjqYV7q+EByTSStlJT9wzT+wTgbOvbDtC89VfsAc89+rgkJaL7qkPrvDnn8J3X/wsJ6DH6kuCYxhprTxPC4638b0GEKGyc6/gAERaMztIufpuvufiMq9Yp0WGoENDWjelMfVB0kcO4PswPpNjPKDISE6eItXqEXzvAUSg7H5NcOAhLR33eXpiOJjvwciVPHUd7bhwJSOB0X31er4b49FvnxE+RC48bpGWDRvPByASbDpffPNIZkznM3wvRqp4+fyjugN1h6gTQ1o/elDYqdU7zuC7M2rzSLn6c+HxirR22NgbGFkUImFVHxcedEjrJ3z1eODP+J6MTLGef0zUgSHJCd2H2/jujJZVfVvYYYmOV6T1Y9Ue4HsSQBLDXiY82JDkpOys4HszEqWg/c9FHReSvGhj7V18t0aj0ZhHyu5W4XGKJCd9ffE/0wMpZtZ+IzzQkATF/jnfm5HQ/NxPRZ0WkryUAvUhvluj8eXBE8THKJKolJ3P8T0KMEd9fYfQg2rnXgcZkrTs4ntUup7RBUfSzuklUaeFJC96Xd1VvHz+IXz3ymexidGExyiSpJj2fXyPAsyR6f678CBDkhf2AF4E9HG1X9RhIcmN7he+xHevfHg2Ix2x7Gf5HgWYI8v5ifAgQ5IXo3oh36tS6WP5W0WdFZLc6J76Y7575WJTF4iOTSSZGXDb+J4FmAOj9pzwAEMSGPt/+F6Vp4/sV6rnnhF1VkhyU6T7lO9huSrOW8XHJpLIWLUP8j0LMEvG4FuEBxeS3Eim1dvPEHVUSPKzdGNbge9meUzXFx6XSDJjuuv5ngWYJcv5sPDgQpIbyTQ/f76ok0KSn6Kn/APfzfKU7UeFxyWSzFjOjXzPAsySWXWEBxeS3EimBcpqUSeFJD+let7hu1key35SeFwiyYyF4chhrgw2q6Lg4Iov7LXaHaTipjBsu2rxP30vmR6oXxV1UjFmZzjsuZ/ChNsm3OZYUvKUcb6b5am4zwiPy+iT4nMJT1OmiHB/yvcswCyZzu3igyvS0M6XfmgM5wH6wbFJ/8AivjbpMji4gG7f3bGfHCTTAvUWUScVfdQXS3XlN3qgWMXN7Wfy1UmNYn3BaaUxxdZ95QFedAjaINpovnoLXx15Ku524XEZXXYSw32EnsscUqkcy9cinSr22+n55PfhNovbQn4s2rYAc2IM/1J4cEUV9n696dxD+qudfA3Sr+z8HbGc+GawlEwPCr8WdVKRxS/sKnq5e7VN7XFN/tV0y7z2szVf+RXbdmGbRBTdU3/IV0Eew45ztlZWZHyNLzk7DGeEbns8V0tRaMCcGTarjsUHWBQp29/lS84Ww/2ysD2iiGRxFxq0w2WdXyQDj7Wy4s3kAM3L3Slqk6iie4r8YetFx2RUMd1v8KVmj1mNZ/wjFBowZ7EWGs4fSbV6MF9y9ph0+4XtIjmSxVlolHxle7GPZHYip94rjn+d7iuxjVlSqqt/4IuWR3RMRhHLfZ6eT47gS82evqGjhO0iOyg0YM7iLDRM92K+1Gyy7B8K20V2JIu30FDX8MVmluapNVHbRJFEFxqG/QO+xOyKY6h3FBowZ3EWGlln2hcL20V2JIuz0OCLzDxR20SRZBcajsGXmF2G/Vth28gMCg2YMxQa8amMfEjYLrIjWYyFRmSzzyaNoG0iSaILjYr7Pr7E7Oq3bxW3jcSg0IA5i6vQMJyn+RKzy3T/Udg2siNZXIWGXlee4IvMPNrmsUzJn+xnNEZO40vMrrL9X8K2kRkUGjBncRUalvMdvsTsQqExbUpB/ia+yMwrBerdojaSnUQXGmbtdL7E7DKc/xS2jcyg0IA5i6vQMEcy/5AfCo3p0+MXqnyRmaf5yndEbSQ7KDQSznBtYdvIjOVu5UsDmKX4Co0yX2J2VZy/F7aN7EgW2zMavip/3o2EKtXza4RtJDkoNBKuUj2LFgIvkoGRRiQJ29m+li8NYJZQaMTHHFwibBvZkQyFRvx0X0WhMVNQaEwynK+RivswbZPH6M9tEvMwsex7+VIA5gCFRnxGRw+i7T357UPURnMN+7tsECPJUGjED4XGPgSFxiv1OSeSiq1IC4A0KDTiVXE20m8KT9KCgE08tUNa2N+z3CfoyfdLfEnSoNCIHwqNfQgKDYCEQKERP6v2TmI4l9DCYExaTHct6bd7+BKkQqERPxQa+xAUGgAJgUIDZoBCI34oNPYhA5cs4ksEgJaGQgNmgEIjfig09iUjnXyJANDSUGjADFBoxA+Fxj7EtP+BLxEAWhoKDZgBCo34odDYhxjVS/kSAaClodCAGaDQiB8KjX2I5fyILxEAWhoKDZgBCo34odDYl9jbSXn4zXypANCyUGjADFBoxC/ZhYa7S3gOkJ4Rel5xriMD64/mSwaAloRCA2aAQiN+CS802GB04vOA7AyvaxCr9hViVQvEMA7nawAALQWFBswAhUb8En7r5IW9Pv9RpnrpZMFhOF8MB/HanYqTI4MjC1KfgbUnkdXDx5P+kdcTy3od3wsALQSFBswAhUb8El1oWLWnheeAqGOvb5Da5X+KZT9GTPf+1Kfi3hSODlxxHFKxP09/riBGTSPl6jnEGjktLET6Lj+E7x2AJkChATNAoRG/RBcahvu48BwQdwbXZiPsas7wpQ1SpYWWvYEWWZfx0GJrgLbDQO1btOj6KD0H9xBjuJ247mF8TwHEBIUGzACFRvwSXWiY9l3CcwASf9iMzqwQcb4yWXxY7i9pLiL91U5SqRzL9xhAxLJaaPT1HRDe00xLIrw3i0Ijfsm+omF/WngOQJofdgXE2TD5ezgRY+UsvtcAIpTFQqNCq3nT/gCxRqz0xLkwvCfLCijJUGjEL9GFxpcHThKeA5DWCbvSwZ5pMZ0XSGXkPFp0vJHvPYAIZK3QMKsLiWXvDD9k7H5mWsIujbJvKkb1Ar6l0qDQiF+iCw2GdWSi8wDSWmH7yWW3VJyv0/PiqXzvAUiWtUKj4mxO9UmQnTQkQ6ERv8QXGmX7XuHxibRm2CvCZo29vTKf70EAibJWaFgZOAFKhkIjfokvNNZUV+KqRsLCHhplI62yZ74ApMpaoWE4W4Xrl6ZIhkIjfokvNPrIfqTiPiM8PpHWDbuyYTj9fC8CSJK9QuNB4fqlKZKh0Ihf4gsNxrJHwrccRMco0roZuqRBBqoa34sAEqDQSF8kQ6ERv1QUGmucY4jVIoN3Ia8tlvsA34sAEqDQSF8kQ6ERv1QUGoxZ+yye1UhgBi9pkPLwUr4XAeYIhUb6IhkKjfilptBgzOp3cQslgTHcJ/geBJgjFBrpi2QoNOKXqkJjzUAbKds/Cu/9i45XpDXDikMM5AVSoNBIXyRDoRG/VBUaDBu11nTvDN9qEB2zSGtmwDH4HgSYAxQa6YtkKDTil7pCg+mvnkUs9ztkaN3kt2XRsYu0ViznIb73AOYAhUb6IhkKjfilstBgRkZeTwz3KlpwPBpOA4AHRVs7bC6UavVgvvcAZgmFRvoiGQqN+KW20NjNcj9KKm6dmO5z4e2UcOwGFB0tF9Ohcc/kew1gllBopC+SodCIX+oLjd2M6hdI2b6CWLWf0Q7tJTJMi47dhQe7vYLio/kxnU/yvQUwSyg00hfJUGjELzOFxm6VkRXEqPUTw/0qqbg3E8v9Fc02mpfCwiOcpXg9LUKyEl5wsflHmn21x3S+zvcSwCxlrdAoOw8J1y9NkQyFRvwyV2i8XHn4zbRzewctMj5OrNpqYlQ30J9X02P7Wvrzm9mI873JuHcR072f/twRFlvNeEXYcm7hewZglrJWaJj2A8L1S1MkQ6ERv0wXGlObRyqVYzMRYygfxnTOpXkXLTb+nX62N9KC41fhlQ7R5z6qsGIHYE6yVmhY9g+F65emSIZCI34oNGAvjcY8MsCu9NS+HfPrwffxNQCYpcxd0XD/kVTXTd7/ZJch40xcJwfJUGjED4UGTOlL9qnEcrcKP/vRBGNpwBxlrdBgBqqD4bcCy7kv3riPCNtGdiRDoRE/FBowrbLzf+n5ZJfw8y877LwFMCdZLDSYNW4bMav/J9ZYzoiwbWRHMhQa8UOhATOy3J3Cz7/soNCAOctqodEMFv0WImob2ZEMhUb8UGjAjCrOw8LPv+yg0IA5Q6ERH/Z8iKhtZEcyFBrxQ6EBMzKqW4Sff9lBoQFzhkIjPig0pg8KjT1QaMCMTLcs/PzLDgoNmDMUGvFBoTF9UGjsgUIDZlRxPy/8/MsOCg2YMxQa8UGhMX1QaOyBQgNmZLkXCT//soNCA+YMhUZ8UGhMHxQae6DQgBmh0IDEQKERHxQa0weFxh4oNGBGKDQgMVBoxAeFxvRBobFH4guNwcETSMX+q/CVbnl5L7HWFvgSAIUGJAYKjfig0Jg+KDT26PYKq4VtJDmRFBrl2jtp5zRG8yDNk9LChsJmI/oa1Qv5krINhQYkRlyFhrW2ny8xu1BoTJueQLX5IjNP89SKqI1kJ5JCg01rbq9vkEE+v4+00L/H5igaGKHnE/tUvrTsQqEBiRHbFY2ayZeYXSg0po+nunyRmacFypiwjSRHeqFhOCeGhYDouJQV9vdN5zN8idmFQgMSI65Co2yP8yVmFwqNaaN5+c18kZlX9PO/EbWR7EgvNCrVTuExKTtW9Wq+xOzCOBqQGLFd0XAf50vMLhQa00YP1Mf4IjNP89WdojaSHemFhjl0pvCYlJ5qnS8xuyruGnHbSA4KDZizuAoNdo816wzn74VtIzuSxfaMxkQHjhGue1zcRrKT2ELDql7Dl5hdhusJ20Z2UGjAnMVVaLBknWlfLGwX2ZEstmc0aOji9ptcanbp46ceL2qbKJLYQsOo3saXmF1l9w/CtpEdFBowZ3EWGpZj8KVmk+XeImwX2ZEszkJDDxSLLzazaBtcIWqbKJLcQsN+lC8xuwxnp7BtZAeFBsxZrIWGu52srh7Hl5wtDTKPmM7TwnaRHcniLDS668qOpVctej1fdOYUxwtt3b66S9g2EaTkqQ/yRcvRXzlLeEzKjuW8SCzrdXyp2WNUNXo+2SVsG9lBoQFzZtrxXH5jYa+lhfcV1x3Ll54dVnU1/cCK20V2JKOFRixvQOxOyc9559aPfwNffGawIkP38t+O6/kMFs1T7uOLl6PfWSQ8JqWHveI6VONLzZY1zjG0yLhL3C4RxHJx9QjmyHR+Ljy4ogobdKdS20ILnPcT1z2Mr0W6Wc7n6If1ub3aIqpIpvnKPaJOKqr0XFdo6L7yTc3LX3D6Fcen/ltrcXT+G0uB+nFa0N3Ss1ncJlGFtvNdfDXkqFaPEB6TUYRd1TCGvsCXnA3GyDJSdv3w4XpRm0QRw72fLx1gliz3NuHBFWWq61mV/AeaTTQWLXY+SQznPGLWTid95htJHy1AWJKKrfvAyDnEHPkk3b5r6Anx6cgHMXp5JNP8/A9EnVSUWf7N01gn+JAWqBO6nx/Q6rlPaUH+PK3efsbiq/MnFkcLh7HwVUyCeb31099Ai4lCaaxjiVZX3k+370LdU23NV2/QfXVb75YOYVtEGbrcW/j6ySM6JqNIOEKo8yztCK+i549P0PyvRJ83Xm7V6P7htlScHDGrK4llf5oYtUtJxf0RGVwnbo+oYrn38LUCmCXDvV54cEWdcDhhWnCw3y33CWLV7qM/b6Mnjm/TXBem4l6ZwFw1uf61u2ieCIdMjvPbB4tkeqDGMkrlq9OzqSMsONitBLoOT3T7yn3dgXob7Rxv0r3CdSz0v7uyFVKs5zcUby4ewJtMiK73B7t99W7682768/d0W57umSg0erecFr7aS/9O7NE9Rf5AepXajr2OyagyQD9bw/QzZrnb6GfvDv7Zu/pVn8nkxaoFk9vifp/+/Dn9+UcyRAuM4ZiLDBbTuZ3vWYBZMqq0ShYcXHGFfSthHfEQLTzYh4h1zKwAYbE3JDNs3dm2xF1g7I5kWqDEMu/GlKGFBuuIezZ3NHqvo6Hf/FkBEuZbrRF2u4cWDhO8yYSKdeU0zVO/teIG+t/TIooVGXE+jyGK5ue/yldPHst5QXhcRhn2WQvPHwk+b7wi/BzIiih2bmzWuYTFpAUPwJxY9keFBxeS3EhW9PMfEHVSyCvDCh9tTPVWbmk7mTfdXjSvbWHJy3+tpwm3SUQp1RX5M6Ga1WeFxyWSzBjuEN+zALPUP7Ao1ucHkGjDLq9Kdu5ETukZb42OsdXDrrYUA/UWdvWCN99e9E3tJ5X8/Nd6t4j/RpzpGstrfLXksZynhMcmksyUq+/hexZgltatO5AYzjPCAwxJXiznbr5npem8o/NA3VeeEnVUyN7pua6DPVNyR9ErLOVNuJdive1kzVNWs9soor8RR3RffWlxkD+cr5I8pnu38NhEkhfL3UUGBo7mexZgDiz3XuFBhiQvlv0pvlel0nz1h6LOChGHPUvS7as/Lflt7+JNuJeVW9qO0Lz8RStuXCT8G1FH8/MP8VWRy3I/JTw2keTFdJ7kexVgjgzni8KDDElerJFIBrpi9/Kb/eBi0tK7uYO9ovsb3Wv7G96Me+lcd8KhpUD555XfpsVGzO2rB8pNfDXkYqP/io5NJHkpO//N9yrAHK0ePp6YtXjGzUeiC3vqPiJLN7Ydp3nKS6IOC5k67O0S9iqrHuTW8Kbc2yjZv8crvK+HveYaV7FBlxPJ8xm7sWeFRMcokqyY7kq+RwEkMKsPCg80JDkx3UhntCx5yk+FnRYybVixofvqs7qf/zxvSqFlY+pf6RP0v4+j2BhXGqQvwplyLfdO4TGKJCfstdq+vszPpgwyDQ4uCw8s0QGHtH7YwEVmbTnfm5HQArWLjWUh7LiQacOKBz1Qn6RtWObNKdRVV3o1X90R9QBe7BVbvshoDFQ1vM2W8PQ7G/jeBJCo4v5SeMAhCYj9NP32cRDfk5GhneAvRB0XMnPYAF3hlQ0vN+1U+OyWBm3nbeFtF8HfmWvYAGP6xvaT+OKi0dd3ALHs7eJjFWn5OBvYFdI38r0JIFHZPjs8wEQHHtK6YaMGms5n+F6MVNe16lkrrm/eK5lJT3hlI7yNok57RWHZpvazNV95mD1QKvo7sw0bD0UL1HhmPWXzczRzREtkdmHTQ1i1fr4XASJQcb4UDnsrOgCRFo37B1JedyTfg5Fjk4E1YwKwtCR8BsNXd2h+zuNNKrTMaz9b95T/lnm7Sg+U58+tL4hnCv6+6hHEcn8nPmaRlo1p/5r0j7ye70WACLBpntnY9nhqPBlh8yKYdg/fe7F460TnobTYGA/HihB0Zsg+hBUb4yqb1OzbvFmFtI35vO6rP5NxZYMNDtblt/8l/9PxKA/34ippglK9pEFWDy7hew8gQuXhN9Ni47amzBSI7HvCYtBlDxfOm9xx8VnmL3wT/Vb+HRQbcwt7DqPk5W/qvIMcyJt2L8WJnEILu++Hk7AJ/sa+hA13zsbr4H8yTvOI5XwB55IWD3twd5i9DFD9a77fAGJgVhfSYuN7uLLRomHfEi33SjI0dBTfY7Er+vlTugP1ehQbc0vPJvYWiPIfbKwS3rR76R3Pnar5yveWb3mNz8eM079P90+pnv/4yi1tB/M/Fy/DOJwWG5eEM5KKjmWkuWHP0YTP0rh/TUZH9+d7DSAm/WtPIWWnQmqXTb5TLTpIkXjDHtRiz9AYzoVkeP3xfE81zXK/403hnB03LgpHwhR2dsjMCd9Iyd3NrhTxpt0LK+x0X7mMzRIr/BuvCnuORvfVXcWg8O5zNp78Z/zPNEdl3bH0+P0sziUtFlb8mc7viFEthm8KATQFeyjIrC4nFecO4tKTBOvoRAcsEm3YNw7W/qZzL+m3e4hlvY7voabrGV1wpFbP6SVPvZM9BxDVa5lpD7uyoXv5nyypt5/Bm3YvS7e0Had7is1eURX9DRZ2hYkVfrqnXqX5SidpRDgw12vBjll2LjHcXxD3K5Njv4iOdST6VOmXlcmH/geJMZLnewigyYaGTqGd3LvCjq52+WQlLDqAEblhJwTW3pb9GLHc95A1A218j7Sc8Bt3XXmHHig/XvHtReF4DaKOEJk6fKyN+5dee9rpvFn3cs7GwtElT+lb/vLXjMcLDfbPbM4U3S8EdD/09tZPj+ftkteK3ZYdqP0NsZxt4bGNt9ziye4vK+ycYrrrScVdirdLoPWw4Wj7RxaQQectxKp9MTxJsLBvJ+xhL3Ygs4eKMCLga8vuNmPf8Fg7svbc3baWM0IqI52k4uQScf+0j+wXFhwTylu0eu5iVnCEueG08Jt2OOJl+MbFnzpX5JVhV4S0unp/0VPex1t1L2x69+5AvWB3+2peYZc2rv7TsrryluLmQusPtNR38wHEGMqHx7bljuJcIjG72421IftCyG5XsbYt2w/R9n4rMYfOJGucY/ieAGhhxobDyYCzKMwa5zx6shijneKjtEp+kQzSg529JhWeOOhBzk4eyCuz+8TKHra1wpPpC7T9HieWPU5/vndP2w4MHM1bPHGKo4XDuv38IpYuT/0LPVCuoZ3jVt3Pv8jm9Fi+ZfISfxj6bbxVM5e3PWYbfmXjkeJ4fhVvzr2sGi0c9Kf27VCLl88/hP+rZGEzDu853p1VrziXDLiTn5HdnxfRZwl55fmkQtvMcOj5xH2AGK5BBqrnhG3LroY2GrG/oQYgB7vSwU4W7JIo++ZdsRUyVFNJ2e2gWcpvuSC7U7HfztuGhrbTatperN1Y+7GZdNP4UFaDzGPPF3RvXrSg21NyxbGc0kM7R+1atYP+87mlsfy7WjI+i/J4M5472V1s6EGuGa+lNge7avfqcwn7jOz+vBj0syP6TGU9/fYZe84nrM3W0Laz7FPDcZEAMoGdPJBXBl5h1SjZv1XTtWlBe8lX725WsdEdqE+U6sqFvKmybdUq8ecp6wEAgGQr+vNPCYuNJrzCOzk/SuEpzS9U+eoAAABA2pxdbztZD9Sbm/L67uTDs89pXn7a+VEAAAAgwXrrC95Q8vN3NWU0VFZs+OoO3Vc389UBAACAtNHHTz1er+eubtbQ63qgvtTlKTfz1QEAAIC0Kfrzj9Lq6lebNV2+7hd26WPqTaRB8CAgAABAGq3c0naE5qkXNbHY2KnX1R+zN2P4KgEAAECasMnKdE/9t32d6CyK6GO5e9hIoXyVAAAAIE1YsaGN5c/vbtIzGyzFMeW3Z29pw+BMAAAAadS5rvPAYj23smlXNtgbKfX8Q9rGPGbiBAAASCP2rMSSaxd29GxWxcVA1Jl8/XWbRteBrxIAAACkTWkst2RPx//qYiDq0GXqgfpkcay9h68OAAAApEof2a8rUM/S6uozzSo2ugP1aT1ofy9fIwAAAEiVBplX9NvP1Ov554XFQNRhVzZ89TltPP8xvkYAAACQKmxq/LH2BaUgv11YDMQQva4+X/LVQb5GAAAAkDZLv/fm14fDlTfjNgqN7inbNT8/wFcHAAAA0mbxhvzheqA80qxiI5yMLVCu4KsDAAAAaXOGf+RRXV7uvqZd2QgKL+m+ehlfHQAAAEibzokTDtWD3M3NLDaKnvqffHUAAAAgbebfPP8QLVD+o3m3UQq7NF+5jazCZGwAAACp1FZtO7jkF0abWmwE+V+QPnIAXyUAAABIk1Wjq/bX6orftGKDRvPy6/nqAAAAQNqw+VH0IP9vJV/dJSoEok7JV27nqwIAAACp1CDz9AnlLUVfubcUqDtFBUFUKdVzJl8LAAAASDU+kqg2XviY7isjel29mhYDfhTRPNUrBvkPs2XypQMARICQ/w/jRhdVtbUDeQAAAABJRU5ErkJggg==" alt="GQS"/></div>
-    <div class="hdr-divider"></div>
-    <div class="hdr-text">
-      <div class="hdr-breadcrumb">IGRIS &rsaquo; Inspection &rsaquo; <strong>GQS591-001-0001/0001</strong></div>
+  <div class="logo-wrap">
+    <img src="data:image/jpeg;base64,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" alt="GQS" class="logo-img"/>
+    <div class="logo-divider"></div>
+    <div class="hdr-info">
+      <div class="hdr-title">IGRIS › Inspection › GQS591-001-0001/0001</div>
       <div class="hdr-sub">⚠️ Coordinator review mode — read only</div>
     </div>
   </div>
@@ -154,7 +165,6 @@ body{font-family:Inter,sans-serif;background:#f4f7fa;color:#1a2533;-webkit-font-
   </div>
 </header>
 
-<!-- ACTION BAR -->
 <div class="action-bar">
   <div class="action-bar-left">
     Submitted by <strong>Matthew Shannon</strong> · 24 Aug 2026 09:42 AWST · Review all sections then approve or send feedback
@@ -167,19 +177,12 @@ body{font-family:Inter,sans-serif;background:#f4f7fa;color:#1a2533;-webkit-font-
 
 <div class="container">
 
-  <!-- REPORT HEADER -->
+  <!-- REPORT CARD -->
   <div class="report-card">
-    <div class="report-top">
-      <div class="report-icon">📋</div>
-      <div class="report-title">
-        <h1>Inspection Report — Visit #GQS591-001-0001-IR01</h1>
-        <p>Belisama Gas Project · Submitted by Matthew Shannon · GQS Group</p>
-      </div>
-      <div class="report-right">
-        <div class="status-pill">⏳ Awaiting coordinator review</div>
-        <div style="font-size:11px;color:#aaa;">Submitted 24 Aug 2026</div>
-      </div>
-    </div>
+    <div class="report-eyebrow">Inspection report — coordinator review</div>
+    <div class="status-pill">⏳ Awaiting coordinator review</div>
+    <div class="report-title">Visit #GQS591-001-0001-IR01</div>
+    <div class="report-sub">Belisama Gas Project · Submitted by Matthew Shannon · GQS Group · 24 Aug 2026</div>
     <div class="meta-grid">
       <div><div class="meta-label">Client</div><div class="meta-val">Hancock Energy</div></div>
       <div><div class="meta-label">Project</div><div class="meta-val">Belisama Gas Project</div></div>
@@ -192,350 +195,291 @@ body{font-family:Inter,sans-serif;background:#f4f7fa;color:#1a2533;-webkit-font-
     </div>
   </div>
 
-  <!-- 1: CONTACT -->
-  <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
-      <div class="section-hdr-left"><div class="section-num">1</div><span class="section-icon">👤</span><span class="section-title">Contact details</span></div>
-      <div class="section-hdr-right"><button class="btn-edit" onclick="toggleEdit(1, event)">✏️ Edit</button><i class="section-arrow open">›</i></div>
+  <!-- SECTIONS -->
+  <div class="sec-card">
+    <div class="sec-hdr" onclick="togSec(this)">
+      <div class="sec-hdr-left"><div class="sec-num">1</div><span class="sec-icon">👤</span><span class="sec-title" id="sec-title-1">Contact details</span></div>
+      <div class="sec-hdr-right"><button class="btn-edit" onclick="toggleEdit(1,event)">✏️ Edit</button><i class="sec-arrow open">›</i></div>
     </div>
-    <div class="section-body open">
-      <table class="review-table"><thead><tr><th>Field</th><th>Value</th><th>Field</th><th>Value</th></tr></thead>
-      <tbody><tr><td>Client</td><td>Hancock Energy</td><td>Inspector</td><td>Matthew Shannon</td></tr>
-      <tr><td>Client contact</td><td>Jake Morton</td><td>GQS contact</td><td>Matthew Shannon</td></tr></tbody></table>
-    </div>
-
-    <div class="edit-mode" id="edit-panel-1">
-      <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
-      
-      <div class="edit-grid">
-        <div><label>Client name</label><input type="text" value="Hancock Energy"/></div>
-        <div><label>Inspector</label><input type="text" value="Matthew Shannon"/></div>
-        <div><label>Client contact</label><input type="text" value="Jake Morton"/></div>
-        <div><label>GQS contact</label><input type="text" value="Matthew Shannon"/></div>
-      </div>
-      <div style="margin-top:12px;">
-        <button class="btn-save" onclick="saveEdit(1)">💾 Save changes</button>
-        <button class="btn-cancel-edit" onclick="toggleEdit(1, null, true)">Cancel</button>
+    <div class="sec-body open">
+      <table class="data-table"><thead><tr><th>Field</th><th>Value</th><th>Field</th><th>Value</th></tr></thead>
+       <tbody><tr><td>Client</td><td>Hancock Energy</td><td>Inspector</td><td>Matthew Shannon</td></tr>
+       <tr><td>Client contact</td><td>Jake Morton</td><td>GQS contact</td><td>Matthew Shannon</td></tr></tbody></table>
+      <div class="edit-mode" id="edit-panel-1">
+        <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
+        <div class="edit-grid"><div class="edit-field"><label>Client</label><input value="Hancock Energy"/></div>
+       <div class="edit-field"><label>Inspector</label><input value="Matthew Shannon"/></div>
+       <div class="edit-field"><label>Client contact</label><input value="Jake Morton"/></div>
+       <div class="edit-field"><label>GQS contact</label><input value="Matthew Shannon"/></div></div>
+        <div class="edit-actions">
+          <button class="btn-save" onclick="saveEdit(1)">💾 Save changes</button>
+          <button class="btn-cancel-edit" onclick="toggleEdit(1,null,true)">Cancel</button>
+        </div>
       </div>
     </div>
   </div>
-
-  <!-- 2: JOB DETAILS -->
-  <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
-      <div class="section-hdr-left"><div class="section-num">2</div><span class="section-icon">📋</span><span class="section-title">Job details</span></div>
-      <div class="section-hdr-right"><button class="btn-edit" onclick="toggleEdit(2, event)">✏️ Edit</button><i class="section-arrow">›</i></div>
+<div class="sec-card">
+    <div class="sec-hdr" onclick="togSec(this)">
+      <div class="sec-hdr-left"><div class="sec-num">2</div><span class="sec-icon">📋</span><span class="sec-title" id="sec-title-2">Job details</span></div>
+      <div class="sec-hdr-right"><button class="btn-edit" onclick="toggleEdit(2,event)">✏️ Edit</button><i class="sec-arrow">›</i></div>
     </div>
-    <div class="section-body">
-      <table class="review-table" style="margin-bottom:12px;"><thead><tr><th>Field</th><th>Value</th><th>Field</th><th>Value</th></tr></thead>
-      <tbody><tr><td>GQS number</td><td>GQS591-001-0001</td><td>PO number</td><td>—</td></tr>
-      <tr><td>CTR number</td><td>HCE001</td><td>Cost centre</td><td>N/A</td></tr>
-      <tr><td>Vendor</td><td>TBA</td><td>Location</td><td>Belisama Gas Field, WA</td></tr>
-      <tr><td>Project</td><td>Belisama Gas Project</td><td>Visit dates</td><td>22 Aug 2026</td></tr></tbody></table>
-      <div class="sub-label" style="margin-top:0;">Scope of work</div>
-      <div class="narrative-box">VENDOR INSPECTION AT TBA — PROJECT: Belisama Gas Project</div>
-    </div>
-
-    <div class="edit-mode" id="edit-panel-2">
-      <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
-      
-      <div class="edit-grid">
-        <div><label>GQS number</label><input type="text" value="GQS591-001-0001"/></div>
-        <div><label>PO number</label><input type="text" value=""/></div>
-        <div><label>CTR number</label><input type="text" value="HCE001"/></div>
-        <div><label>Cost centre</label><input type="text" value="N/A"/></div>
-        <div><label>Vendor</label><input type="text" value="TBA"/></div>
-        <div><label>Location</label><input type="text" value="Belisama Gas Field, WA"/></div>
-      </div>
-      <label style="margin-top:10px;">Scope of work</label>
-      <textarea>VENDOR INSPECTION AT TBA — PROJECT: Belisama Gas Project</textarea>
-      <div style="margin-top:12px;">
-        <button class="btn-save" onclick="saveEdit(2)">💾 Save changes</button>
-        <button class="btn-cancel-edit" onclick="toggleEdit(2, null, true)">Cancel</button>
+    <div class="sec-body">
+      <table class="data-table" style="margin-bottom:14px;"><thead><tr><th>Field</th><th>Value</th><th>Field</th><th>Value</th></tr></thead>
+       <tbody><tr><td>GQS number</td><td>GQS591-001-0001</td><td>PO number</td><td>—</td></tr>
+       <tr><td>CTR number</td><td>HCE001</td><td>Cost centre</td><td>N/A</td></tr>
+       <tr><td>Vendor</td><td>TBA</td><td>Location</td><td>Belisama Gas Field, WA</td></tr>
+       <tr><td>Project</td><td>Belisama Gas Project</td><td>Visit dates</td><td>22 Aug 2026</td></tr></tbody></table>
+       <span class="sub-label">Scope of work</span>
+       <div class="narrative">VENDOR INSPECTION AT TBA — PROJECT: Belisama Gas Project</div>
+      <div class="edit-mode" id="edit-panel-2">
+        <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
+        <div class="edit-grid"><div class="edit-field"><label>GQS number</label><input value="GQS591-001-0001"/></div>
+       <div class="edit-field"><label>PO number</label><input value=""/></div>
+       <div class="edit-field"><label>CTR number</label><input value="HCE001"/></div>
+       <div class="edit-field"><label>Cost centre</label><input value="N/A"/></div>
+       <div class="edit-field"><label>Vendor</label><input value="TBA"/></div>
+       <div class="edit-field"><label>Location</label><input value="Belisama Gas Field, WA"/></div></div>
+       <div class="edit-field" style="margin-top:10px;"><label>Scope of work</label><textarea>VENDOR INSPECTION AT TBA — PROJECT: Belisama Gas Project</textarea></div>
+        <div class="edit-actions">
+          <button class="btn-save" onclick="saveEdit(2)">💾 Save changes</button>
+          <button class="btn-cancel-edit" onclick="toggleEdit(2,null,true)">Cancel</button>
+        </div>
       </div>
     </div>
   </div>
-
-  <!-- 3: TIMESHEET -->
-  <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
-      <div class="section-hdr-left"><div class="section-num">3</div><span class="section-icon">⏱️</span><span class="section-title">Timesheet</span></div>
-      <div class="section-hdr-right"><button class="btn-edit" onclick="toggleEdit(3, event)">✏️ Edit</button><i class="section-arrow">›</i></div>
+<div class="sec-card">
+    <div class="sec-hdr" onclick="togSec(this)">
+      <div class="sec-hdr-left"><div class="sec-num">3</div><span class="sec-icon">⏱️</span><span class="sec-title" id="sec-title-3">Timesheet</span></div>
+      <div class="sec-hdr-right"><button class="btn-edit" onclick="toggleEdit(3,event)">✏️ Edit</button><i class="sec-arrow">›</i></div>
     </div>
-    <div class="section-body">
+    <div class="sec-body">
       <div class="ts-grid">
-        <div class="ts-item"><div class="ts-label">Work time</div><div class="ts-val">8.00 hrs</div></div>
-        <div class="ts-item"><div class="ts-label">Travel time</div><div class="ts-val">2.00 hrs</div></div>
-        <div class="ts-item"><div class="ts-label">Report time</div><div class="ts-val">1.00 hrs</div></div>
-        <div class="ts-item"><div class="ts-label">Mileage</div><div class="ts-val">120 km</div></div>
-        <div class="ts-item ts-total"><div class="ts-label">Total hours</div><div class="ts-val">11.00 hrs</div></div>
-      </div>
-    </div>
-
-    <div class="edit-mode" id="edit-panel-3">
-      <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
-      
-      <div class="edit-grid">
-        <div><label>Work time (hrs)</label><input type="number" value="8.00" step="0.5"/></div>
-        <div><label>Travel time (hrs)</label><input type="number" value="2.00" step="0.5"/></div>
-        <div><label>Report time (hrs)</label><input type="number" value="1.00" step="0.5"/></div>
-        <div><label>Overtime (hrs)</label><input type="number" value="0" step="0.5"/></div>
-        <div><label>Mileage (km)</label><input type="number" value="120"/></div>
-        <div><label>Per diem</label><input type="text" value="—"/></div>
-      </div>
-      <div style="margin-top:12px;">
-        <button class="btn-save" onclick="saveEdit(3)">💾 Save changes</button>
-        <button class="btn-cancel-edit" onclick="toggleEdit(3, null, true)">Cancel</button>
+       <div class="ts-card"><div class="ts-card-label">Work time</div><div class="ts-card-val">8.00 hrs</div></div>
+       <div class="ts-card"><div class="ts-card-label">Travel time</div><div class="ts-card-val">2.00 hrs</div></div>
+       <div class="ts-card"><div class="ts-card-label">Report time</div><div class="ts-card-val">1.00 hrs</div></div>
+       <div class="ts-card"><div class="ts-card-label">Mileage</div><div class="ts-card-val">120 km</div></div>
+       <div class="ts-card ts-total"><div class="ts-card-label">Total hours</div><div class="ts-card-val">11.00 hrs</div></div></div>
+      <div class="edit-mode" id="edit-panel-3">
+        <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
+        <div class="edit-grid"><div class="edit-field"><label>Work time (hrs)</label><input type="number" value="8.00" step="0.5"/></div>
+       <div class="edit-field"><label>Travel time (hrs)</label><input type="number" value="2.00" step="0.5"/></div>
+       <div class="edit-field"><label>Report time (hrs)</label><input type="number" value="1.00" step="0.5"/></div>
+       <div class="edit-field"><label>Mileage (km)</label><input type="number" value="120"/></div></div>
+        <div class="edit-actions">
+          <button class="btn-save" onclick="saveEdit(3)">💾 Save changes</button>
+          <button class="btn-cancel-edit" onclick="toggleEdit(3,null,true)">Cancel</button>
+        </div>
       </div>
     </div>
   </div>
-
-  <!-- 4: HSE -->
-  <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
-      <div class="section-hdr-left"><div class="section-num">4</div><span class="section-icon">🛡️</span><span class="section-title">HSE checklist</span></div>
-      <div class="section-hdr-right"><button class="btn-edit" onclick="toggleEdit(4, event)">✏️ Edit</button><i class="section-arrow">›</i></div>
+<div class="sec-card">
+    <div class="sec-hdr" onclick="togSec(this)">
+      <div class="sec-hdr-left"><div class="sec-num">4</div><span class="sec-icon">🛡️</span><span class="sec-title" id="sec-title-4">HSE checklist</span></div>
+      <div class="sec-hdr-right"><button class="btn-edit" onclick="toggleEdit(4,event)">✏️ Edit</button><i class="sec-arrow">›</i></div>
     </div>
-    <div class="section-body">
-      <div class="hse-item"><span>Safety induction received?</span><span class="badge badge-yes">Yes</span></div>
-      <div class="hse-item"><span>All persons wearing suitable PPE?</span><span class="badge badge-yes">Yes</span></div>
-      <div class="hse-item"><span>Site clean and well organised?</span><span class="badge badge-yes">Yes</span></div>
-      <div class="hse-item"><span>All personnel working safely?</span><span class="badge badge-yes">Yes</span></div>
-      <div class="hse-item"><span>Machinery well maintained and operated safely?</span><span class="badge badge-yes">Yes</span></div>
-      <div class="hse-item"><span>Visit free from incidents or dangerous occurrences?</span><span class="badge badge-yes">Yes</span></div>
-      <div class="hse-item"><span>Management conveying a positive H&amp;S culture?</span><span class="badge badge-yes">Yes</span></div>
-    </div>
-
-    <div class="edit-mode" id="edit-panel-4">
-      <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
-      
-      <div class="edit-grid">
-        <div><label>Safety induction received?</label><select><option>Yes</option><option>No</option></select></div>
-        <div><label>All persons wearing suitable PPE?</label><select><option>Yes</option><option>No</option></select></div>
-        <div><label>Site clean and well organised?</label><select><option>Yes</option><option>No</option></select></div>
-        <div><label>All personnel working safely?</label><select><option>Yes</option><option>No</option></select></div>
-        <div><label>Machinery well maintained?</label><select><option>Yes</option><option>No</option></select></div>
-        <div><label>Visit free from incidents?</label><select><option>Yes</option><option>No</option></select></div>
-        <div><label>Management positive H&S culture?</label><select><option>Yes</option><option>No</option></select></div>
-      </div>
-      <label>Additional HSE notes</label>
-      <textarea>No additional HSE concerns noted during this visit.</textarea>
-      <div style="margin-top:12px;">
-        <button class="btn-save" onclick="saveEdit(4)">💾 Save changes</button>
-        <button class="btn-cancel-edit" onclick="toggleEdit(4, null, true)">Cancel</button>
+    <div class="sec-body">
+      <div class="hse-row"><span>Safety induction received?</span><span class="badge badge-yes">Yes</span></div>
+       <div class="hse-row"><span>All persons wearing suitable PPE?</span><span class="badge badge-yes">Yes</span></div>
+       <div class="hse-row"><span>Site clean and well organised?</span><span class="badge badge-yes">Yes</span></div>
+       <div class="hse-row"><span>All personnel working safely?</span><span class="badge badge-yes">Yes</span></div>
+       <div class="hse-row"><span>Machinery well maintained and operated safely?</span><span class="badge badge-yes">Yes</span></div>
+       <div class="hse-row"><span>Visit free from incidents or dangerous occurrences?</span><span class="badge badge-yes">Yes</span></div>
+       <div class="hse-row"><span>Management conveying a positive H&S culture?</span><span class="badge badge-yes">Yes</span></div>
+      <div class="edit-mode" id="edit-panel-4">
+        <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
+        <div class="edit-grid">
+       <div class="edit-field"><label>Safety induction received?</label><select><option>Yes</option><option>No</option></select></div>
+       <div class="edit-field"><label>All persons wearing suitable PPE?</label><select><option>Yes</option><option>No</option></select></div>
+       <div class="edit-field"><label>Site clean and well organised?</label><select><option>Yes</option><option>No</option></select></div>
+       <div class="edit-field"><label>All personnel working safely?</label><select><option>Yes</option><option>No</option></select></div>
+       <div class="edit-field"><label>Machinery well maintained?</label><select><option>Yes</option><option>No</option></select></div>
+       <div class="edit-field"><label>Visit free from incidents?</label><select><option>Yes</option><option>No</option></select></div>
+       <div class="edit-field"><label>Positive H&S culture?</label><select><option>Yes</option><option>No</option></select></div></div>
+       <div class="edit-field" style="margin-top:10px;"><label>Additional HSE notes</label><textarea>No additional HSE concerns noted during this visit.</textarea></div>
+        <div class="edit-actions">
+          <button class="btn-save" onclick="saveEdit(4)">💾 Save changes</button>
+          <button class="btn-cancel-edit" onclick="toggleEdit(4,null,true)">Cancel</button>
+        </div>
       </div>
     </div>
   </div>
-
-  <!-- 5: ATTENDEES -->
-  <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
-      <div class="section-hdr-left"><div class="section-num">5</div><span class="section-icon">👥</span><span class="section-title">Attendees</span></div>
-      <div class="section-hdr-right"><button class="btn-edit" onclick="toggleEdit(5, event)">✏️ Edit</button><i class="section-arrow">›</i></div>
+<div class="sec-card">
+    <div class="sec-hdr" onclick="togSec(this)">
+      <div class="sec-hdr-left"><div class="sec-num">5</div><span class="sec-icon">👥</span><span class="sec-title" id="sec-title-5">Attendees</span></div>
+      <div class="sec-hdr-right"><button class="btn-edit" onclick="toggleEdit(5,event)">✏️ Edit</button><i class="sec-arrow">›</i></div>
     </div>
-    <div class="section-body">
-      <table class="review-table"><thead><tr><th>Name</th><th>Company</th><th>Position</th></tr></thead>
-      <tbody><tr><td>Matthew Shannon</td><td>GQS Group</td><td>Lead Inspector</td></tr>
-      <tr><td>Jake Morton</td><td>Hancock Energy</td><td>Client Representative</td></tr></tbody></table>
-    </div>
-
-    <div class="edit-mode" id="edit-panel-5">
-      <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
-      
-      <label>Attendee 1 — Name</label><input type="text" value="Matthew Shannon"/>
-      <div class="edit-grid" style="margin-top:6px;">
-        <div><label>Company</label><input type="text" value="GQS Group"/></div>
-        <div><label>Position</label><input type="text" value="Lead Inspector"/></div>
-      </div>
-      <label style="margin-top:10px;">Attendee 2 — Name</label><input type="text" value="Jake Morton"/>
-      <div class="edit-grid" style="margin-top:6px;">
-        <div><label>Company</label><input type="text" value="Hancock Energy"/></div>
-        <div><label>Position</label><input type="text" value="Client Representative"/></div>
-      </div>
-      <div style="margin-top:12px;">
-        <button class="btn-save" onclick="saveEdit(5)">💾 Save changes</button>
-        <button class="btn-cancel-edit" onclick="toggleEdit(5, null, true)">Cancel</button>
+    <div class="sec-body">
+      <table class="data-table"><thead><tr><th>Name</th><th>Company</th><th>Position</th></tr></thead>
+       <tbody><tr><td>Matthew Shannon</td><td>GQS Group</td><td>Lead Inspector</td></tr>
+       <tr><td>Jake Morton</td><td>Hancock Energy</td><td>Client Representative</td></tr></tbody></table>
+      <div class="edit-mode" id="edit-panel-5">
+        <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
+        <div class="edit-grid"><div class="edit-field"><label>Attendee 1 name</label><input value="Matthew Shannon"/></div>
+       <div class="edit-field"><label>Company</label><input value="GQS Group"/></div>
+       <div class="edit-field"><label>Attendee 2 name</label><input value="Jake Morton"/></div>
+       <div class="edit-field"><label>Company</label><input value="Hancock Energy"/></div></div>
+        <div class="edit-actions">
+          <button class="btn-save" onclick="saveEdit(5)">💾 Save changes</button>
+          <button class="btn-cancel-edit" onclick="toggleEdit(5,null,true)">Cancel</button>
+        </div>
       </div>
     </div>
   </div>
-
-  <!-- 6: DOCUMENTS -->
-  <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
-      <div class="section-hdr-left"><div class="section-num">6</div><span class="section-icon">📄</span><span class="section-title">Documents</span></div>
-      <div class="section-hdr-right"><button class="btn-edit" onclick="toggleEdit(6, event)">✏️ Edit</button><i class="section-arrow">›</i></div>
+<div class="sec-card">
+    <div class="sec-hdr" onclick="togSec(this)">
+      <div class="sec-hdr-left"><div class="sec-num">6</div><span class="sec-icon">📄</span><span class="sec-title" id="sec-title-6">Documents</span></div>
+      <div class="sec-hdr-right"><button class="btn-edit" onclick="toggleEdit(6,event)">✏️ Edit</button><i class="sec-arrow">›</i></div>
     </div>
-    <div class="section-body">
-      <div class="sub-label" style="margin-top:0;">Documents issued</div>
-      <table class="review-table" style="margin-bottom:12px;"><thead><tr><th>Type</th><th>Issued?</th><th>Number</th></tr></thead>
-      <tbody><tr><td>Inspection Release Certificate (IRN)</td><td><span class="badge badge-yes">Yes</span></td><td>IRN-2026-0091</td></tr>
-      <tr><td>NCR</td><td><span class="badge badge-no">No</span></td><td>—</td></tr></tbody></table>
-      <div class="sub-label">Documents used</div>
-      <table class="review-table"><thead><tr><th>Document title</th><th>Doc number</th><th>Revision</th></tr></thead>
-      <tbody><tr><td>Inspection &amp; Test Plan</td><td>ITP-BEL-2026-01</td><td>Rev 2</td></tr>
-      <tr><td>Dimensional Drawing</td><td>DWG-BEL-0041</td><td>Rev A</td></tr></tbody></table>
-    </div>
-
-    <div class="edit-mode" id="edit-panel-6">
-      <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
-      
-      <div class="edit-grid">
-        <div><label>IRN issued?</label><select><option>Yes</option><option>No</option></select></div>
-        <div><label>IRN number</label><input type="text" value="IRN-2026-0091"/></div>
-        <div><label>NCR issued?</label><select><option>No</option><option>Yes</option></select></div>
-        <div><label>NCR number</label><input type="text" value="—"/></div>
-      </div>
-      <div style="margin-top:12px;">
-        <button class="btn-save" onclick="saveEdit(6)">💾 Save changes</button>
-        <button class="btn-cancel-edit" onclick="toggleEdit(6, null, true)">Cancel</button>
+    <div class="sec-body">
+      <span class="sub-label">Documents issued</span>
+       <table class="data-table" style="margin-bottom:14px;"><thead><tr><th>Type</th><th>Issued?</th><th>Number</th></tr></thead>
+       <tbody><tr><td>Inspection Release Certificate (IRN)</td><td><span class="badge badge-yes">Yes</span></td><td>IRN-2026-0091</td></tr>
+       <tr><td>NCR</td><td><span class="badge badge-no">No</span></td><td>—</td></tr></tbody></table>
+       <span class="sub-label">Documents used</span>
+       <table class="data-table"><thead><tr><th>Title</th><th>Doc number</th><th>Revision</th></tr></thead>
+       <tbody><tr><td>Inspection &amp; Test Plan</td><td>ITP-BEL-2026-01</td><td>Rev 2</td></tr>
+       <tr><td>Dimensional Drawing</td><td>DWG-BEL-0041</td><td>Rev A</td></tr></tbody></table>
+      <div class="edit-mode" id="edit-panel-6">
+        <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
+        <div class="edit-grid"><div class="edit-field"><label>IRN issued?</label><select><option>Yes</option><option>No</option></select></div>
+       <div class="edit-field"><label>IRN number</label><input value="IRN-2026-0091"/></div>
+       <div class="edit-field"><label>NCR issued?</label><select><option>No</option><option>Yes</option></select></div>
+       <div class="edit-field"><label>NCR number</label><input value="—"/></div></div>
+        <div class="edit-actions">
+          <button class="btn-save" onclick="saveEdit(6)">💾 Save changes</button>
+          <button class="btn-cancel-edit" onclick="toggleEdit(6,null,true)">Cancel</button>
+        </div>
       </div>
     </div>
   </div>
-
-  <!-- 7: CALIBRATION -->
-  <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
-      <div class="section-hdr-left"><div class="section-num">7</div><span class="section-icon">🔬</span><span class="section-title">Calibration</span></div>
-      <div class="section-hdr-right"><button class="btn-edit" onclick="toggleEdit(7, event)">✏️ Edit</button><i class="section-arrow">›</i></div>
+<div class="sec-card">
+    <div class="sec-hdr" onclick="togSec(this)">
+      <div class="sec-hdr-left"><div class="sec-num">7</div><span class="sec-icon">🔬</span><span class="sec-title" id="sec-title-7">Calibration</span></div>
+      <div class="sec-hdr-right"><button class="btn-edit" onclick="toggleEdit(7,event)">✏️ Edit</button><i class="sec-arrow">›</i></div>
     </div>
-    <div class="section-body">
-      <table class="review-table"><thead><tr><th>Instrument</th><th>Tag no.</th><th>Cert. no.</th><th>Expiry</th><th>Status</th></tr></thead>
-      <tbody><tr><td>Digital thickness gauge</td><td>DTG-001</td><td>CERT-2026-0441</td><td>Dec 2026</td><td><span class="badge badge-valid">Valid</span></td></tr>
-      <tr><td>Torque wrench</td><td>TW-003</td><td>CERT-2026-0188</td><td>Nov 2026</td><td><span class="badge badge-valid">Valid</span></td></tr></tbody></table>
-    </div>
-
-    <div class="edit-mode" id="edit-panel-7">
-      <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
-      
-      <div class="edit-grid">
-        <div><label>Instrument 1</label><input type="text" value="Digital thickness gauge"/></div>
-        <div><label>Tag no.</label><input type="text" value="DTG-001"/></div>
-        <div><label>Cert. no.</label><input type="text" value="CERT-2026-0441"/></div>
-        <div><label>Expiry</label><input type="text" value="Dec 2026"/></div>
-      </div>
-      <div style="margin-top:12px;">
-        <button class="btn-save" onclick="saveEdit(7)">💾 Save changes</button>
-        <button class="btn-cancel-edit" onclick="toggleEdit(7, null, true)">Cancel</button>
+    <div class="sec-body">
+      <table class="data-table"><thead><tr><th>Instrument</th><th>Tag no.</th><th>Cert. no.</th><th>Expiry</th><th>Status</th></tr></thead>
+       <tbody><tr><td>Digital thickness gauge</td><td>DTG-001</td><td>CERT-2026-0441</td><td>Dec 2026</td><td><span class="badge badge-valid">Valid</span></td></tr>
+       <tr><td>Torque wrench</td><td>TW-003</td><td>CERT-2026-0188</td><td>Nov 2026</td><td><span class="badge badge-valid">Valid</span></td></tr></tbody></table>
+      <div class="edit-mode" id="edit-panel-7">
+        <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
+        <div class="edit-grid"><div class="edit-field"><label>Instrument 1</label><input value="Digital thickness gauge"/></div>
+       <div class="edit-field"><label>Tag no.</label><input value="DTG-001"/></div>
+       <div class="edit-field"><label>Cert. no.</label><input value="CERT-2026-0441"/></div>
+       <div class="edit-field"><label>Expiry</label><input value="Dec 2026"/></div></div>
+        <div class="edit-actions">
+          <button class="btn-save" onclick="saveEdit(7)">💾 Save changes</button>
+          <button class="btn-cancel-edit" onclick="toggleEdit(7,null,true)">Cancel</button>
+        </div>
       </div>
     </div>
   </div>
-
-  <!-- 8: PHOTOS -->
-  <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
-      <div class="section-hdr-left"><div class="section-num">8</div><span class="section-icon">📷</span><span class="section-title">Photos</span></div>
-      <div class="section-hdr-right"><button class="btn-edit" onclick="toggleEdit(8, event)">✏️ Edit</button><i class="section-arrow">›</i></div>
+<div class="sec-card">
+    <div class="sec-hdr" onclick="togSec(this)">
+      <div class="sec-hdr-left"><div class="sec-num">8</div><span class="sec-icon">📷</span><span class="sec-title" id="sec-title-8">Photos</span></div>
+      <div class="sec-hdr-right"><button class="btn-edit" onclick="toggleEdit(8,event)">✏️ Edit</button><i class="sec-arrow">›</i></div>
     </div>
-    <div class="section-body">
-      <div class="photo-grid">
-        <div class="photo-item">📷</div><div class="photo-item">📷</div><div class="photo-item">📷</div>
+    <div class="sec-body">
+      <div class="photo-grid"><div class="photo-item">📷</div><div class="photo-item">📷</div><div class="photo-item">📷</div></div>
+       <p style="font-size:11px;color:var(--slate-light);margin-top:10px;">3 photographs submitted</p>
+      <div class="edit-mode" id="edit-panel-8">
+        <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
+        
+        <div class="edit-actions">
+          <button class="btn-save" onclick="saveEdit(8)">💾 Save changes</button>
+          <button class="btn-cancel-edit" onclick="toggleEdit(8,null,true)">Cancel</button>
+        </div>
       </div>
-      <p style="font-size:11px;color:#aaa;margin-top:10px;">3 photographs submitted</p>
     </div>
   </div>
-
-  <!-- 9: VISIT REPORT -->
-  <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
-      <div class="section-hdr-left"><div class="section-num">9</div><span class="section-icon">📝</span><span class="section-title">Visit report</span></div>
-      <div class="section-hdr-right"><button class="btn-edit" onclick="toggleEdit(9, event)">✏️ Edit</button><i class="section-arrow">›</i></div>
+<div class="sec-card">
+    <div class="sec-hdr" onclick="togSec(this)">
+      <div class="sec-hdr-left"><div class="sec-num">9</div><span class="sec-icon">📝</span><span class="sec-title" id="sec-title-9">Visit report</span></div>
+      <div class="sec-hdr-right"><button class="btn-edit" onclick="toggleEdit(9,event)">✏️ Edit</button><i class="sec-arrow">›</i></div>
     </div>
-    <div class="section-body">
-      <div class="narrative-box">
-        Inspection visit was attended on 22 August 2026 at the vendor facility for the Belisama Gas Project.<br><br>
-        Inspector performed 100% final dimensional and visual inspection per ITP-BEL-2026-01. All results acceptable.<br><br>
-        • Visual inspection — no defects found. Surface condition acceptable.<br>
-        • Dimensional check vs DWG-BEL-0041 Rev A — all dimensions within tolerance.<br>
-        • Material traceability verified. IRN issued with acceptable result.<br><br>
-        No non-conformances raised. Further visit not required.
-      </div>
-    </div>
-
-    <div class="edit-mode" id="edit-panel-9">
-      <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
-      
-      <label>Visit report narrative</label>
-      <textarea style="min-height:160px;">Inspection visit was attended on 22 August 2026 at the vendor facility for the Belisama Gas Project.
+    <div class="sec-body">
+      <div class="narrative">
+       Inspection visit was attended on 22 August 2026 at the vendor facility for the Belisama Gas Project.<br><br>
+       Inspector performed 100% final dimensional and visual inspection per ITP-BEL-2026-01. All results acceptable.<br><br>
+       • Visual inspection — no defects found.<br>
+       • Dimensional check vs DWG-BEL-0041 Rev A — all dimensions within tolerance.<br>
+       • Material traceability verified. IRN issued.<br><br>
+       No non-conformances raised. Further visit not required.</div>
+      <div class="edit-mode" id="edit-panel-9">
+        <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
+        <div class="edit-field"><label>Visit report narrative</label>
+       <textarea style="min-height:180px;">Inspection visit was attended on 22 August 2026 at the vendor facility for the Belisama Gas Project.
 
 Inspector performed 100% final dimensional and visual inspection per ITP-BEL-2026-01. All results acceptable.
 
-• Visual inspection — no defects found. Surface condition acceptable.
+• Visual inspection — no defects found.
 • Dimensional check vs DWG-BEL-0041 Rev A — all dimensions within tolerance.
-• Material traceability verified. IRN issued with acceptable result.
+• Material traceability verified. IRN issued.
 
-No non-conformances raised. Further visit not required.</textarea>
-      <div style="margin-top:12px;">
-        <button class="btn-save" onclick="saveEdit(9)">💾 Save changes</button>
-        <button class="btn-cancel-edit" onclick="toggleEdit(9, null, true)">Cancel</button>
+No non-conformances raised. Further visit not required.</textarea></div>
+        <div class="edit-actions">
+          <button class="btn-save" onclick="saveEdit(9)">💾 Save changes</button>
+          <button class="btn-cancel-edit" onclick="toggleEdit(9,null,true)">Cancel</button>
+        </div>
       </div>
     </div>
   </div>
-
-  <!-- 10: RELEASE CERT -->
-  <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
-      <div class="section-hdr-left"><div class="section-num">10</div><span class="section-icon">📜</span><span class="section-title">Release certificate</span></div>
-      <div class="section-hdr-right"><button class="btn-edit" onclick="toggleEdit(10, event)">✏️ Edit</button><i class="section-arrow">›</i></div>
+<div class="sec-card">
+    <div class="sec-hdr" onclick="togSec(this)">
+      <div class="sec-hdr-left"><div class="sec-num">10</div><span class="sec-icon">📜</span><span class="sec-title" id="sec-title-10">Release certificate</span></div>
+      <div class="sec-hdr-right"><button class="btn-edit" onclick="toggleEdit(10,event)">✏️ Edit</button><i class="sec-arrow">›</i></div>
     </div>
-    <div class="section-body">
-      <table class="review-table"><thead><tr><th>Field</th><th>Value</th></tr></thead>
-      <tbody><tr><td>IRN issued</td><td><span class="badge badge-yes">Yes</span></td></tr>
-      <tr><td>IRN number</td><td>IRN-2026-0091</td></tr>
-      <tr><td>Full release</td><td><span class="badge badge-yes">Yes</span></td></tr>
-      <tr><td>Further visit required</td><td><span class="badge badge-no">No</span></td></tr></tbody></table>
-    </div>
-
-    <div class="edit-mode" id="edit-panel-10">
-      <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
-      
-      <div class="edit-grid">
-        <div><label>IRN issued</label><select><option>Yes</option><option>No</option></select></div>
-        <div><label>IRN number</label><input type="text" value="IRN-2026-0091"/></div>
-        <div><label>Full release</label><select><option>Yes</option><option>No</option></select></div>
-        <div><label>Further visit required</label><select><option>No</option><option>Yes</option></select></div>
-      </div>
-      <div style="margin-top:12px;">
-        <button class="btn-save" onclick="saveEdit(10)">💾 Save changes</button>
-        <button class="btn-cancel-edit" onclick="toggleEdit(10, null, true)">Cancel</button>
+    <div class="sec-body">
+      <table class="data-table"><thead><tr><th>Field</th><th>Value</th></tr></thead>
+       <tbody><tr><td>IRN issued</td><td><span class="badge badge-yes">Yes</span></td></tr>
+       <tr><td>IRN number</td><td>IRN-2026-0091</td></tr>
+       <tr><td>Full release</td><td><span class="badge badge-yes">Yes</span></td></tr>
+       <tr><td>Further visit required</td><td><span class="badge badge-no">No</span></td></tr></tbody></table>
+      <div class="edit-mode" id="edit-panel-10">
+        <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
+        <div class="edit-grid"><div class="edit-field"><label>IRN issued</label><select><option>Yes</option><option>No</option></select></div>
+       <div class="edit-field"><label>IRN number</label><input value="IRN-2026-0091"/></div>
+       <div class="edit-field"><label>Full release</label><select><option>Yes</option><option>No</option></select></div>
+       <div class="edit-field"><label>Further visit required</label><select><option>No</option><option>Yes</option></select></div></div>
+        <div class="edit-actions">
+          <button class="btn-save" onclick="saveEdit(10)">💾 Save changes</button>
+          <button class="btn-cancel-edit" onclick="toggleEdit(10,null,true)">Cancel</button>
+        </div>
       </div>
     </div>
   </div>
-
-  <!-- 11: NCR -->
-  <div class="section-card">
-    <div class="section-hdr" onclick="tog(this)">
-      <div class="section-hdr-left"><div class="section-num">11</div><span class="section-icon">⚠️</span><span class="section-title">Non-conformance (NCR)</span></div>
-      <div class="section-hdr-right"><button class="btn-edit" onclick="toggleEdit(11, event)">✏️ Edit</button><i class="section-arrow">›</i></div>
+<div class="sec-card">
+    <div class="sec-hdr" onclick="togSec(this)">
+      <div class="sec-hdr-left"><div class="sec-num">11</div><span class="sec-icon">⚠️</span><span class="sec-title" id="sec-title-11">Non-conformance (NCR)</span></div>
+      <div class="sec-hdr-right"><button class="btn-edit" onclick="toggleEdit(11,event)">✏️ Edit</button><i class="sec-arrow">›</i></div>
     </div>
-    <div class="section-body">
-      <div style="text-align:center;padding:20px 0;">
-        <div style="font-size:32px;margin-bottom:8px;">✅</div>
-        <div style="font-size:13px;font-weight:600;color:#999;">No NCRs raised</div>
-        <div style="font-size:12px;color:#bbb;margin-top:4px;">No non-conformances recorded during this visit.</div>
-      </div>
-    </div>
-
-    <div class="edit-mode" id="edit-panel-11">
-      <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
-      
-      <div><label>NCR raised?</label><select><option>No</option><option>Yes</option></select></div>
-      <label style="margin-top:10px;">NCR details</label>
-      <textarea placeholder="Describe non-conformance if applicable..."></textarea>
-      <div style="margin-top:12px;">
-        <button class="btn-save" onclick="saveEdit(11)">💾 Save changes</button>
-        <button class="btn-cancel-edit" onclick="toggleEdit(11, null, true)">Cancel</button>
+    <div class="sec-body">
+      <div style="text-align:center;padding:24px 0;">
+       <div style="font-size:36px;margin-bottom:10px;">✅</div>
+       <div style="font-size:13px;font-weight:600;color:var(--slate-light);">No NCRs raised</div>
+       <div style="font-size:12px;color:#aaa;margin-top:4px;">No non-conformances recorded during this visit.</div></div>
+      <div class="edit-mode" id="edit-panel-11">
+        <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
+        <div class="edit-field"><label>NCR raised?</label><select><option>No</option><option>Yes</option></select></div>
+       <div class="edit-field" style="margin-top:10px;"><label>NCR details</label><textarea placeholder="Describe non-conformance if applicable..."></textarea></div>
+        <div class="edit-actions">
+          <button class="btn-save" onclick="saveEdit(11)">💾 Save changes</button>
+          <button class="btn-cancel-edit" onclick="toggleEdit(11,null,true)">Cancel</button>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- FEEDBACK PANEL -->
   <div class="feedback-panel" id="feedbackPanel">
-    <h3>✏️ Send feedback to inspector</h3>
-    <p>Describe what changes are required. The inspector will be notified and their link will remain editable until you approve.</p>
-    <label>Your feedback</label>
-    <textarea id="feedbackText" placeholder="e.g. Please add more detail to the visit narrative. The calibration cert for DTG-001 needs to be attached as a document."></textarea>
-    <button class="btn-send-feedback" onclick="sendFeedback()">📨 Send feedback to inspector</button>
-    <button class="btn btn-outline" onclick="toggleFeedback()" style="margin-top:10px;margin-left:8px;">Cancel</button>
+    <div class="feedback-title">✏️ Send feedback to inspector</div>
+    <div class="feedback-sub">Describe what changes are required. The inspector will be notified and their link will remain editable until you approve.</div>
+    <label class="feedback-label">Your feedback</label>
+    <textarea class="feedback-textarea" id="feedbackText" placeholder="e.g. Please add more detail to the visit narrative. The calibration cert for DTG-001 needs to be attached."></textarea>
+    <div style="display:flex;gap:8px;margin-top:12px;">
+      <button class="btn-send-feedback" onclick="sendFeedback()">📨 Send feedback to inspector</button>
+      <button class="btn btn-outline" onclick="toggleFeedback()">Cancel</button>
+    </div>
   </div>
 
 </div>
@@ -543,11 +487,11 @@ No non-conformances raised. Further visit not required.</textarea>
 <!-- APPROVE MODAL -->
 <div class="modal-overlay" id="approveModal">
   <div class="modal">
-    <h3>✅ Approve & send to client</h3>
-    <p>This will lock the inspector's link and send a secure approval link to Hancock Energy. They will have 48 hours to review and approve.</p>
+    <div class="modal-title">✅ Approve & send to client</div>
+    <div class="modal-sub">This will lock the inspector's link and send a secure approval link to Hancock Energy. They will have 48 hours to review and approve.</div>
     <div class="warn-box">⚠️ Once sent, the inspector's link will be permanently locked to read-only.</div>
-    <div style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase;margin-bottom:6px;">Client email</div>
-    <input type="email" value="admin@hancockenergy.com.au" style="width:100%;border:1px solid #ccc;border-radius:6px;padding:8px 12px;font-size:13px;font-family:Inter,sans-serif;outline:none;margin-bottom:16px;"/>
+    <label class="modal-email-label">Client email</label>
+    <input type="email" class="modal-email" value="admin@hancockenergy.com.au"/>
     <div class="modal-actions">
       <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
       <button class="btn btn-approve" onclick="approveAndSend()">Lock inspector link & send to client</button>
@@ -555,89 +499,60 @@ No non-conformances raised. Further visit not required.</textarea>
   </div>
 </div>
 
+<div class="toast" id="toast"></div>
+
 <script>
-function toggleEdit(n, event, forceClose) {
+function togSec(hdr){
+  const body = hdr.nextElementSibling;
+  const arrow = hdr.querySelector('.sec-arrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+function toggleEdit(n, event, forceClose){
   if(event) event.stopPropagation();
   const panel = document.getElementById('edit-panel-' + n);
   if(!panel) return;
   const isOpen = panel.classList.contains('visible');
-  if(forceClose || isOpen) {
+  const btns = document.querySelectorAll('.btn-edit');
+  if(forceClose || isOpen){
     panel.classList.remove('visible');
-    // Update button
-    const btns = document.querySelectorAll('.btn-edit');
-    if(btns[n-1]) { btns[n-1].textContent = '✏️ Edit'; btns[n-1].classList.remove('editing'); }
+    if(btns[n-1]){ btns[n-1].textContent = '✏️ Edit'; btns[n-1].classList.remove('editing'); }
   } else {
     panel.classList.add('visible');
-    const btns = document.querySelectorAll('.btn-edit');
-    if(btns[n-1]) { btns[n-1].textContent = '✕ Close edit'; btns[n-1].classList.add('editing'); }
-    // Make sure section is open
-    const sectionCards = document.querySelectorAll('.section-card');
-    if(sectionCards[n-1]) {
-      const body = sectionCards[n-1].querySelector('.section-body');
-      const arrow = sectionCards[n-1].querySelector('.section-arrow');
-      if(body && !body.classList.contains('open')) {
-        body.classList.add('open');
-        if(arrow) arrow.classList.add('open');
-      }
+    if(btns[n-1]){ btns[n-1].textContent = '✕ Close'; btns[n-1].classList.add('editing'); }
+    // Open section if closed
+    const cards = document.querySelectorAll('.sec-card');
+    if(cards[n-1]){
+      const body = cards[n-1].querySelector('.sec-body');
+      const arrow = cards[n-1].querySelector('.sec-arrow');
+      if(body && !body.classList.contains('open')){ body.classList.add('open'); if(arrow) arrow.classList.add('open'); }
     }
+    setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'nearest'}), 100);
   }
 }
 
-function saveEdit(n) {
-  const panel = document.getElementById('edit-panel-' + n);
-  panel.classList.remove('visible');
-  const btns = document.querySelectorAll('.btn-edit');
-  if(btns[n-1]) { 
-    btns[n-1].textContent = '✏️ Edit'; 
-    btns[n-1].classList.remove('editing');
+function saveEdit(n){
+  toggleEdit(n, null, true);
+  const title = document.getElementById('sec-title-' + n);
+  if(title && !title.querySelector('.edited-badge')){
+    title.innerHTML += '<span class="edited-badge">Edited</span>';
   }
-  // Add edited badge to section title
-  const sectionCards = document.querySelectorAll('.section-card');
-  if(sectionCards[n-1]) {
-    const title = sectionCards[n-1].querySelector('.section-title');
-    if(title && !title.querySelector('.edited-badge')) {
-      title.innerHTML += '<span class="edited-badge">Edited</span>';
-    }
-  }
-  showToast('✅ Changes saved to section ' + n);
-}
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  if(!t) return;
-  t.textContent = msg;
-  t.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#222;color:#fff;padding:12px 20px;border-radius:6px;font-size:13px;font-weight:500;z-index:999;opacity:1;transition:opacity 0.3s;';
-  setTimeout(() => { t.style.opacity = '0'; }, 2500);
-}
-
-function tog(hdr){
-  const body = hdr.nextElementSibling;
-  const arrow = hdr.querySelector('.section-arrow');
-  body.classList.toggle('open');
-  arrow.classList.toggle('open');
+  showToast('✅ Section ' + n + ' changes saved');
 }
 
 function toggleFeedback(){
   const panel = document.getElementById('feedbackPanel');
   panel.classList.toggle('visible');
-  if(panel.classList.contains('visible')){
-    panel.scrollIntoView({behavior:'smooth', block:'start'});
-  }
+  if(panel.classList.contains('visible')) panel.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 function sendFeedback(){
   const txt = document.getElementById('feedbackText').value.trim();
   if(!txt){ alert('Please enter your feedback before sending.'); return; }
-  // Notify IGRIS
-  try { const ch = new BroadcastChannel('gqs_coordinator'); ch.postMessage('feedback_sent'); ch.close(); } catch(e){}
-  document.getElementById('feedbackPanel').innerHTML = `
-    <div style="text-align:center;padding:20px 0;">
-      <div style="font-size:36px;margin-bottom:10px;">📨</div>
-      <h3 style="font-size:15px;font-weight:700;color:#1a2533;margin-bottom:8px;">Feedback sent to inspector</h3>
-      <p style="font-size:13px;color:#6b7f94;line-height:1.6;">Matthew Shannon has been notified. Their link remains editable. You will be notified when they resubmit.</p>
-    </div>`;
+  try{ const ch = new BroadcastChannel('gqs_coordinator'); ch.postMessage('feedback_sent'); ch.close(); }catch(e){}
+  document.getElementById('feedbackPanel').innerHTML = '<div style="text-align:center;padding:20px 0;"><div style="font-size:36px;margin-bottom:10px;">📨</div><div style="font-size:14px;font-weight:700;color:var(--slate);margin-bottom:8px;">Feedback sent to inspector</div><p style="font-size:13px;color:var(--slate-light);line-height:1.6;">Matthew Shannon has been notified. Their link remains editable. You will be notified when they resubmit.</p></div>';
   document.querySelector('.review-badge').textContent = '✏️ Feedback sent';
-  document.querySelector('.review-badge').style.background = '#dc2626';
 }
 
 function showApproveModal(){
@@ -650,23 +565,16 @@ function closeModal(){
 
 function approveAndSend(){
   closeModal();
-  // Notify IGRIS that coordinator approved
-  try { const ch = new BroadcastChannel('gqs_coordinator'); ch.postMessage('coordinator_approved'); ch.close(); } catch(e){}
-  document.body.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:Inter,sans-serif;background:#f4f7fa;padding:40px;text-align:center;">
-    <div style="background:#fff;border-radius:16px;padding:48px;max-width:500px;box-shadow:0 8px 32px rgba(0,0,0,0.1);">
-      <div style="font-size:52px;margin-bottom:16px;">✅</div>
-      <h2 style="font-size:20px;font-weight:700;color:#1a2533;margin-bottom:8px;">Report approved</h2>
-      <p style="color:#6b7f94;font-size:14px;line-height:1.7;margin-bottom:24px;">The inspection report has been approved and a secure review link has been sent to <strong>Hancock Energy</strong>. The inspector's link is now locked.</p>
-      <div style="background:#f2faf8;border:1px solid #e4f4f1;border-radius:10px;padding:16px;font-size:12px;color:#3a4f63;text-align:left;line-height:2;">
-        🔒 Inspector link: <strong>Locked — read only</strong><br>
-        📨 Client link sent to: <strong>admin@hancockenergy.com.au</strong><br>
-        📊 IGRIS status: <strong style="color:#0e8a76;">Awaiting client approval</strong>
-      </div>
-      <button onclick="window.close()" style="margin-top:20px;background:#0e8a76;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;">Close this tab</button>
-    </div>
-  </div>`;
+  try{ const ch = new BroadcastChannel('gqs_coordinator'); ch.postMessage('coordinator_approved'); ch.close(); }catch(e){}
+  document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:Inter,sans-serif;background:var(--bg);padding:40px;text-align:center;"><div style="background:#fff;border-radius:16px;padding:48px;max-width:500px;box-shadow:0 8px 32px rgba(0,0,0,0.1);border:1px solid var(--border);"><div style="font-size:52px;margin-bottom:16px;">✅</div><h2 style="font-size:20px;font-weight:700;color:var(--slate);font-family:DM Sans,sans-serif;margin-bottom:8px;">Report approved</h2><p style="color:var(--slate-light);font-size:14px;line-height:1.7;margin-bottom:24px;">The inspection report has been approved and a secure review link has been sent to <strong>Hancock Energy</strong>. The inspector\'s link is now locked.</p><div style="background:var(--teal-pale);border:1px solid var(--teal-light);border-radius:10px;padding:16px;font-size:12px;color:var(--slate-mid);text-align:left;line-height:2;"><span>🔒 Inspector link: <strong>Locked — read only</strong></span><br><span>📨 Client link sent to: <strong>admin@hancockenergy.com.au</strong></span><br><span>📊 IGRIS status: <strong style="color:var(--teal);">Awaiting client approval</strong></span></div><button onclick="window.close()" style="margin-top:20px;background:var(--teal);color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;">Close this tab</button></div></div>';
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.opacity = '1';
+  setTimeout(()=>{ t.style.opacity = '0'; }, 2500);
 }
 </script>
-<div id="toast" style="opacity:0;position:fixed;bottom:24px;right:24px;"></div>
 </body>
 </html>
