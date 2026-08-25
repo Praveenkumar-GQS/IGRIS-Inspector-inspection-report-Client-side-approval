@@ -587,14 +587,33 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
 <!-- MODAL: CLIENT -->
 <div class="modal-overlay" id="clientModal">
   <div class="modal">
-    <h3>📨 Send report to client for approval</h3>
-    <p>This will lock the inspector's link and send a secure approval link to Hancock Energy. They will have 48 hours to review and approve.</p>
+    <h3>📨 Send to client for approval</h3>
+    <p>The following secure links will be sent to Hancock Energy for review and approval. They will have 48 hours to action.</p>
     <label style="font-size:11px;font-weight:700;color:#555;display:block;margin-bottom:6px;text-transform:uppercase;">Client email</label>
-    <input type="email" value="admin@hancockenergy.com.au"/>
+    <input type="email" value="admin@hancockenergy.com.au" id="clientEmail" style="width:100%;border:1px solid #ccc;border-radius:4px;padding:8px 12px;font-size:13px;margin-bottom:14px;font-family:Inter,sans-serif;outline:none;"/>
+    <div style="background:#f7f9fb;border:1px solid #dde3ea;border-radius:6px;padding:14px 16px;margin-bottom:14px;">
+      <div style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:10px;">Links to be sent</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;padding:8px 12px;background:#fff;border:1px solid #dde3ea;border-radius:6px;">
+        <span style="font-size:16px;">📋</span>
+        <div style="flex:1;">
+          <div style="font-size:12px;font-weight:600;color:#1a2533;">Inspection Report</div>
+          <div style="font-size:11px;color:#6b7f94;">Full inspection report — read only view for client review</div>
+        </div>
+        <span style="font-size:10px;font-weight:700;color:#0e8a76;background:#f0fdf4;border:1px solid #bbf7d0;padding:2px 8px;border-radius:10px;">Included</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:#fff;border:1px solid #dde3ea;border-radius:6px;">
+        <span style="font-size:16px;">⏱️</span>
+        <div style="flex:1;">
+          <div style="font-size:12px;font-weight:600;color:#1a2533;">Timesheet</div>
+          <div style="font-size:11px;color:#6b7f94;">Inspector timesheet — hours and expenses breakdown</div>
+        </div>
+        <span style="font-size:10px;font-weight:700;color:#0e8a76;background:#f0fdf4;border:1px solid #bbf7d0;padding:2px 8px;border-radius:10px;">Included</span>
+      </div>
+    </div>
     <div class="warn-box">⚠️ Once sent, the inspector's link will be permanently locked to read-only.</div>
     <div class="modal-actions">
       <button class="btn btn-outline" onclick="closeModal('clientModal')">Cancel</button>
-      <button class="btn btn-purple" onclick="sendToClient()">Lock inspector link & send to client</button>
+      <button class="btn btn-purple" onclick="sendToClient()">Send to client →</button>
     </div>
   </div>
 </div>
