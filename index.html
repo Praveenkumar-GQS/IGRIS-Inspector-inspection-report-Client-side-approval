@@ -820,13 +820,17 @@ const igrisChannel = new BroadcastChannel('gqs_approval');
 // Listen for coordinator approval from coordinator review portal
 const coordChannel = new BroadcastChannel('gqs_coordinator');
 coordChannel.onmessage = function(e) {
-  if(e.data === 'coordinator_approved') {
+  const data = e.data;
+  const isApproved = data === 'coordinator_approved' || (data && data.type === 'coordinator_approved');
+  const coordName = (data && data.name) ? data.name : 'Coordinator';
+  const coordDatetime = (data && data.datetime) ? data.datetime : '';
+  if(isApproved) {
     workflowState = 3;
     refreshAll();
     document.getElementById('pageStatus').textContent = '(Coordinator approved — awaiting client sign-off)';
     document.getElementById('pageStatus').style.color = '#7c3aed';
     document.getElementById('alertBanner').className = 'alert alert-blue';
-    document.getElementById('alertBanner').textContent = '📨 Report approved by coordinator — client approval link sent to Hancock Energy. Inspector link is now locked.';
+    document.getElementById('alertBanner').textContent = '📨 Report approved by ' + coordName + (coordDatetime ? ' on ' + coordDatetime : '') + ' — client approval link sent to Hancock Energy. Inspector link is now locked.';
     document.getElementById('btnClient').textContent = '✓ Sent to client';
     document.getElementById('btnClient').style.background = '#16a34a';
     document.getElementById('btnInspector').textContent = '🔒 Inspector link locked';
