@@ -450,21 +450,57 @@ No non-conformances raised. Further visit not required.</textarea></div>
   </div>
 <div class="sec-card">
     <div class="sec-hdr" onclick="togSec(this)">
-      <div class="sec-hdr-left"><div class="sec-num">11</div><span class="sec-icon">⚠️</span><span class="sec-title" id="sec-title-11">Non-conformance (NCR)</span></div>
-      <div class="sec-hdr-right"><button class="btn-edit" onclick="toggleEdit(11,event)">✏️ Edit</button><i class="sec-arrow">›</i></div>
+      <div class="sec-hdr-left"><div class="sec-num">10</div><span class="sec-icon">📎</span><span class="sec-title" id="sec-title-10">Supporting documents</span></div>
+      <div class="sec-hdr-right"><button class="btn-edit" onclick="toggleEdit(10,event)">✏️ Edit</button><i class="sec-arrow">›</i></div>
+    </div>
+    <div class="sec-body">
+      <table class="data-table">
+        <thead><tr><th>Document title</th><th>Type</th><th>Reference</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Mill Certificate — Heat #MC2026-441</td><td>Certificate</td><td>MC-2026-441</td><td><span class="badge badge-yes">Verified</span></td></tr>
+          <tr><td>Weld Procedure Specification</td><td>Procedure</td><td>WPS-BEL-001</td><td><span class="badge badge-yes">Verified</span></td></tr>
+          <tr><td>Dimensional Report</td><td>Report</td><td>DIM-2026-0091</td><td><span class="badge badge-yes">Verified</span></td></tr>
+        </tbody>
+      </table>
+      <div class="edit-mode" id="edit-panel-10">
+        <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
+        <div class="edit-grid">
+          <div class="edit-field"><label>Document 1 title</label><input value="Mill Certificate — Heat #MC2026-441"/></div>
+          <div class="edit-field"><label>Type</label><input value="Certificate"/></div>
+          <div class="edit-field"><label>Reference</label><input value="MC-2026-441"/></div>
+          <div class="edit-field"><label>Status</label><select><option>Verified</option><option>Pending</option><option>Rejected</option></select></div>
+        </div>
+        <div class="edit-grid" style="margin-top:10px;">
+          <div class="edit-field"><label>Document 2 title</label><input value="Weld Procedure Specification"/></div>
+          <div class="edit-field"><label>Type</label><input value="Procedure"/></div>
+          <div class="edit-field"><label>Reference</label><input value="WPS-BEL-001"/></div>
+          <div class="edit-field"><label>Status</label><select><option>Verified</option><option>Pending</option><option>Rejected</option></select></div>
+        </div>
+        <div class="edit-actions">
+          <button class="btn-save" onclick="saveEdit(10)">💾 Save changes</button>
+          <button class="btn-cancel-edit" onclick="toggleEdit(10,null,true)">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-card">
+    <div class="sec-hdr" onclick="togSec(this)">
+      <div class="sec-hdr-left"><div class="sec-num">12</div><span class="sec-icon">⚠️</span><span class="sec-title" id="sec-title-12">Non-conformance (NCR)</span></div>
+      <div class="sec-hdr-right"><button class="btn-edit" onclick="toggleEdit(12,event)">✏️ Edit</button><i class="sec-arrow">›</i></div>
     </div>
     <div class="sec-body">
       <div style="text-align:center;padding:24px 0;">
        <div style="font-size:36px;margin-bottom:10px;">✅</div>
        <div style="font-size:13px;font-weight:600;color:var(--slate-light);">No NCRs raised</div>
        <div style="font-size:12px;color:#aaa;margin-top:4px;">No non-conformances recorded during this visit.</div></div>
-      <div class="edit-mode" id="edit-panel-11">
+      <div class="edit-mode" id="edit-panel-12">
         <div class="edit-note">✏️ Edit mode — changes will be saved to the report</div>
         <div class="edit-field"><label>NCR raised?</label><select><option>No</option><option>Yes</option></select></div>
        <div class="edit-field" style="margin-top:10px;"><label>NCR details</label><textarea placeholder="Describe non-conformance if applicable..."></textarea></div>
         <div class="edit-actions">
-          <button class="btn-save" onclick="saveEdit(11)">💾 Save changes</button>
-          <button class="btn-cancel-edit" onclick="toggleEdit(11,null,true)">Cancel</button>
+          <button class="btn-save" onclick="saveEdit(12)">💾 Save changes</button>
+          <button class="btn-cancel-edit" onclick="toggleEdit(12,null,true)">Cancel</button>
         </div>
       </div>
     </div>
