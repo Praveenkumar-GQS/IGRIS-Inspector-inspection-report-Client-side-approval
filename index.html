@@ -781,18 +781,19 @@ function switchTab(el, tabId) {
 function simulateSubmit() {
   workflowState = 2;
   refreshAll();
-  var rp = document.getElementById('reviewPanel');
-  var rb = document.getElementById('reviewCollapsibleBody');
   var bc = document.getElementById('btnClient');
-  rp.style.removeProperty('display');
-  rp.style.display = 'block';
-  rb.style.display = 'block';
-  document.getElementById('reviewToggleIcon').style.transform = 'rotate(0deg)';
   bc.disabled = false;
   bc.style.opacity = '1';
   bc.style.cursor = 'pointer';
-  setTimeout(function(){ rp.scrollIntoView({behavior:'smooth',block:'start'}); }, 300);
-  showToast('🔔 Matthew Shannon has submitted the report — review below');
+  // Change inspector button to amber "Review inspection"
+  var btn = document.getElementById('btnInspector');
+  btn.textContent = '📋 Review inspection';
+  btn.style.background = '#d97706';
+  btn.style.borderColor = '#b45309';
+  btn.onclick = function(){
+    window.open('gqs_coordinator_review_portal.html', '_blank');
+  };
+  showToast('🔔 Matthew Shannon has submitted — click Review inspection to open coordinator review');
 }
 
 function simulateClientApprove() {
@@ -813,8 +814,32 @@ refreshAll();
 document.getElementById('reviewPanel').style.display = 'none';
 document.getElementById('simulateBar').style.display = 'none';
 
-// Listen for client approval from the client portal tab
+// Listen for client approval from client portal
 const igrisChannel = new BroadcastChannel('gqs_approval');
+
+// Listen for coordinator approval from coordinator review portal
+const coordChannel = new BroadcastChannel('gqs_coordinator');
+coordChannel.onmessage = function(e) {
+  if(e.data === 'coordinator_approved') {
+    workflowState = 3;
+    refreshAll();
+    document.getElementById('pageStatus').textContent = '(Coordinator approved — awaiting client sign-off)';
+    document.getElementById('pageStatus').style.color = '#7c3aed';
+    document.getElementById('alertBanner').className = 'alert alert-blue';
+    document.getElementById('alertBanner').textContent = '📨 Report approved by coordinator — client approval link sent to Hancock Energy. Inspector link is now locked.';
+    document.getElementById('btnClient').textContent = '✓ Sent to client';
+    document.getElementById('btnClient').style.background = '#16a34a';
+    document.getElementById('btnInspector').textContent = '🔒 Inspector link locked';
+    document.getElementById('btnInspector').style.background = '#6b7f94';
+    document.getElementById('btnInspector').onclick = null;
+    showToast('✅ Coordinator approved — client approval link sent to Hancock Energy');
+  }
+  if(e.data === 'feedback_sent') {
+    document.getElementById('alertBanner').className = 'alert alert-amber';
+    document.getElementById('alertBanner').textContent = '✏️ Feedback sent to inspector — awaiting resubmission. Inspector link remains editable.';
+    showToast('✏️ Feedback sent to inspector');
+  }
+};
 igrisChannel.onmessage = function(e) {
   if(e.data === 'client_approved') {
     workflowState = 4;
