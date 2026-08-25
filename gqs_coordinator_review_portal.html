@@ -120,6 +120,8 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--slate);font
 .btn-save:hover{background:var(--teal-mid);}
 .btn-cancel-edit{background:#fff;color:var(--slate-mid);border:1px solid var(--border);padding:8px 14px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
 
+.btn-download{background:var(--teal-pale);color:var(--teal);border:1px solid var(--teal-light);padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;transition:all 0.15s;display:inline-flex;align-items:center;gap:4px;}
+.btn-download:hover{background:var(--teal-light);}
 .sub-label{font-size:10px;font-weight:700;color:var(--slate-light);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;margin-top:14px;display:block;}
 
 /* FEEDBACK PANEL */
@@ -455,11 +457,26 @@ No non-conformances raised. Further visit not required.</textarea></div>
     </div>
     <div class="sec-body">
       <table class="data-table">
-        <thead><tr><th>Document title</th><th>Type</th><th>Reference</th><th>Status</th></tr></thead>
+        <thead><tr><th>Document title</th><th>Type</th><th>Reference</th><th>Download</th></tr></thead>
         <tbody>
-          <tr><td>Mill Certificate — Heat #MC2026-441</td><td>Certificate</td><td>MC-2026-441</td><td><span class="badge badge-yes">Verified</span></td></tr>
-          <tr><td>Weld Procedure Specification</td><td>Procedure</td><td>WPS-BEL-001</td><td><span class="badge badge-yes">Verified</span></td></tr>
-          <tr><td>Dimensional Report</td><td>Report</td><td>DIM-2026-0091</td><td><span class="badge badge-yes">Verified</span></td></tr>
+          <tr>
+            <td>Mill Certificate — Heat #MC2026-441</td>
+            <td>Certificate</td>
+            <td>MC-2026-441</td>
+            <td><button class="btn-download" onclick="showToast('⬇ Downloading Mill Certificate...')">⬇ Download</button></td>
+            </tr>
+          <tr>
+            <td>Weld Procedure Specification</td>
+            <td>Procedure</td>
+            <td>WPS-BEL-001</td>
+            <td><button class="btn-download" onclick="showToast('⬇ Downloading Weld Procedure...')">⬇ Download</button></td>
+            </tr>
+          <tr>
+            <td>Dimensional Report</td>
+            <td>Report</td>
+            <td>DIM-2026-0091</td>
+            <td><button class="btn-download" onclick="showToast('⬇ Downloading Dimensional Report...')">⬇ Download</button></td>
+            </tr>
         </tbody>
       </table>
       <div class="edit-mode" id="edit-panel-10">
