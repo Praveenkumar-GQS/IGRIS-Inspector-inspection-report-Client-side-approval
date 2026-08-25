@@ -636,6 +636,20 @@ function approveAndSend(){
   const d = new Date(date + 'T' + time);
   const formatted = d.toLocaleDateString('en-AU', {day:'2-digit',month:'short',year:'numeric'}) + ' at ' + time + ' AWST';
   try{ const ch = new BroadcastChannel('gqs_coordinator'); ch.postMessage({type:'coordinator_approved', name:name, datetime:formatted}); ch.close(); }catch(e){}
+  // Update action bar to show approved
+  document.querySelector('.action-bar').innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="width:36px;height:36px;border-radius:50%;background:#f0fdf4;border:2px solid #bbf7d0;display:flex;align-items:center;justify-content:center;font-size:18px;">✅</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#16a34a;">Report approved</div>
+        <div style="font-size:11px;color:#6b7f94;">Approved by <strong>${name}</strong> · ${formatted} · Client approval link sent to Hancock Energy</div>
+      </div>
+    </div>
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;color:#16a34a;font-size:11px;font-weight:700;padding:6px 16px;border-radius:20px;">✅ Approved & sent to client</div>
+  `;
+  // Update header badge
+  document.querySelector('.review-badge').textContent = '✅ Approved';
+  document.querySelector('.review-badge').style.background = '#16a34a';
   document.body.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:Inter,sans-serif;background:#f7f9fc;padding:40px;text-align:center;">
     <div style="background:#fff;border-radius:16px;padding:48px;max-width:500px;box-shadow:0 8px 32px rgba(0,0,0,0.1);border:1px solid #e2e8f0;">
       <div style="font-size:52px;margin-bottom:16px;">✅</div>
