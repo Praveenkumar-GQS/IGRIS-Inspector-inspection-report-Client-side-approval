@@ -650,6 +650,9 @@ function approveAndSend(){
   // Update header badge
   document.querySelector('.review-badge').textContent = '✅ Approved';
   document.querySelector('.review-badge').style.background = '#16a34a';
+  // Hide all edit buttons and close any open edit panels
+  document.querySelectorAll('.btn-edit').forEach(btn => btn.style.display = 'none');
+  document.querySelectorAll('.edit-mode').forEach(panel => panel.classList.remove('visible'));
   document.body.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:Inter,sans-serif;background:#f7f9fc;padding:40px;text-align:center;">
     <div style="background:#fff;border-radius:16px;padding:48px;max-width:500px;box-shadow:0 8px 32px rgba(0,0,0,0.1);border:1px solid #e2e8f0;">
       <div style="font-size:52px;margin-bottom:16px;">✅</div>
