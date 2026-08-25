@@ -59,7 +59,7 @@ body{font-family:Inter,sans-serif;background-image:url("gqs_bg.png");background-
 .section-title{font-size:14px;font-weight:600;color:#1a2533;}
 .section-arrow{font-size:16px;color:#aaa;transition:transform 0.2s;font-style:normal;display:inline-block;}
 .section-arrow.open{transform:rotate(90deg);}
-.section-body{padding:0 22px 18px;display:none;border-top:1px solid #f0f2f5;padding-top:0;}
+.section-body{padding:16px 22px 18px;display:block;border-top:1px solid #f0f2f5;}
 
 
 /* HSE */
@@ -344,7 +344,7 @@ body{font-family:Inter,sans-serif;background-image:url("gqs_bg.png");background-
     <h2>Your approval is required</h2>
     <p>Please review all sections above. Once you approve, a signed PDF will be automatically generated and sent to both Hancock Energy and GQS. This cannot be undone.</p>
     <div class="approval-btns">
-      <button class="btn-approve" onclick="approveReport()">✅ Approve report</button>
+      <button class="btn-approve" onclick="approveReport()">✅ Approve report & get the reports</button>
       <button class="btn-changes" onclick="requestChanges()">✏️ Request changes</button>
     </div>
     <div class="comments-wrap" id="commentsWrap">
