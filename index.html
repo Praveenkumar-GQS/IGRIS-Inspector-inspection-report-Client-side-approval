@@ -71,29 +71,29 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
 /* ══════════════════════════
    STATUS STRIP — UPGRADED
 ══════════════════════════ */
-.status-strip{background:#fff;border:1px solid #dde3ea;border-radius:6px;padding:14px 20px;margin-bottom:16px;}
-.status-steps{display:flex;align-items:flex-start;gap:0;width:100%;}
-.status-step-wrap{display:flex;align-items:flex-start;flex:1;}
-.status-step{flex:1;border:1px solid #dde3ea;border-radius:6px;padding:10px 14px;background:#fafbfc;transition:all 0.3s;}
-.status-step.done{background:#f0fdf4;border-color:#bbf7d0;}
-.status-step.active{background:#f0fdf9;border-color:#0e8a76;box-shadow:0 0 0 2px rgba(14,138,118,0.1);}
-.status-step.client-active{background:#f5f3ff;border-color:#7c3aed;box-shadow:0 0 0 2px rgba(124,58,237,0.1);}
-.status-step.closed{background:#f0fdf4;border-color:#bbf7d0;}
-.step-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
-.step-num{width:20px;height:20px;border-radius:50%;background:#e5e7eb;color:#999;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.status-step.done .step-num{background:#16a34a;color:#fff;}
-.status-step.active .step-num{background:#0e8a76;color:#fff;}
-.status-step.client-active .step-num{background:#7c3aed;color:#fff;}
-.status-step.closed .step-num{background:#16a34a;color:#fff;}
-.step-label{font-size:11px;font-weight:700;color:#aaa;margin-bottom:2px;}
-.status-step.done .step-label{color:#16a34a;}
-.status-step.active .step-label{color:#0e8a76;}
-.status-step.client-active .step-label{color:#7c3aed;}
-.status-step.closed .step-label{color:#16a34a;}
-.step-sub{font-size:10px;color:#bbb;line-height:1.4;}
-.status-step.done .step-sub,.status-step.active .step-sub,.status-step.client-active .step-sub,.status-step.closed .step-sub{color:#6b7f94;}
-.step-actions{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap;}
-.step-arrow{display:flex;align-items:center;padding:0 6px;color:#ccc;font-size:16px;margin-top:16px;}
+.status-strip{background:#fff;border:1px solid #dde3ea;border-radius:6px;padding:16px 24px 20px;margin-bottom:16px;}
+.status-strip-title{font-size:12px;font-weight:700;color:#555;margin-bottom:16px;text-transform:uppercase;letter-spacing:0.3px;}
+.status-steps{display:flex;align-items:flex-start;width:100%;position:relative;}
+.status-steps::before{content:'';position:absolute;top:18px;left:calc(10% + 18px);right:calc(10% + 18px);height:2px;background:#e5e7eb;z-index:0;}
+.status-step-wrap{display:flex;flex-direction:column;align-items:center;flex:1;position:relative;z-index:1;}
+.step-circle{width:36px;height:36px;border-radius:50%;background:#e5e7eb;color:#999;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:3px solid #e5e7eb;transition:all 0.3s;position:relative;z-index:2;}
+.step-circle.done{background:#16a34a;border-color:#16a34a;color:#fff;}
+.step-circle.active{background:#fff;border-color:#0e8a76;color:#0e8a76;}
+.step-circle.client-active{background:#fff;border-color:#7c3aed;color:#7c3aed;}
+.step-circle.closed{background:#16a34a;border-color:#16a34a;color:#fff;}
+.step-line{position:absolute;top:18px;left:50%;width:100%;height:2px;background:#e5e7eb;z-index:0;}
+.step-line.done{background:#16a34a;}
+.step-line.active{background:linear-gradient(90deg,#16a34a 50%,#e5e7eb 50%);}
+.step-label{font-size:11px;font-weight:600;color:#555;margin-top:8px;text-align:center;line-height:1.3;}
+.step-pill{margin-top:5px;padding:2px 10px;border-radius:10px;font-size:10px;font-weight:600;text-align:center;}
+.step-pill.completed{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;}
+.step-pill.awaiting{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
+.step-pill.not-started{background:#f9fafb;color:#6b7280;border:1px solid #e5e7eb;}
+.step-pill.pending{background:#f9fafb;color:#6b7280;border:1px solid #e5e7eb;}
+.step-pill.client-pending{background:#f5f3ff;color:#7c3aed;border:1px solid #ddd6fe;}
+.step-ts{font-size:10px;color:#aaa;margin-top:4px;text-align:center;}
+.step-actions{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap;justify-content:center;}
+.step-arrow{display:none;}
 
 /* CARD */
 .card{background:#fff;border:1px solid #dde3ea;border-radius:6px;margin-bottom:16px;overflow:hidden;}
@@ -252,74 +252,52 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
          STATUS STRIP — DYNAMIC
     ══════════════════════════ -->
     <div class="status-strip">
+      <div class="status-strip-title">Report Status</div>
       <div class="status-steps">
 
         <!-- STEP 1 -->
         <div class="status-step-wrap">
-          <div class="status-step" id="step1">
-            <div class="step-top">
-              <div class="step-num" id="step1num">1</div>
-            </div>
-            <div class="step-label" id="step1label">Inspector link</div>
-            <div class="step-sub" id="step1sub">Not yet generated</div>
-            <div class="step-actions" id="step1actions"></div>
-          </div>
+          <div class="step-circle" id="step1circle">1</div>
+          <div class="step-label" id="step1label">Inspector link</div>
+          <div class="step-pill not-started" id="step1pill">Not yet generated</div>
+          <div class="step-ts" id="step1ts">—</div>
+          <div class="step-actions" id="step1actions"></div>
         </div>
-
-        <div class="step-arrow">›</div>
 
         <!-- STEP 2 -->
         <div class="status-step-wrap">
-          <div class="status-step" id="step2">
-            <div class="step-top">
-              <div class="step-num" id="step2num">2</div>
-            </div>
-            <div class="step-label" id="step2label">Inspector submitted</div>
-            <div class="step-sub" id="step2sub">Awaiting submission</div>
-            <div class="step-actions" id="step2actions"></div>
-          </div>
+          <div class="step-circle" id="step2circle">2</div>
+          <div class="step-label" id="step2label">Inspector submitted</div>
+          <div class="step-pill not-started" id="step2pill">Awaiting submission</div>
+          <div class="step-ts" id="step2ts">—</div>
+          <div class="step-actions" id="step2actions"></div>
         </div>
-
-        <div class="step-arrow">›</div>
 
         <!-- STEP 3 -->
         <div class="status-step-wrap">
-          <div class="status-step" id="step3">
-            <div class="step-top">
-              <div class="step-num" id="step3num">3</div>
-            </div>
-            <div class="step-label" id="step3label">Coordinator review</div>
-            <div class="step-sub" id="step3sub">Not yet started</div>
-            <div class="step-actions" id="step3actions"></div>
-          </div>
+          <div class="step-circle" id="step3circle">3</div>
+          <div class="step-label" id="step3label">Coordinator review</div>
+          <div class="step-pill not-started" id="step3pill">Not yet started</div>
+          <div class="step-ts" id="step3ts">—</div>
+          <div class="step-actions" id="step3actions"></div>
         </div>
-
-        <div class="step-arrow">›</div>
 
         <!-- STEP 4 -->
         <div class="status-step-wrap">
-          <div class="status-step" id="step4">
-            <div class="step-top">
-              <div class="step-num" id="step4num">4</div>
-            </div>
-            <div class="step-label" id="step4label">Client approval</div>
-            <div class="step-sub" id="step4sub">Not yet sent</div>
-            <div class="step-actions" id="step4actions"></div>
-          </div>
+          <div class="step-circle" id="step4circle">4</div>
+          <div class="step-label" id="step4label">Client approval</div>
+          <div class="step-pill not-started" id="step4pill">Not yet sent</div>
+          <div class="step-ts" id="step4ts">—</div>
+          <div class="step-actions" id="step4actions"></div>
         </div>
-
-        <div class="step-arrow">›</div>
 
         <!-- STEP 5 -->
         <div class="status-step-wrap">
-          <div class="status-step" id="step5">
-            <div class="step-top">
-              <div class="step-num" id="step5num">5</div>
-            </div>
-            <div class="step-label" id="step5label">Approved & closed</div>
-            <div class="step-sub" id="step5sub">Pending</div>
-            <div class="step-actions" id="step5actions"></div>
-          </div>
+          <div class="step-circle" id="step5circle">5</div>
+          <div class="step-label" id="step5label">Approved & closed</div>
+          <div class="step-pill pending" id="step5pill">Pending</div>
+          <div class="step-ts" id="step5ts">—</div>
+          <div class="step-actions" id="step5actions"></div>
         </div>
 
       </div>
@@ -624,14 +602,6 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#222;font-size:13px
 // ── STATE ──
 let workflowState = 0;
 // 0 = nothing, 1 = link sent, 2 = submitted, 3 = approved/sent to client, 4 = client approved
-
-function setStep(s, cls, label, sub, actionsHtml) {
-  s.className = 'status-step ' + cls;
-  s.querySelector('.step-label').textContent = label;
-  s.querySelector('.step-sub').textContent = sub;
-  s.querySelector('.step-num').textContent = cls.includes('done') ? '✓' : s.querySelector('.step-num').textContent;
-  s.querySelector('.step-actions').innerHTML = actionsHtml || '';
-}
 
 function refreshStrip() {
   const s1 = document.getElementById('step1');
